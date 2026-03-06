@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef, useCallback } from "react";
 
 const projects = [
   {
@@ -9,49 +9,96 @@ const projects = [
     tagline: "AI Agent Swarm Architecture",
     description:
       "An autonomous AI swarm where specialized agents collaborate to plan, code, review, and deploy software with human-in-the-loop quality gates and real-time streaming.",
+    longDescription:
+      "MoonClawSwarm is a multi-agent system with three specialized chiefs: CodeClaw (coding), ResearchClaw (research), and OpsClaw (operations). Each chief manages its own pipeline of tasks, with an auto-scoring quality gate system. Scores of 8+ are auto-approved, 5-7 go to human review, and below 5 are auto-rejected. The system includes a real-time WebSocket streaming dashboard, ticket-based authentication, and replay storage for debugging agent runs.",
     tags: ["TypeScript", "Convex", "AI Agents", "WebSockets", "Next.js"],
     color: "#b347ff",
     icon: "🧠",
-    stats: ["3 specialized AI chiefs", "Auto-scoring quality gates", "Real-time stream dashboard"],
+    stats: ["3 specialized AI chiefs", "Auto-scoring quality gates", "Real-time stream dashboard", "38 unit tests passing"],
   },
   {
     title: "AgentAwake",
     tagline: "AI-Powered SaaS Platform",
     description:
-      "A SaaS product helping users leverage AI agents for productivity. Features professional plans, prompt libraries, and template bundles built on Next.js with Stripe integration.",
+      "A SaaS product helping users leverage AI agents for productivity. Features professional plans, prompt libraries, and template bundles.",
+    longDescription:
+      "AgentAwake is built on Next.js with Stripe for payments and Resend for transactional email. It offers DFY Professional ($9) and DFY Team ($19) plans along with a free prompt library that serves as a lead magnet. The platform includes template bundles, email automation flows, and a complete checkout experience deployed on Vercel.",
     tags: ["Next.js", "Stripe", "Resend", "Vercel", "SaaS"],
     color: "#ff6b2b",
     icon: "⚡",
-    stats: ["Professional plans from $9/mo", "Free prompt library", "Email automation"],
+    stats: ["Professional plans from $9/mo", "Free prompt library", "Automated email flows"],
   },
   {
     title: "Resource Management Application",
     tagline: "Monday.com Platform App for Airbnb",
     description:
-      "A resource management application built for Airbnb's operations team on monday.com. Full-cycle development with a focus on modularity, scalability, and API integration.",
+      "A resource management application built for Airbnb's operations team on monday.com with full-cycle development.",
+    longDescription:
+      "Developed and deployed on monday.com, this application was tailored for Airbnb's team operations. It focused on modularity, scalability, and deep integration with monday.com's GraphQL and REST APIs. Adopted by over 200 team members, it enhanced project coordination and resource allocation across the organization.",
     tags: ["React", "Monday.com SDK", "GraphQL", "REST API", "UI/UX"],
     color: "#ffaa33",
     icon: "🏠",
-    stats: ["200+ active users", "Full-cycle development", "Cross-team adoption"],
+    stats: ["200+ active users", "Full-cycle development", "GraphQL + REST integration", "Cross-team adoption"],
   },
   {
     title: "Dependent Dropdown",
     tagline: "Monday.com Marketplace App",
     description:
-      "The company's first-ever marketplace application. A dependent dropdown widget that became essential for project management workflows across client organizations.",
+      "The company's first-ever marketplace application, a dependent dropdown widget essential for project management workflows.",
+    longDescription:
+      "This was a pioneering initiative that put AXANEXA on the Monday.com Marketplace. The dependent dropdown widget allows cascading selections based on parent values, becoming an essential tool for project management. It required innovating workflow logic, user interface design, and handling complex state management for dynamic option trees.",
     tags: ["JavaScript", "Monday.com API", "GraphQL", "Marketplace"],
-    color: "#ff8800",
+    color: "#00fff5",
     icon: "🔗",
-    stats: ["First marketplace app", "Pioneered workflow logic", "Cross-org adoption"],
+    stats: ["First marketplace app", "Pioneered workflow logic", "Complex state management"],
   },
 ];
 
+function TiltCard({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const card = ref.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -6;
+    const rotateY = ((x - centerX) / centerX) * 6;
+    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    const card = ref.current;
+    if (card) card.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)";
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={`tilt-card ${className || ""}`}
+    >
+      {children}
+    </div>
+  );
+}
+
 export default function Projects() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   return (
     <section id="projects" className="relative py-32 px-6">
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#ff6b2b]/5 rounded-full blur-[150px]" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#ff6b2b]/4 rounded-full blur-[150px]" />
 
       <div className="max-w-6xl mx-auto">
         <motion.div
@@ -59,17 +106,13 @@ export default function Projects() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          <p className="text-[#ff8800] font-mono text-sm tracking-widest uppercase mb-2">
-            03
-          </p>
+          <p className="text-[#00fff5] font-mono text-sm tracking-widest uppercase mb-2">03</p>
           <h2 className="text-4xl md:text-5xl font-black mb-4">
             Things I&apos;ve{" "}
-            <span className="bg-gradient-to-r from-[#ff6b2b] to-[#ffaa33] bg-clip-text text-transparent">
-              Built
-            </span>
+            <span className="bg-gradient-to-r from-[#f5ff00] to-[#00ff88] bg-clip-text text-transparent">Built</span>
           </h2>
-          <p className="text-white/40 text-lg mb-16 max-w-xl">
-            From AI swarms to marketplace apps, here&apos;s what keeps me up at night.
+          <p className="text-white/35 text-lg mb-16 max-w-xl">
+            From AI swarms to marketplace apps — click to explore the details.
           </p>
         </motion.div>
 
@@ -81,70 +124,90 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              onMouseEnter={() => setHoveredIndex(i)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              className="group relative p-7 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 cursor-pointer overflow-hidden"
-              style={{
-                transform: hoveredIndex === i ? "translateY(-6px)" : "translateY(0)",
-                transition: "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s",
-              }}
             >
-              {/* Hover glow */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl"
-                style={{
-                  background: `radial-gradient(ellipse at center, ${project.color}06 0%, transparent 70%)`,
-                }}
-              />
+              <TiltCard>
+                <div
+                  onClick={() => setExpandedIndex(expandedIndex === i ? null : i)}
+                  data-hover="true"
+                  className="group relative p-7 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 cursor-pointer overflow-hidden"
+                >
+                  {/* Top accent */}
+                  <div
+                    className="absolute top-0 left-6 right-6 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{
+                      background: `linear-gradient(90deg, transparent, ${project.color}30, transparent)`,
+                    }}
+                  />
 
-              {/* Top accent line */}
-              <div
-                className="absolute top-0 left-6 right-6 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{
-                  background: `linear-gradient(90deg, transparent, ${project.color}40, transparent)`,
-                }}
-              />
+                  {/* Hover glow */}
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl"
+                    style={{
+                      background: `radial-gradient(ellipse at center, ${project.color}05 0%, transparent 70%)`,
+                    }}
+                  />
 
-              <div className="relative z-10">
-                {/* Icon + Title */}
-                <div className="flex items-start gap-4 mb-4">
-                  <span className="text-3xl mt-0.5">{project.icon}</span>
-                  <div>
-                    <h3 className="text-xl font-bold text-white/85 group-hover:text-white transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-xs font-mono tracking-wider uppercase mt-0.5" style={{ color: project.color }}>
-                      {project.tagline}
-                    </p>
+                  <div className="relative z-10">
+                    <div className="flex items-start gap-4 mb-4">
+                      <span className="text-3xl mt-0.5">{project.icon}</span>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <h3 className="text-xl font-bold text-white/85 group-hover:text-white transition-colors">
+                            {project.title}
+                          </h3>
+                          <motion.span
+                            animate={{ rotate: expandedIndex === i ? 45 : 0 }}
+                            className="text-white/20 text-lg"
+                          >
+                            +
+                          </motion.span>
+                        </div>
+                        <p className="text-xs font-mono tracking-wider uppercase mt-0.5" style={{ color: project.color }}>
+                          {project.tagline}
+                        </p>
+                      </div>
+                    </div>
+
+                    <p className="text-sm text-white/40 leading-relaxed mb-4">{project.description}</p>
+
+                    {/* Expanded detail */}
+                    <AnimatePresence>
+                      {expandedIndex === i && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="pt-4 pb-2 border-t border-white/5">
+                            <p className="text-sm text-white/50 leading-relaxed mb-4">{project.longDescription}</p>
+                            <div className="space-y-1.5">
+                              {project.stats.map((stat) => (
+                                <p key={stat} className="text-xs text-white/35 flex items-center gap-2">
+                                  <span style={{ color: project.color }}>✦</span> {stat}
+                                </p>
+                              ))}
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase tracking-wider bg-white/5 text-white/30"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-
-                {/* Description */}
-                <p className="text-sm text-white/45 leading-relaxed mb-5">
-                  {project.description}
-                </p>
-
-                {/* Stats */}
-                <div className="space-y-1.5 mb-5">
-                  {project.stats.map((stat) => (
-                    <p key={stat} className="text-xs text-white/35 flex items-center gap-2">
-                      <span style={{ color: project.color }}>✦</span> {stat}
-                    </p>
-                  ))}
-                </div>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase tracking-wider bg-white/5 text-white/35"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              </TiltCard>
             </motion.div>
           ))}
         </div>
