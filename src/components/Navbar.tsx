@@ -39,7 +39,7 @@ export default function Navbar() {
         </a>
 
         {/* Desktop */}
-        <div className="hidden md:flex gap-8">
+        <div className="hidden md:flex items-center gap-8">
           {links.map((link) => (
             <a
               key={link.href}
@@ -51,6 +51,14 @@ export default function Navbar() {
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-[#ff6b2b] to-[#ffaa33] group-hover:w-full transition-all duration-300" />
             </a>
           ))}
+          <a
+            href="/Triet_Phan_Resume.pdf"
+            target="_blank"
+            data-hover="true"
+            className="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border border-[#ff6b2b]/25 text-[#ffaa33] hover:bg-[#ff6b2b]/8 transition-all duration-300"
+          >
+            Resume ↓
+          </a>
         </div>
 
         {/* Mobile toggle */}
@@ -86,6 +94,13 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
+          <a
+            href="/Triet_Phan_Resume.pdf"
+            target="_blank"
+            className="text-[#ffaa33] text-sm tracking-wide py-1"
+          >
+            Resume ↓
+          </a>
         </motion.div>
       )}
     </motion.nav>
