@@ -7,6 +7,8 @@
   --color-neon-green: #00ff88;
   --color-neon-orange: #ff8800;
   --color-neon-purple: #b347ff;
+  --color-warm-orange: #ff6b2b;
+  --color-amber: #ffaa33;
   --color-dark-bg: #0a0a1a;
   --color-dark-card: #12122a;
   --color-dark-card-hover: #1a1a3a;
@@ -22,25 +24,29 @@ body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
+/* Noise texture overlay for depth */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-dark-bg);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--color-neon-cyan), var(--color-neon-pink));
-  border-radius: 4px;
-}
-
-/* Glow text utility */
-.glow-text {
-  text-shadow: 0 0 10px var(--color-neon-cyan), 0 0 40px var(--color-neon-cyan);
-}
-
-.glow-pink {
-  text-shadow: 0 0 10px var(--color-neon-pink), 0 0 40px var(--color-neon-pink);
+  background: linear-gradient(180deg, var(--color-warm-orange), var(--color-neon-pink));
+  border-radius: 3px;
 }
 
 /* Animated gradient border */
@@ -56,7 +62,7 @@ body {
   inset: 0;
   padding: 2px;
   border-radius: 16px;
-  background: linear-gradient(135deg, var(--color-neon-cyan), var(--color-neon-pink), var(--color-neon-yellow), var(--color-neon-green));
+  background: linear-gradient(135deg, var(--color-warm-orange), var(--color-neon-pink), var(--color-neon-cyan), var(--color-neon-green));
   background-size: 300% 300%;
   animation: gradientShift 4s ease infinite;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -87,7 +93,7 @@ body {
   height: 4px;
   border-radius: 50%;
   animation: float linear infinite;
-  opacity: 0.4;
+  opacity: 0.35;
 }
 
 @keyframes float {
@@ -96,10 +102,10 @@ body {
     opacity: 0;
   }
   10% {
-    opacity: 0.4;
+    opacity: 0.35;
   }
   90% {
-    opacity: 0.4;
+    opacity: 0.35;
   }
   100% {
     transform: translateY(-10vh) rotate(720deg);
@@ -107,15 +113,53 @@ body {
   }
 }
 
-/* Cursor trail */
+/* Cursor glow — warm orange */
 .cursor-glow {
   position: fixed;
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 1;
-  background: radial-gradient(circle, rgba(0, 255, 245, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255,107,43,0.07) 0%, rgba(255,170,51,0.03) 40%, transparent 70%);
   transform: translate(-50%, -50%);
-  transition: left 0.3s ease, top 0.3s ease;
+  transition: left 0.15s ease-out, top 0.15s ease-out;
+}
+
+/* Smooth reveal for sections */
+.reveal-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Magnetic button hover */
+.magnetic-btn {
+  transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+}
+
+/* Marquee for skills */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(255,107,43,0.3);
+  color: #fff;
 }

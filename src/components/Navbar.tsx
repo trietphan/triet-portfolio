@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const links = [
   { label: "About", href: "#about" },
@@ -12,19 +12,29 @@ const links = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <motion.nav
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#0a0a1a]/80 border-b border-white/5"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "backdrop-blur-xl bg-[#0a0a1a]/90 border-b border-[#ff6b2b]/10 shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
+          : "bg-transparent"
+      }`}
     >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="#" className="text-2xl font-bold">
-          <span className="text-[#00fff5]">T</span>
-          <span className="text-[#ff00e5]">P</span>
-          <span className="text-white/40 text-sm ml-2 font-mono">// triet.dev</span>
+        <a href="#" className="text-2xl font-black tracking-tight group">
+          <span className="text-[#ff6b2b] group-hover:text-[#ffaa33] transition-colors">T</span>
+          <span className="text-[#ffaa33] group-hover:text-[#ff6b2b] transition-colors">P</span>
         </a>
 
         {/* Desktop */}
@@ -33,9 +43,10 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="text-white/60 hover:text-[#00fff5] transition-colors duration-300 text-sm font-medium tracking-wide uppercase"
+              className="text-white/50 hover:text-[#ffaa33] transition-colors duration-300 text-sm font-medium tracking-wide relative group"
             >
               {link.label}
+              <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#ff6b2b] group-hover:w-full transition-all duration-300" />
             </a>
           ))}
         </div>
@@ -43,7 +54,7 @@ export default function Navbar() {
         {/* Mobile toggle */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden text-white/60 hover:text-[#00fff5] transition-colors"
+          className="md:hidden text-white/50 hover:text-[#ffaa33] transition-colors"
         >
           <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
             {open ? (
@@ -58,16 +69,16 @@ export default function Navbar() {
       {/* Mobile menu */}
       {open && (
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="md:hidden px-6 pb-4 flex flex-col gap-4"
+          className="md:hidden px-6 pb-6 flex flex-col gap-4 bg-[#0a0a1a]/95 backdrop-blur-xl"
         >
           {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="text-white/60 hover:text-[#00fff5] transition-colors text-sm uppercase tracking-wide"
+              className="text-white/50 hover:text-[#ffaa33] transition-colors text-sm tracking-wide py-1"
             >
               {link.label}
             </a>

@@ -11,19 +11,20 @@ interface Particle {
   delay: string;
 }
 
-const colors = ["#00fff5", "#ff00e5", "#f5ff00", "#00ff88", "#b347ff", "#ff8800"];
+// Orange-heavy palette
+const colors = ["#ff6b2b", "#ffaa33", "#ff8800", "#ff6b2b", "#ffaa33", "#b347ff", "#ff00e5"];
 
 export default function Particles() {
   const [particles, setParticles] = useState<Particle[]>([]);
 
   useEffect(() => {
-    const generated: Particle[] = Array.from({ length: 30 }, (_, i) => ({
+    const generated: Particle[] = Array.from({ length: 25 }, (_, i) => ({
       id: i,
       left: `${Math.random() * 100}%`,
-      size: Math.random() * 4 + 2,
+      size: Math.random() * 3 + 1.5,
       color: colors[Math.floor(Math.random() * colors.length)],
-      duration: `${Math.random() * 15 + 10}s`,
-      delay: `${Math.random() * 10}s`,
+      duration: `${Math.random() * 18 + 12}s`,
+      delay: `${Math.random() * 12}s`,
     }));
     setParticles(generated);
   }, []);
