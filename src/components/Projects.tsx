@@ -6,12 +6,12 @@ import { useTilt } from "@/hooks/useTilt";
 
 const projects = [
   {
-    title: "MoonClawSwarm",
+    title: "ClawSwarm",
     tagline: "AI Agent Swarm Architecture",
     description:
       "An autonomous AI swarm where specialized agents collaborate to plan, code, review, and deploy software with human-in-the-loop quality gates and real-time streaming.",
     longDescription:
-      "MoonClawSwarm is a multi-agent system with three specialized chiefs: CodeClaw (coding), ResearchClaw (research), and OpsClaw (operations). Each chief manages its own pipeline of tasks, with an auto-scoring quality gate system. Scores of 8+ are auto-approved, 5-7 go to human review, and below 5 are auto-rejected. The system includes a real-time WebSocket streaming dashboard, ticket-based authentication, and replay storage for debugging agent runs.",
+      "ClawSwarm is a multi-agent system with three specialized chiefs: CodeClaw (coding), ResearchClaw (research), and OpsClaw (operations). Each chief manages its own pipeline of tasks, with an auto-scoring quality gate system. Scores of 8+ are auto-approved, 5-7 go to human review, and below 5 are auto-rejected. The system includes a real-time WebSocket streaming dashboard, ticket-based authentication, and replay storage for debugging agent runs.",
     tags: ["TypeScript", "Convex", "AI Agents", "WebSockets", "Next.js"],
     color: "#b347ff",
     icon: "🧠",

@@ -25,7 +25,7 @@ const socials = [
   },
   {
     label: "X",
-    href: "https://x.com/traborphan",
+    href: "https://x.com/trietp",
     color: "#b347ff",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -60,28 +60,20 @@ export default function Contact() {
           </p>
         </motion.div>
 
-        {/* CTA Buttons */}
+        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center mb-10"
+          className="mb-10"
         >
           <a
             href="mailto:trietphan85@gmail.com"
             data-hover="true"
-            className="squeeze-btn px-8 py-4 rounded-full bg-gradient-to-r from-[#ff6b2b] to-[#ffaa33] text-black font-bold text-sm uppercase tracking-wider hover:shadow-[0_0_40px_rgba(255,107,43,0.35)] transition-all duration-300"
+            className="squeeze-btn inline-block px-10 py-4 rounded-full bg-gradient-to-r from-[#ff6b2b] to-[#ffaa33] text-black font-bold text-sm uppercase tracking-wider hover:shadow-[0_0_40px_rgba(255,107,43,0.35)] transition-all duration-300"
           >
-            Email Me
-          </a>
-          <a
-            href="/Triet_Phan_Resume.pdf"
-            target="_blank"
-            data-hover="true"
-            className="squeeze-btn px-8 py-4 rounded-full border border-[#ffaa33]/25 text-[#ffaa33] font-bold text-sm uppercase tracking-wider hover:bg-[#ffaa33]/8 hover:shadow-[0_0_30px_rgba(255,170,51,0.12)] transition-all duration-300"
-          >
-            Download Resume
+            Get In Touch
           </a>
         </motion.div>
 
@@ -101,7 +93,6 @@ export default function Contact() {
               rel="noopener noreferrer"
               data-hover="true"
               className="w-11 h-11 rounded-full border border-white/8 flex items-center justify-center transition-all duration-300 hover:border-white/20 group"
-              style={{ color: `${s.color}80` }}
               title={s.label}
             >
               <span className="group-hover:scale-110 transition-transform duration-200" style={{ color: s.color }}>

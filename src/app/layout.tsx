@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Triet Phan — AI Builder & Developer",
   description: "AI enthusiast, full-stack developer, and educator. Building the future with code and curiosity.",
-  keywords: ["Triet Phan", "AI", "developer", "portfolio", "MoonClawSwarm", "AgentAwake"],
+  keywords: ["Triet Phan", "AI", "developer", "portfolio", "ClawSwarm", "AgentAwake"],
   openGraph: {
     title: "Triet Phan — AI Builder & Developer",
     description: "AI enthusiast, full-stack developer, and educator. Building the future with code and curiosity.",
