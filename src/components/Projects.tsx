@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useRef, useCallback } from "react";
+import { useState } from "react";
+import { useTilt } from "@/hooks/useTilt";
 
 const projects = [
   {
@@ -54,42 +55,106 @@ const projects = [
   },
 ];
 
-function TiltCard({
-  children,
-  className,
+function ProjectCard({
+  project,
+  index,
+  expanded,
+  onToggle,
 }: {
-  children: React.ReactNode;
-  className?: string;
+  project: (typeof projects)[0];
+  index: number;
+  expanded: boolean;
+  onToggle: () => void;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const card = ref.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -6;
-    const rotateY = ((x - centerX) / centerX) * 6;
-    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    const card = ref.current;
-    if (card) card.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)";
-  }, []);
+  const { ref, onMouseMove, onMouseLeave } = useTilt(4);
 
   return (
-    <div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={`tilt-card ${className || ""}`}
+    <motion.div
+      initial={{ opacity: 0, y: 25 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.45, delay: index * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
     >
-      {children}
-    </div>
+      <div
+        ref={ref}
+        onMouseMove={onMouseMove}
+        onMouseLeave={onMouseLeave}
+        className="tilt-card"
+      >
+        <div
+          onClick={onToggle}
+          data-hover="true"
+          className="group relative p-7 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors duration-300 cursor-pointer overflow-hidden"
+        >
+          {/* Top accent */}
+          <div
+            className="absolute top-0 left-6 right-6 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-400"
+            style={{
+              background: `linear-gradient(90deg, transparent, ${project.color}25, transparent)`,
+            }}
+          />
+
+          <div className="relative z-10">
+            <div className="flex items-start gap-4 mb-4">
+              <span className="text-3xl mt-0.5">{project.icon}</span>
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-bold text-white/85 group-hover:text-white transition-colors duration-200">
+                    {project.title}
+                  </h3>
+                  <motion.span
+                    animate={{ rotate: expanded ? 45 : 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-white/20 text-lg"
+                  >
+                    +
+                  </motion.span>
+                </div>
+                <p className="text-xs font-mono tracking-wider uppercase mt-0.5" style={{ color: project.color }}>
+                  {project.tagline}
+                </p>
+              </div>
+            </div>
+
+            <p className="text-sm text-white/40 leading-relaxed mb-4">{project.description}</p>
+
+            <AnimatePresence>
+              {expanded && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.25, ease: "easeInOut" }}
+                  className="overflow-hidden"
+                >
+                  <div className="pt-4 pb-2 border-t border-white/5">
+                    <p className="text-sm text-white/50 leading-relaxed mb-4">{project.longDescription}</p>
+                    <div className="space-y-1.5">
+                      {project.stats.map((stat) => (
+                        <p key={stat} className="text-xs text-white/35 flex items-center gap-2">
+                          <span style={{ color: project.color }}>✦</span> {stat}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <div className="flex flex-wrap gap-2 mt-4">
+              {project.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase tracking-wider bg-white/5 text-white/30"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
   );
 }
 
@@ -98,117 +163,34 @@ export default function Projects() {
 
   return (
     <section id="projects" className="relative py-32 px-6">
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#ff6b2b]/4 rounded-full blur-[150px]" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#ff6b2b]/4 rounded-full blur-[150px]" />
 
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
         >
           <p className="text-[#00fff5] font-mono text-sm tracking-widest uppercase mb-2">03</p>
           <h2 className="text-4xl md:text-5xl font-black mb-4">
             Things I&apos;ve{" "}
             <span className="bg-gradient-to-r from-[#f5ff00] to-[#00ff88] bg-clip-text text-transparent">Built</span>
           </h2>
-          <p className="text-white/35 text-lg mb-16 max-w-xl">
+          <p className="text-white/30 text-lg mb-16 max-w-xl">
             From AI swarms to marketplace apps — click to explore the details.
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6">
           {projects.map((project, i) => (
-            <motion.div
+            <ProjectCard
               key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-            >
-              <TiltCard>
-                <div
-                  onClick={() => setExpandedIndex(expandedIndex === i ? null : i)}
-                  data-hover="true"
-                  className="group relative p-7 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 cursor-pointer overflow-hidden"
-                >
-                  {/* Top accent */}
-                  <div
-                    className="absolute top-0 left-6 right-6 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{
-                      background: `linear-gradient(90deg, transparent, ${project.color}30, transparent)`,
-                    }}
-                  />
-
-                  {/* Hover glow */}
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl"
-                    style={{
-                      background: `radial-gradient(ellipse at center, ${project.color}05 0%, transparent 70%)`,
-                    }}
-                  />
-
-                  <div className="relative z-10">
-                    <div className="flex items-start gap-4 mb-4">
-                      <span className="text-3xl mt-0.5">{project.icon}</span>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <h3 className="text-xl font-bold text-white/85 group-hover:text-white transition-colors">
-                            {project.title}
-                          </h3>
-                          <motion.span
-                            animate={{ rotate: expandedIndex === i ? 45 : 0 }}
-                            className="text-white/20 text-lg"
-                          >
-                            +
-                          </motion.span>
-                        </div>
-                        <p className="text-xs font-mono tracking-wider uppercase mt-0.5" style={{ color: project.color }}>
-                          {project.tagline}
-                        </p>
-                      </div>
-                    </div>
-
-                    <p className="text-sm text-white/40 leading-relaxed mb-4">{project.description}</p>
-
-                    {/* Expanded detail */}
-                    <AnimatePresence>
-                      {expandedIndex === i && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
-                        >
-                          <div className="pt-4 pb-2 border-t border-white/5">
-                            <p className="text-sm text-white/50 leading-relaxed mb-4">{project.longDescription}</p>
-                            <div className="space-y-1.5">
-                              {project.stats.map((stat) => (
-                                <p key={stat} className="text-xs text-white/35 flex items-center gap-2">
-                                  <span style={{ color: project.color }}>✦</span> {stat}
-                                </p>
-                              ))}
-                            </div>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mt-4">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase tracking-wider bg-white/5 text-white/30"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </TiltCard>
-            </motion.div>
+              project={project}
+              index={i}
+              expanded={expandedIndex === i}
+              onToggle={() => setExpandedIndex(expandedIndex === i ? null : i)}
+            />
           ))}
         </div>
       </div>

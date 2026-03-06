@@ -19,12 +19,17 @@ body {
   background: var(--color-dark-bg);
   color: #e0e0f0;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  cursor: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-a, button, [role="button"] { cursor: none; }
+/* Hide custom cursor on touch / small screens */
+@media (pointer: fine) {
+  body { cursor: none; }
+  a, button, [role="button"] { cursor: none; }
+}
 
-/* Noise overlay */
+/* Noise overlay — GPU layer */
 body::before {
   content: '';
   position: fixed;
@@ -32,6 +37,7 @@ body::before {
   z-index: 0;
   opacity: 0.025;
   pointer-events: none;
+  will-change: transform;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px;
@@ -56,33 +62,35 @@ body::before {
   height: 2px;
   background: linear-gradient(90deg, var(--color-neon-orange), var(--color-amber), var(--color-neon-cyan), var(--color-neon-purple));
   z-index: 9999;
-  transition: width 0.1s linear;
+  will-change: transform;
+  transform-origin: left;
 }
 
-/* ─── Custom Cursor ─── */
+/* ─── Custom Cursor — GPU-accelerated ─── */
 .cursor-dot {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: #ff6b2b;
   pointer-events: none;
   z-index: 99999;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, background 0.2s;
-  mix-blend-mode: difference;
+  will-change: transform;
 }
 
 .cursor-ring {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 1.5px solid rgba(255,107,43,0.4);
+  border: 1.5px solid rgba(255,107,43,0.35);
   pointer-events: none;
   z-index: 99998;
-  transform: translate(-50%, -50%);
-  transition: width 0.25s ease-out, height 0.25s ease-out, border-color 0.25s;
+  will-change: transform;
 }
 
 .cursor-dot.hovering {
@@ -94,7 +102,7 @@ body::before {
 .cursor-ring.hovering {
   width: 50px;
   height: 50px;
-  border-color: rgba(0,255,245,0.3);
+  border-color: rgba(0,255,245,0.25);
 }
 
 /* ─── Loading Screen ─── */
@@ -106,12 +114,6 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.6s ease, visibility 0.6s ease;
-}
-
-.loading-screen.hidden {
-  opacity: 0;
-  visibility: hidden;
 }
 
 .loading-logo {
@@ -125,11 +127,11 @@ body::before {
   display: inline-block;
   opacity: 0;
   transform: translateY(40px);
-  animation: letterReveal 0.6s forwards;
+  animation: letterReveal 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
 }
 
 .loading-logo .letter:nth-child(2) {
-  animation-delay: 0.15s;
+  animation-delay: 0.12s;
 }
 
 @keyframes letterReveal {
@@ -139,7 +141,7 @@ body::before {
 .loading-bar {
   width: 60px;
   height: 2px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.08);
   border-radius: 2px;
   overflow: hidden;
   margin-top: 1.5rem;
@@ -149,15 +151,15 @@ body::before {
   width: 0%;
   height: 100%;
   background: linear-gradient(90deg, var(--color-neon-orange), var(--color-neon-cyan));
-  animation: loadFill 1.8s ease-in-out forwards;
-  animation-delay: 0.3s;
+  animation: loadFill 1.4s cubic-bezier(0.4,0,0.2,1) forwards;
+  animation-delay: 0.2s;
 }
 
 @keyframes loadFill {
   to { width: 100%; }
 }
 
-/* ─── Particles ─── */
+/* ─── Particles — GPU ─── */
 .particles-bg {
   position: fixed;
   inset: 0;
@@ -169,66 +171,79 @@ body::before {
 .particle {
   position: absolute;
   border-radius: 50%;
-  animation: float linear infinite;
-  opacity: 0.3;
+  will-change: transform;
+  animation: particleFloat linear infinite;
+  opacity: 0;
 }
 
-@keyframes float {
-  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-  10% { opacity: 0.3; }
-  90% { opacity: 0.3; }
-  100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+@keyframes particleFloat {
+  0% { transform: translate3d(0, 100vh, 0); opacity: 0; }
+  5% { opacity: 0.25; }
+  95% { opacity: 0.25; }
+  100% { transform: translate3d(0, -10vh, 0); opacity: 0; }
 }
 
-/* ─── 3D Floating shapes ─── */
+/* ─── 3D Floating shapes — GPU ─── */
 .geo-shape {
   position: absolute;
   pointer-events: none;
-  opacity: 0.12;
+  opacity: 0.1;
+  will-change: transform;
 }
 
-@keyframes spin3d {
-  0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
-  100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(0deg); }
+.geo-bob {
+  animation: bobFloat 6s cubic-bezier(0.45,0.05,0.55,0.95) infinite;
 }
 
-@keyframes spin3d-reverse {
-  0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
-  100% { transform: rotateX(-360deg) rotateY(180deg) rotateZ(360deg); }
+.geo-spin {
+  animation: geoSpin 25s linear infinite;
+}
+
+.geo-spin-reverse {
+  animation: geoSpinReverse 30s linear infinite;
 }
 
 @keyframes bobFloat {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -18px, 0); }
+}
+
+@keyframes geoSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes geoSpinReverse {
+  to { transform: rotate(-360deg); }
 }
 
 /* ─── Tilt Card ─── */
 .tilt-card {
   transform-style: preserve-3d;
-  transition: transform 0.15s ease-out;
+  will-change: transform;
 }
 
-/* ─── Marquee ─── */
+/* ─── Marquee — GPU ─── */
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee 35s linear infinite;
+  animation: marquee 40s linear infinite;
+  will-change: transform;
 }
 
 .marquee-track:hover { animation-play-state: paused; }
 
 /* ─── Squeeze button ─── */
 .squeeze-btn {
-  transition: transform 0.15s ease, box-shadow 0.3s ease;
+  transition: transform 0.15s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
 }
 
 .squeeze-btn:active {
-  transform: scale(0.95);
+  transform: scale(0.96);
 }
 
 /* ─── Photo placeholder ─── */
@@ -238,26 +253,7 @@ body::before {
   border-radius: 1rem;
 }
 
-.photo-placeholder::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,107,43,0.15), rgba(179,71,255,0.15));
-  mix-blend-mode: color;
-}
-
-/* ─── Horizontal scroll ─── */
-.horizontal-scroll {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.horizontal-scroll::-webkit-scrollbar { display: none; }
-
-.horizontal-scroll > * {
-  scroll-snap-align: start;
-  flex-shrink: 0;
+/* ─── Smooth gradient text transition helper ─── */
+.gradient-text-transition {
+  transition: opacity 0.4s ease;
 }

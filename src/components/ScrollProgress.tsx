@@ -1,19 +1,37 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function ScrollProgress() {
-  const [width, setWidth] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      setWidth(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
+    let raf: number;
+    let current = 0;
+    let target = 0;
+
+    const onScroll = () => {
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      target = docH > 0 ? window.scrollY / docH : 0;
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    const loop = () => {
+      // Smooth lerp instead of snapping
+      current += (target - current) * 0.1;
+      if (ref.current) {
+        ref.current.style.transform = `scaleX(${current})`;
+      }
+      raf = requestAnimationFrame(loop);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    raf = requestAnimationFrame(loop);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
-  return <div className="scroll-progress" style={{ width: `${width}%` }} />;
+  return <div ref={ref} className="scroll-progress" style={{ transform: "scaleX(0)" }} />;
 }
