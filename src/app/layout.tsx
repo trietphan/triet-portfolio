@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import GlobalUI from "@/components/GlobalUI";
 
 export const metadata: Metadata = {
   title: "Triet Phan — AI Builder & Developer",
@@ -26,6 +27,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
+        <GlobalUI />
         {children}
       </body>
     </html>

@@ -4,19 +4,16 @@ import About from "@/components/About";
 import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
 import Blog from "@/components/Blog";
+import Now from "@/components/Now";
 import Contact from "@/components/Contact";
 import Particles from "@/components/Particles";
-import CustomCursor from "@/components/CustomCursor";
 import LoadingScreen from "@/components/LoadingScreen";
-import ScrollProgress from "@/components/ScrollProgress";
 
 export default function Home() {
   return (
     <>
       <LoadingScreen />
-      <ScrollProgress />
       <Particles />
-      <CustomCursor />
       <Navbar />
       <main className="relative z-10">
         <Hero />
@@ -24,6 +21,7 @@ export default function Home() {
         <Experience />
         <Projects />
         <Blog />
+        <Now />
         <Contact />
       </main>
     </>

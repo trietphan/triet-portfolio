@@ -1,13 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-const stats = [
-  { value: "MS", label: "Computer Science", sub: "CSU Fullerton" },
-  { value: "AI-First", label: "Developer", sub: "Agent architecture" },
-  { value: "10+", label: "Projects shipped", sub: "Web, AI & marketplace" },
-  { value: "∞", label: "Curiosity level", sub: "Always learning" },
-];
+import { useCountUp } from "@/hooks/useCountUp";
 
 const skillsRow = [
   { name: "JavaScript", color: "#f5ff00" },
@@ -25,6 +19,31 @@ const skillsRow = [
   { name: "UI/UX Design", color: "#ff6b2b" },
   { name: "Framer Motion", color: "#b347ff" },
 ];
+
+function AnimatedStat({ value, label, sub, color = "#ff6b2b", countTo, suffix = "" }: {
+  value?: string;
+  label: string;
+  sub: string;
+  color?: string;
+  countTo?: number;
+  suffix?: string;
+}) {
+  const { ref, display } = useCountUp(countTo ?? 0, 1400, suffix);
+
+  return (
+    <div
+      ref={ref}
+      className="p-5 rounded-xl border border-white/5 hover:border-[#ff6b2b]/20 transition-colors duration-300"
+      style={{ background: "rgba(255,255,255,0.02)" }}
+    >
+      <p className="text-2xl font-black" style={{ color }}>
+        {countTo !== undefined ? display : value}
+      </p>
+      <p className="text-sm text-white/45 mt-1">{label}</p>
+      <p className="text-xs text-white/20 mt-0.5">{sub}</p>
+    </div>
+  );
+}
 
 export default function About() {
   return (
@@ -44,23 +63,29 @@ export default function About() {
         </motion.div>
 
         <div className="grid lg:grid-cols-5 gap-16">
-          {/* Left column */}
+          {/* Left */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7 }}
             className="lg:col-span-3 space-y-6"
           >
             {/* Profile */}
             <div className="mb-8 flex items-start gap-6">
-              <div className="w-28 h-28 md:w-36 md:h-36 rounded-2xl border border-white/5 flex items-center justify-center shrink-0 relative overflow-hidden" style={{ background: "linear-gradient(135deg, rgba(255,107,43,0.15), rgba(179,71,255,0.1), rgba(0,255,245,0.1))" }}>
+              <div
+                className="w-28 h-28 md:w-36 md:h-36 rounded-2xl border border-white/5 flex items-center justify-center shrink-0 relative overflow-hidden"
+                style={{ background: "linear-gradient(135deg, rgba(255,107,43,0.15), rgba(179,71,255,0.1), rgba(0,255,245,0.1))" }}
+              >
                 <span className="text-4xl md:text-5xl">👨‍💻</span>
               </div>
               <div className="pt-2">
                 <h3 className="text-2xl font-bold text-white/90 mb-1">Triet Phan</h3>
                 <p className="text-[#ffaa33] text-sm font-mono tracking-wider">AI Enthusiast · Chicago, IL</p>
-                <p className="text-white/30 text-xs mt-2 font-mono">Vietnamese · English</p>
+                <div className="flex items-center gap-2 mt-3">
+                  <span className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse" />
+                  <span className="text-xs text-white/35">Open to opportunities</span>
+                </div>
               </div>
             </div>
 
@@ -71,35 +96,32 @@ export default function About() {
             </p>
             <p className="text-lg text-white/55 leading-relaxed">
               When I&apos;m not coding, I&apos;m{" "}
-              <span className="text-[#f5ff00] font-medium">tutoring</span> students in computer science, helping the next generation discover the power of building things with code.
+              <span className="text-[#f5ff00] font-medium">tutoring</span> the next generation of developers and helping people discover the power of building with code.
             </p>
 
-            {/* Stats — no whileHover to avoid double-animation glitch */}
+            {/* Animated stats */}
             <div className="grid grid-cols-2 gap-4 pt-4">
-              {stats.map((stat, i) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="p-5 rounded-xl border border-white/5 hover:border-[#ff6b2b]/20 transition-all duration-300"
-                  style={{ background: "rgba(255,255,255,0.02)" }}
-                >
-                  <p className="text-2xl font-black text-[#ff6b2b]">{stat.value}</p>
-                  <p className="text-sm text-white/45 mt-1">{stat.label}</p>
-                  <p className="text-xs text-white/20 mt-0.5">{stat.sub}</p>
-                </motion.div>
-              ))}
+              <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0 }}>
+                <AnimatedStat value="MS" label="Computer Science" sub="CSU Fullerton" />
+              </motion.div>
+              <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.08 }}>
+                <AnimatedStat countTo={10} suffix="+" label="Projects shipped" sub="Web, AI & marketplace" />
+              </motion.div>
+              <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.16 }}>
+                <AnimatedStat countTo={200} suffix="+" label="Users served" sub="Airbnb team app" />
+              </motion.div>
+              <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.24 }}>
+                <AnimatedStat value="∞" label="Curiosity level" sub="Always learning" color="#b347ff" />
+              </motion.div>
             </div>
           </motion.div>
 
-          {/* Right column */}
+          {/* Right */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7 }}
             className="lg:col-span-2"
           >
             <h3 className="text-xl font-bold mb-6 text-white/80">Education</h3>
@@ -137,7 +159,7 @@ export default function About() {
               ].map((award) => (
                 <span
                   key={award.label}
-                  className="px-3 py-1.5 rounded-full text-xs font-medium border transition-colors cursor-default"
+                  className="px-3 py-1.5 rounded-full text-xs font-medium border cursor-default transition-colors duration-200"
                   style={{
                     borderColor: `${award.color}18`,
                     color: `${award.color}aa`,

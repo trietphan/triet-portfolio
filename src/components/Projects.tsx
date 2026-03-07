@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { useTilt } from "@/hooks/useTilt";
 
 const projects = [
   {
@@ -26,7 +27,7 @@ const projects = [
     tags: ["Next.js", "Stripe", "Resend", "Vercel", "SaaS"],
     color: "#ff6b2b",
     icon: "⚡",
-    stats: ["Professional plans from $9/mo", "Free prompt library", "Automated email flows"],
+    stats: [],
     url: "https://agentawake.com",
   },
   {
@@ -38,7 +39,7 @@ const projects = [
     tags: ["Next.js", "React", "Tailwind CSS", "Vercel"],
     color: "#00ff88",
     icon: "📈",
-    stats: ["Interactive charts", "Education-first design", "Market structure deep dives"],
+    stats: [],
     url: "https://market-profile-website.vercel.app",
   },
   {
@@ -47,10 +48,10 @@ const projects = [
     description:
       "A platform for deploying and interacting with Ethereum smart contracts — streamlining the development, testing, and deployment workflow for Web3 projects.",
     longDescription: null,
-    tags: ["Solidity", "Ethereum", "Web3.js", "Next.js", "Vercel"],
+    tags: ["Solidity", "Ethereum", "Web3.js", "Next.js"],
     color: "#00fff5",
     icon: "⛓️",
-    stats: ["Smart contract deployment", "On-chain interaction", "Web3 tooling"],
+    stats: [],
     url: "https://vercel.com/trietphans-projects/ethsmartcontracts",
   },
   {
@@ -70,9 +71,9 @@ const projects = [
     title: "Dependent Dropdown",
     tagline: "Monday.com Marketplace App",
     description:
-      "The company's first marketplace app — a dependent dropdown widget that became essential for project management workflows across client organizations.",
+      "The company's first marketplace app — a dependent dropdown widget essential for project management workflows across client organizations.",
     longDescription:
-      "A pioneering initiative that put AXANEXA on the Monday.com Marketplace. The widget enables cascading selections based on parent values. Required innovating workflow logic and complex state management for dynamic option trees.",
+      "A pioneering initiative that put AXANEXA on the Monday.com Marketplace. The widget enables cascading selections based on parent values, requiring innovative workflow logic and complex state management for dynamic option trees.",
     tags: ["JavaScript", "Monday.com API", "GraphQL", "Marketplace"],
     color: "#f5ff00",
     icon: "🔗",
@@ -83,7 +84,7 @@ const projects = [
 
 function ExternalIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="opacity-40 group-hover:opacity-80 transition-opacity">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="opacity-35 group-hover:opacity-70 transition-opacity duration-200 shrink-0">
       <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
       <polyline points="15 3 21 3 21 9" />
       <line x1="10" y1="14" x2="21" y2="3" />
@@ -93,18 +94,17 @@ function ExternalIcon() {
 
 function ProjectCard({ project, index }: { project: (typeof projects)[0]; index: number }) {
   const [expanded, setExpanded] = useState(false);
-  const hasUrl = !!project.url;
-  const hasDetails = !!project.longDescription;
+  const { ref, onMouseMove, onMouseLeave } = useTilt(4);
 
-  const cardContent = (
+  const inner = (
     <div
-      className="group relative p-6 rounded-2xl border border-white/5 hover:border-white/12 transition-colors duration-300 h-full overflow-hidden"
+      className="group relative p-6 rounded-2xl border border-white/5 group-hover:border-white/12 transition-colors duration-300 h-full overflow-hidden"
       style={{ background: "rgba(255,255,255,0.02)" }}
     >
-      {/* Top accent on hover */}
+      {/* Top accent */}
       <div
-        className="absolute top-0 left-6 right-6 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-400"
-        style={{ background: `linear-gradient(90deg, transparent, ${project.color}25, transparent)` }}
+        className="absolute top-0 left-6 right-6 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{ background: `linear-gradient(90deg, transparent, ${project.color}30, transparent)` }}
       />
 
       <div className="flex items-start gap-3 mb-3">
@@ -114,7 +114,16 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
             <h3 className="text-lg font-bold text-white/85 group-hover:text-white transition-colors duration-200">
               {project.title}
             </h3>
-            {hasUrl && <ExternalIcon />}
+            {project.url && <ExternalIcon />}
+            {!project.url && project.longDescription && (
+              <motion.span
+                animate={{ rotate: expanded ? 45 : 0 }}
+                transition={{ duration: 0.18 }}
+                className="text-white/20 text-base leading-none ml-auto"
+              >
+                +
+              </motion.span>
+            )}
           </div>
           <p className="text-xs font-mono tracking-wider uppercase mt-0.5" style={{ color: project.color }}>
             {project.tagline}
@@ -122,11 +131,35 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
         </div>
       </div>
 
-      <p className="text-sm text-white/40 leading-relaxed mb-4">{project.description}</p>
+      <p className="text-sm text-white/40 leading-relaxed mb-3">{project.description}</p>
+
+      {/* Expandable detail — only for non-URL cards */}
+      {!project.url && project.longDescription && (
+        <AnimatePresence initial={false}>
+          {expanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
+              className="overflow-hidden"
+            >
+              <div className="pt-3 border-t border-white/5 mb-3">
+                <p className="text-sm text-white/40 leading-relaxed mb-3">{project.longDescription}</p>
+                {project.stats.map((s) => (
+                  <p key={s} className="text-xs text-white/28 flex items-center gap-2 mb-1">
+                    <span style={{ color: project.color }}>✦</span>{s}
+                  </p>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
 
       <div className="flex flex-wrap gap-1.5">
         {project.tags.map((tag) => (
-          <span key={tag} className="px-2 py-0.5 rounded-md text-[10px] font-mono uppercase tracking-wider bg-white/5 text-white/30">
+          <span key={tag} className="px-2 py-0.5 rounded-md text-[10px] font-mono uppercase tracking-wider bg-white/5 text-white/28">
             {tag}
           </span>
         ))}
@@ -134,23 +167,6 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
     </div>
   );
 
-  // Cards with external URLs: whole card is a link
-  if (hasUrl) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.4, delay: index * 0.07, ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number] }}
-      >
-        <a href={project.url!} target="_blank" rel="noopener noreferrer" data-hover="true" className="block h-full">
-          {cardContent}
-        </a>
-      </motion.div>
-    );
-  }
-
-  // Cards without URLs: click to expand details
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -158,77 +174,24 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.4, delay: index * 0.07, ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number] }}
     >
-      {hasDetails ? (
-        <div
-          data-hover="true"
-          onClick={() => setExpanded(!expanded)}
-          className="cursor-pointer h-full"
-        >
-          <div
-            className="group relative p-6 rounded-2xl border border-white/5 hover:border-white/12 transition-colors duration-300 overflow-hidden"
-            style={{ background: "rgba(255,255,255,0.02)" }}
-          >
-            <div
-              className="absolute top-0 left-6 right-6 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-400"
-              style={{ background: `linear-gradient(90deg, transparent, ${project.color}25, transparent)` }}
-            />
-
-            <div className="flex items-start gap-3 mb-3">
-              <span className="text-2xl mt-0.5">{project.icon}</span>
-              <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-bold text-white/85 group-hover:text-white transition-colors duration-200">
-                    {project.title}
-                  </h3>
-                  <motion.span
-                    animate={{ rotate: expanded ? 45 : 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="text-white/25 text-lg leading-none"
-                  >
-                    +
-                  </motion.span>
-                </div>
-                <p className="text-xs font-mono tracking-wider uppercase mt-0.5" style={{ color: project.color }}>
-                  {project.tagline}
-                </p>
-              </div>
-            </div>
-
-            <p className="text-sm text-white/40 leading-relaxed mb-4">{project.description}</p>
-
-            <AnimatePresence initial={false}>
-              {expanded && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.22, ease: "easeInOut" }}
-                  className="overflow-hidden"
-                >
-                  <div className="pt-3 pb-1 border-t border-white/5 mb-3">
-                    <p className="text-sm text-white/45 leading-relaxed mb-3">{project.longDescription}</p>
-                    {project.stats.map((s) => (
-                      <p key={s} className="text-xs text-white/30 flex items-center gap-2 mb-1">
-                        <span style={{ color: project.color }}>✦</span>{s}
-                      </p>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <div className="flex flex-wrap gap-1.5">
-              {project.tags.map((tag) => (
-                <span key={tag} className="px-2 py-0.5 rounded-md text-[10px] font-mono uppercase tracking-wider bg-white/5 text-white/30">
-                  {tag}
-                </span>
-              ))}
-            </div>
+      <div
+        ref={ref}
+        onMouseMove={onMouseMove}
+        onMouseLeave={onMouseLeave}
+        className="tilt-card h-full"
+        onClick={!project.url && project.longDescription ? () => setExpanded(!expanded) : undefined}
+        data-hover="true"
+      >
+        {project.url ? (
+          <a href={project.url} target="_blank" rel="noopener noreferrer" data-hover="true" className="block h-full">
+            {inner}
+          </a>
+        ) : (
+          <div className={project.longDescription ? "cursor-pointer" : ""}>
+            {inner}
           </div>
-        </div>
-      ) : (
-        cardContent
-      )}
+        )}
+      </div>
     </motion.div>
   );
 }
@@ -251,7 +214,7 @@ export default function Projects() {
             <span className="bg-gradient-to-r from-[#f5ff00] to-[#00ff88] bg-clip-text text-transparent">Built</span>
           </h2>
           <p className="text-white/30 text-lg mb-16 max-w-xl">
-            Live sites open directly. Others show details on click.
+            Live sites open directly. Others expand on click.
           </p>
         </motion.div>
 
