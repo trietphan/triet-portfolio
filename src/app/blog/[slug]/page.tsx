@@ -43,9 +43,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </svg>
             Back
           </Link>
-          <Link href="/" data-hover="true" className="text-xl font-black">
-            <span style={{ color: "#ff6b2b" }}>T</span>
-            <span style={{ color: "#ffaa33" }}>P</span>
+          <Link href="/" data-hover="true" className="flex items-center gap-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.png" alt="TP" width={32} height={32} style={{ borderRadius: "50%" }} />
           </Link>
         </div>
       </div>

@@ -1,0 +1,27 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff6b2b"/>
+      <stop offset="50%" stop-color="#ffaa33"/>
+      <stop offset="100%" stop-color="#ff8800"/>
+    </linearGradient>
+    <radialGradient id="bg" cx="30%" cy="30%">
+      <stop offset="0%" stop-color="#1c0d05"/>
+      <stop offset="100%" stop-color="#0a0a1a"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%">
+      <stop offset="0%" stop-color="rgba(255,107,43,0.15)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+  </defs>
+  <!-- Outer ring gradient -->
+  <circle cx="256" cy="256" r="248" fill="none" stroke="url(#grad)" stroke-width="6"/>
+  <!-- Background -->
+  <circle cx="256" cy="256" r="244" fill="url(#bg)"/>
+  <!-- Inner glow -->
+  <circle cx="256" cy="256" r="180" fill="url(#glow)"/>
+  <!-- TP text approximated as paths would go here — using text for SVG inline use -->
+  <text x="256" y="316" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="186" fill="url(#grad)" text-anchor="middle" letter-spacing="-10">TP</text>
+  <!-- Green dot -->
+  <circle cx="365" cy="390" r="16" fill="#00ff88"/>
+</svg>

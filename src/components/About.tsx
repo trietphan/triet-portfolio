@@ -108,7 +108,7 @@ export default function About() {
                 <AnimatedStat countTo={10} suffix="+" label="Projects shipped" sub="Web, AI & marketplace" />
               </motion.div>
               <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.16 }}>
-                <AnimatedStat countTo={200} suffix="+" label="Users served" sub="Airbnb team app" />
+                <AnimatedStat value="AI-First" label="Developer" sub="Agent architecture" />
               </motion.div>
               <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.24 }}>
                 <AnimatedStat value="∞" label="Curiosity level" sub="Always learning" color="#b347ff" />
