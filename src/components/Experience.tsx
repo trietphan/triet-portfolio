@@ -120,16 +120,13 @@ export default function Experience() {
 
                 {/* Card */}
                 <div className="p-6 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors duration-300 group">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                    <div>
-                      <h3 className="text-lg font-bold text-white/85 group-hover:text-white transition-colors duration-200">
-                        {exp.title}
-                      </h3>
-                      <p className="text-sm font-medium mt-0.5" style={{ color: exp.color }}>
-                        {exp.company}
-                      </p>
-                    </div>
-                    <p className="text-sm text-white/25 font-mono mt-1 md:mt-0">{exp.period}</p>
+                  <div className="mb-4">
+                    <h3 className="text-lg font-bold text-white/85 group-hover:text-white transition-colors duration-200">
+                      {exp.title}
+                    </h3>
+                    <p className="text-sm font-medium mt-0.5" style={{ color: exp.color }}>
+                      {exp.company}
+                    </p>
                   </div>
                   <div className="space-y-2">
                     {exp.highlights.map((h) => (

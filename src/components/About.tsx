@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 const stats = [
   { value: "MS", label: "Computer Science", sub: "CSU Fullerton" },
-  { value: "200+", label: "Users served", sub: "Airbnb team app" },
-  { value: "3", label: "Marketplace apps", sub: "Monday.com" },
+  { value: "AI-First", label: "Developer", sub: "Agent architecture" },
+  { value: "10+", label: "Projects shipped", sub: "Web, AI & marketplace" },
   { value: "∞", label: "Curiosity level", sub: "Always learning" },
 ];
 
@@ -44,7 +44,7 @@ export default function About() {
         </motion.div>
 
         <div className="grid lg:grid-cols-5 gap-16">
-          {/* Left column — photo + bio */}
+          {/* Left column */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -52,11 +52,10 @@ export default function About() {
             transition={{ duration: 0.8 }}
             className="lg:col-span-3 space-y-6"
           >
-            {/* Photo placeholder */}
+            {/* Profile */}
             <div className="mb-8 flex items-start gap-6">
-              <div className="w-28 h-28 md:w-36 md:h-36 rounded-2xl bg-gradient-to-br from-[#ff6b2b]/20 via-[#b347ff]/10 to-[#00fff5]/20 border border-white/5 flex items-center justify-center shrink-0 relative overflow-hidden">
+              <div className="w-28 h-28 md:w-36 md:h-36 rounded-2xl border border-white/5 flex items-center justify-center shrink-0 relative overflow-hidden" style={{ background: "linear-gradient(135deg, rgba(255,107,43,0.15), rgba(179,71,255,0.1), rgba(0,255,245,0.1))" }}>
                 <span className="text-4xl md:text-5xl">👨‍💻</span>
-                <div className="absolute inset-0 bg-gradient-to-br from-[#ff6b2b]/5 to-transparent" />
               </div>
               <div className="pt-2">
                 <h3 className="text-2xl font-bold text-white/90 mb-1">Triet Phan</h3>
@@ -75,17 +74,17 @@ export default function About() {
               <span className="text-[#f5ff00] font-medium">tutoring</span> students in computer science, helping the next generation discover the power of building things with code.
             </p>
 
-            {/* Stats */}
+            {/* Stats — no whileHover to avoid double-animation glitch */}
             <div className="grid grid-cols-2 gap-4 pt-4">
               {stats.map((stat, i) => (
                 <motion.div
                   key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  whileHover={{ y: -4 }}
-                  className="p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-[#ff6b2b]/20 transition-all duration-300"
+                  transition={{ duration: 0.4, delay: i * 0.08 }}
+                  className="p-5 rounded-xl border border-white/5 hover:border-[#ff6b2b]/20 transition-all duration-300"
+                  style={{ background: "rgba(255,255,255,0.02)" }}
                 >
                   <p className="text-2xl font-black text-[#ff6b2b]">{stat.value}</p>
                   <p className="text-sm text-white/45 mt-1">{stat.label}</p>
@@ -95,7 +94,7 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* Right column — education + awards */}
+          {/* Right column */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -106,9 +105,9 @@ export default function About() {
             <h3 className="text-xl font-bold mb-6 text-white/80">Education</h3>
             <div className="space-y-5">
               {[
-                { degree: "M.S. Computer Science", school: "CSU Fullerton", year: "2018–2022" },
-                { degree: "B.S. Computer Science", school: "Illinois Institute of Technology", year: "2015–2017" },
-                { degree: "A.S. Computer Science", school: "Wilbur Wright College", year: "2013–2015" },
+                { degree: "M.S. Computer Science", school: "California State University, Fullerton" },
+                { degree: "B.S. Computer Science", school: "Illinois Institute of Technology" },
+                { degree: "A.S. Computer Science", school: "Wilbur Wright College" },
               ].map((edu, i) => (
                 <motion.div
                   key={edu.school}
@@ -118,16 +117,15 @@ export default function About() {
                   transition={{ delay: i * 0.1 }}
                   className="flex items-start gap-3 group"
                 >
-                  <div className="w-2 h-2 mt-2 rounded-full bg-[#b347ff] shrink-0 group-hover:shadow-[0_0_10px_rgba(179,71,255,0.5)] transition-all" />
+                  <div className="w-2 h-2 mt-2 rounded-full bg-[#b347ff] shrink-0 group-hover:shadow-[0_0_8px_rgba(179,71,255,0.5)] transition-all" />
                   <div>
                     <p className="font-semibold text-white/80 text-sm">{edu.degree}</p>
-                    <p className="text-xs text-white/35">{edu.school} · {edu.year}</p>
+                    <p className="text-xs text-white/35">{edu.school}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
 
-            {/* Awards */}
             <h3 className="text-xl font-bold mb-4 mt-10 text-white/80">Honors & Awards</h3>
             <div className="flex flex-wrap gap-2">
               {[
@@ -164,12 +162,11 @@ export default function About() {
           <div className="relative">
             <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0a0a1a] to-transparent z-10" />
             <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0a0a1a] to-transparent z-10" />
-
             <div className="marquee-track">
               {[...skillsRow, ...skillsRow].map((skill, i) => (
                 <span
                   key={`${skill.name}-${i}`}
-                  className="mx-2 px-5 py-2 rounded-full border text-sm font-medium whitespace-nowrap cursor-default transition-all hover:scale-105"
+                  className="mx-2 px-5 py-2 rounded-full border text-sm font-medium whitespace-nowrap cursor-default"
                   style={{
                     borderColor: `${skill.color}18`,
                     color: `${skill.color}bb`,
