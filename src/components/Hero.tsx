@@ -2,13 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-
-const roles = [
-  "AI Agent Architect",
-  "Full-Stack Developer",
-  "Open Source Builder",
-  "Educator & Mentor",
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 function useScrambleText(text: string, delay: number = 0) {
   const [display, setDisplay] = useState("");
@@ -43,6 +37,7 @@ function useScrambleText(text: string, delay: number = 0) {
 }
 
 export default function Hero() {
+  const { t } = useLanguage();
   const scrambledName = useScrambleText("Triet Phan", 2200);
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -96,7 +91,7 @@ export default function Hero() {
           transition={{ duration: 0.5, delay: 2.1, ease: "easeOut" }}
           className="text-[#ffaa33] font-mono text-sm md:text-base mb-6 tracking-[0.3em] uppercase"
         >
-          Hello, World
+          {t.hero.hello}
         </motion.p>
 
         <motion.h1
@@ -116,12 +111,13 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 3, ease: "easeOut" }}
           className="text-xl md:text-2xl text-white/55 mb-10 max-w-2xl mx-auto leading-relaxed font-light"
         >
-          I craft{" "}
-          <span className="text-[#00fff5] font-medium">tools that empower</span>,{" "}
-          build{" "}
-          <span className="text-[#ff6b2b] font-medium">systems that scale</span>, and{" "}
-          inspire the{" "}
-          <span className="text-[#f5ff00] font-medium">next generation to dream bigger</span>.
+          {t.hero.summary.a}{" "}
+          <span className="text-[#00fff5] font-medium">{t.hero.summary.b}</span>
+          {t.hero.summary.c}{" "}
+          <span className="text-[#ff6b2b] font-medium">{t.hero.summary.d}</span>
+          {t.hero.summary.e}{" "}
+          <span className="text-[#f5ff00] font-medium">{t.hero.summary.f}</span>
+          {t.hero.summary.g}
         </motion.p>
 
         <motion.div
@@ -130,7 +126,7 @@ export default function Hero() {
           transition={{ duration: 0.5, delay: 3.4 }}
           className="flex flex-wrap justify-center gap-3 mb-14"
         >
-          {roles.map((role, i) => (
+          {t.hero.roles.map((role, i) => (
             <motion.span
               key={role}
               initial={{ opacity: 0, y: 8 }}
@@ -156,14 +152,14 @@ export default function Hero() {
             data-hover="true"
             className="squeeze-btn px-8 py-3.5 rounded-full bg-gradient-to-r from-[#ff6b2b] to-[#ffaa33] text-black font-bold text-sm uppercase tracking-wider hover:shadow-[0_0_40px_rgba(255,107,43,0.3)] transition-shadow duration-300"
           >
-            See What I&apos;ve Built
+            {t.hero.ctaProjects}
           </a>
           <a
             href="#contact"
             data-hover="true"
             className="squeeze-btn px-8 py-3.5 rounded-full border border-[#ff6b2b]/30 text-[#ffaa33] font-bold text-sm uppercase tracking-wider hover:bg-[#ff6b2b]/8 hover:shadow-[0_0_30px_rgba(255,107,43,0.1)] transition-all duration-300"
           >
-            Let&apos;s Connect
+            {t.hero.ctaContact}
           </a>
         </motion.div>
 

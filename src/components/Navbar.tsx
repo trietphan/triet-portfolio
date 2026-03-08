@@ -3,18 +3,13 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-
-const links = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Thoughts", href: "#blog" },
-  { label: "Contact", href: "#contact" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -33,22 +28,16 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-3">
         <a href="#" data-hover="true" className="flex items-center gap-2 group">
-          <Image
-            src="/logo.png"
-            alt="Triet Phan"
-            width={36}
-            height={36}
-            className="rounded-full group-hover:scale-110 transition-transform duration-300"
-          />
+          <Image src="/logo.png" alt="Triet Phan" width={36} height={36} className="rounded-full group-hover:scale-110 transition-transform duration-300" />
           <span className="text-sm font-bold text-white/50 group-hover:text-[#ffaa33] transition-colors duration-300 hidden sm:block">
             Triet Phan
           </span>
         </a>
 
-        <div className="hidden md:flex items-center gap-8">
-          {links.map((link) => (
+        <div className="hidden md:flex items-center gap-6">
+          {t.nav.links.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -59,21 +48,17 @@ export default function Navbar() {
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-[#ff6b2b] to-[#ffaa33] group-hover:w-full transition-all duration-300" />
             </a>
           ))}
+          <LanguageSwitcher />
         </div>
 
-        <button
-          onClick={() => setOpen(!open)}
-          data-hover="true"
-          className="md:hidden text-white/40 hover:text-[#ffaa33] transition-colors"
-        >
-          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
-            {open ? (
-              <path d="M6 6l12 12M6 18L18 6" />
-            ) : (
-              <path d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
+        <div className="md:hidden flex items-center gap-2">
+          <LanguageSwitcher compact />
+          <button onClick={() => setOpen(!open)} data-hover="true" className="text-white/40 hover:text-[#ffaa33] transition-colors">
+            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+              {open ? <path d="M6 6l12 12M6 18L18 6" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {open && (
@@ -82,13 +67,8 @@ export default function Navbar() {
           animate={{ opacity: 1, y: 0 }}
           className="md:hidden px-6 pb-6 flex flex-col gap-4 bg-[#0a0a1a]/95 backdrop-blur-xl"
         >
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="text-white/50 hover:text-[#ffaa33] transition-colors text-sm tracking-wide py-1"
-            >
+          {t.nav.links.map((link) => (
+            <a key={link.href} href={link.href} onClick={() => setOpen(false)} className="text-white/50 hover:text-[#ffaa33] transition-colors text-sm tracking-wide py-1">
               {link.label}
             </a>
           ))}

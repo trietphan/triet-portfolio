@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:800px; height:800px; background:#000; overflow:hidden; }
+  canvas { display:block; }
+</style>
+</head>
+<body>
+<canvas id="c" width="800" height="800"></canvas>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const W = 800, H = 800;
+
+function rand(a,b){ return a+Math.random()*(b-a); }
+
+// Chevron shape — two lines forming an upward V/arrow
+const CX = W/2, CY = H/2 - 20;
+const ARM = 220;   // arm length
+const HALF_W = 200; // half-width at base
+const THICK = 4;
+
+// Chevron points: left base -> apex -> right base
+const P_LEFT  = { x: CX - HALF_W, y: CY + ARM * 0.6 };
+const P_APEX  = { x: CX,           y: CY - ARM * 0.5 };
+const P_RIGHT = { x: CX + HALF_W, y: CY + ARM * 0.6 };
+
+function lerp(a,b,t){ return a+(b-a)*t; }
+function lerpPt(p1,p2,t){ return {x:lerp(p1.x,p2.x,t), y:lerp(p1.y,p2.y,t)}; }
+
+// Particles that float upward through the chevron
+class FloatParticle {
+  constructor(){
+    this.reset();
+  }
+  reset(){
+    this.x = rand(CX - HALF_W*0.9, CX + HALF_W*0.9);
+    this.y = rand(CY + ARM*0.6, H*0.95);
+    this.vy = rand(-0.4, -2.0);
+    this.vx = rand(-0.3, 0.3);
+    this.size = rand(2, 9);
+    this.life = 0;
+    this.maxLife = rand(80, 200);
+    // Orange/amber bokeh
+    const r = Math.random();
+    if(r < 0.7){
+      this.color = `rgba(255,${Math.floor(rand(130,200))},${Math.floor(rand(20,80))},`;
+    } else {
+      this.color = `rgba(179,71,255,`;
+    }
+  }
+  update(){
+    this.x += this.vx;
+    this.y += this.vy;
+    this.life++;
+    if(this.life > this.maxLife || this.y < P_APEX.y - 60) this.reset();
+  }
+  draw(){
+    const alpha = Math.sin(Math.PI * this.life/this.maxLife) * 0.85;
+    // Bokeh — soft large circle
+    const grd = ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.size*2);
+    grd.addColorStop(0, this.color + alpha + ')');
+    grd.addColorStop(1, this.color + '0)');
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size*2, 0, Math.PI*2);
+    ctx.fillStyle = grd;
+    ctx.fill();
+  }
+}
+
+// Streak particles — purple lines rising fast
+class Streak {
+  constructor(){
+    this.reset();
+  }
+  reset(){
+    this.x = rand(CX - HALF_W*1.1, CX + HALF_W*1.1);
+    this.y = rand(CY + ARM*0.3, H*0.9);
+    this.vy = rand(-3, -8);
+    this.len = rand(20, 60);
+    this.life = 0;
+    this.maxLife = rand(30, 80);
+    this.alpha = rand(0.3, 0.8);
+    this.color = Math.random() < 0.7 ? 'rgba(179,71,255,' : 'rgba(255,107,43,';
+  }
+  update(){
+    this.y += this.vy;
+    this.life++;
+    if(this.life > this.maxLife) this.reset();
+  }
+  draw(){
+    const a = (1 - this.life/this.maxLife) * this.alpha;
+    ctx.beginPath();
+    ctx.strokeStyle = this.color + a + ')';
+    ctx.lineWidth = rand(0.5,2);
+    ctx.moveTo(this.x, this.y);
+    ctx.lineTo(this.x, this.y + this.len);
+    ctx.stroke();
+  }
+}
+
+const floats = Array.from({length: 160}, () => new FloatParticle());
+const streaks = Array.from({length: 40}, () => new Streak());
+// stagger
+floats.forEach(p => { p.life = rand(0, p.maxLife); });
+streaks.forEach(p => { p.life = rand(0, p.maxLife); });
+
+let t = 0;
+
+function drawChevron(pulse){
+  // Draw chevron left arm + right arm with neon glow
+  const glow = 8 + Math.sin(pulse) * 3;
+
+  function arm(p1, p2){
+    // outer glow pass
+    ctx.beginPath();
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.strokeStyle = `rgba(255,107,43,${0.25 + Math.sin(pulse)*0.08})`;
+    ctx.lineWidth = glow * 4;
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.strokeStyle = `rgba(255,160,60,${0.5})`;
+    ctx.lineWidth = glow * 1.5;
+    ctx.stroke();
+
+    // bright core
+    ctx.beginPath();
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.strokeStyle = `rgba(255,220,150,0.95)`;
+    ctx.lineWidth = 3;
+    ctx.stroke();
+  }
+
+  arm(P_LEFT, P_APEX);
+  arm(P_RIGHT, P_APEX);
+
+  // Apex point burst
+  const apexGrd = ctx.createRadialGradient(P_APEX.x, P_APEX.y, 0, P_APEX.x, P_APEX.y, 30 + Math.sin(pulse)*8);
+  apexGrd.addColorStop(0, 'rgba(255,240,180,0.95)');
+  apexGrd.addColorStop(0.4, 'rgba(255,120,40,0.6)');
+  apexGrd.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.beginPath();
+  ctx.arc(P_APEX.x, P_APEX.y, 40, 0, Math.PI*2);
+  ctx.fillStyle = apexGrd;
+  ctx.fill();
+}
+
+function draw(){
+  ctx.fillStyle = 'rgba(0,0,0,0.22)';
+  ctx.fillRect(0,0,W,H);
+
+  // Base glow under chevron
+  const baseGrd = ctx.createRadialGradient(CX, CY+ARM*0.3, 0, CX, CY+ARM*0.3, HALF_W*1.3);
+  baseGrd.addColorStop(0, `rgba(255,107,43,${0.06 + Math.sin(t*0.03)*0.02})`);
+  baseGrd.addColorStop(0.5, `rgba(179,71,255,0.04)`);
+  baseGrd.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.beginPath();
+  ctx.arc(CX, CY+ARM*0.3, HALF_W*1.3, 0, Math.PI*2);
+  ctx.fillStyle = baseGrd;
+  ctx.fill();
+
+  streaks.forEach(p => { p.update(); p.draw(); });
+  floats.forEach(p => { p.update(); p.draw(); });
+  drawChevron(t * 0.04);
+
+  t++;
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>

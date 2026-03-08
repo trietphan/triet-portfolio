@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import GlobalUI from "@/components/GlobalUI";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://phan.today"),
@@ -41,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap"
@@ -49,8 +50,10 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
-        <GlobalUI />
-        {children}
+        <LanguageProvider>
+          <GlobalUI />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

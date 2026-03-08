@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:800px; height:800px; background:#000; overflow:hidden; }
+  canvas { display:block; }
+</style>
+</head>
+<body>
+<canvas id="c" width="800" height="800"></canvas>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const W = 800, H = 800;
+const APEX = { x: W/2, y: H * 0.14 };
+
+function rand(a,b){ return a + Math.random()*(b-a); }
+function lerp(a,b,t){ return a+(b-a)*t; }
+
+class Particle {
+  constructor(){
+    this.reset();
+  }
+  reset(){
+    // spawn in lower scattered region
+    const spread = rand(0.3, 0.85);
+    this.sx = rand(W*0.05, W*0.95);
+    this.sy = rand(H*0.55, H*0.96);
+    // control point — curves inward toward center
+    this.cx = lerp(this.sx, APEX.x, rand(0.2, 0.6)) + rand(-60, 60);
+    this.cy = lerp(this.sy, APEX.y, rand(0.3, 0.7));
+    this.ex = APEX.x + rand(-6, 6);
+    this.ey = APEX.y + rand(-4, 4);
+    this.t = rand(0, 1); // start at random progress
+    this.speed = rand(0.003, 0.007);
+    this.size = rand(1.5, 5);
+    this.baseSize = this.size;
+    // color: orange to purple
+    const r = Math.random();
+    if(r < 0.55){
+      const mix = rand(0,1);
+      this.color = `rgba(${Math.round(lerp(255,255,mix))},${Math.round(lerp(107,170,mix))},${Math.round(lerp(43,51,mix))},`;
+    } else {
+      const mix = rand(0,1);
+      this.color = `rgba(${Math.round(lerp(179,255,mix))},${Math.round(lerp(71,107,mix))},${Math.round(lerp(255,43,mix))},`;
+    }
+    this.trail = [];
+    this.maxTrail = Math.floor(rand(8, 22));
+  }
+  bezier(t){
+    const mt = 1-t;
+    return {
+      x: mt*mt*this.sx + 2*mt*t*this.cx + t*t*this.ex,
+      y: mt*mt*this.sy + 2*mt*t*this.cy + t*t*this.ey
+    };
+  }
+  update(){
+    this.t += this.speed;
+    const pos = this.bezier(Math.min(this.t, 1));
+    this.trail.unshift({x: pos.x, y: pos.y});
+    if(this.trail.length > this.maxTrail) this.trail.pop();
+    if(this.t >= 1) this.reset();
+  }
+  draw(){
+    if(this.trail.length < 2) return;
+    const prog = this.t;
+    // size shrinks as it approaches apex
+    const s = this.baseSize * (1 - prog * 0.6);
+    // draw trail
+    for(let i=1; i<this.trail.length; i++){
+      const alpha = (1 - i/this.trail.length) * (1 - prog*0.5) * 0.6;
+      ctx.beginPath();
+      ctx.strokeStyle = this.color + alpha + ')';
+      ctx.lineWidth = s * (1 - i/this.trail.length) * 1.2;
+      ctx.moveTo(this.trail[i-1].x, this.trail[i-1].y);
+      ctx.lineTo(this.trail[i].x, this.trail[i].y);
+      ctx.stroke();
+    }
+    // dot
+    const alpha = 1 - prog * 0.3;
+    ctx.beginPath();
+    ctx.arc(this.trail[0].x, this.trail[0].y, s, 0, Math.PI*2);
+    ctx.fillStyle = this.color + alpha + ')';
+    ctx.fill();
+    // glow
+    ctx.beginPath();
+    ctx.arc(this.trail[0].x, this.trail[0].y, s*2.5, 0, Math.PI*2);
+    ctx.fillStyle = this.color + (alpha*0.15) + ')';
+    ctx.fill();
+  }
+}
+
+const particles = Array.from({length:180}, () => new Particle());
+// stagger starting positions
+particles.forEach((p,i) => p.t = (i/particles.length));
+
+let apexPulse = 0;
+
+function draw(){
+  // fade trail
+  ctx.fillStyle = 'rgba(0,0,0,0.18)';
+  ctx.fillRect(0,0,W,H);
+
+  particles.forEach(p => { p.update(); p.draw(); });
+
+  // apex glow
+  apexPulse += 0.04;
+  const glowSize = 18 + Math.sin(apexPulse) * 5;
+  const grd = ctx.createRadialGradient(APEX.x, APEX.y, 0, APEX.x, APEX.y, glowSize*3);
+  grd.addColorStop(0, 'rgba(255,230,200,0.9)');
+  grd.addColorStop(0.3, 'rgba(255,107,43,0.5)');
+  grd.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.beginPath();
+  ctx.arc(APEX.x, APEX.y, glowSize*3, 0, Math.PI*2);
+  ctx.fillStyle = grd;
+  ctx.fill();
+
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>

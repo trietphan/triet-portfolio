@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const socials = [
   {
@@ -36,6 +37,8 @@ const socials = [
 ];
 
 export default function Contact() {
+  const { t } = useLanguage();
+
   return (
     <section id="contact" className="relative py-32 px-6">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#ff6b2b]/3 rounded-full blur-[200px]" />
@@ -49,14 +52,13 @@ export default function Contact() {
         >
           <p className="text-[#00ff88] font-mono text-sm tracking-widest uppercase mb-2">05</p>
           <h2 className="text-4xl md:text-6xl font-black mb-6">
-            Let&apos;s Build{" "}
+            {t.contact.title}{" "}
             <span className="bg-gradient-to-r from-[#00ff88] via-[#00fff5] to-[#b347ff] bg-clip-text text-transparent">
-              Something
+              {t.contact.titleAccent}
             </span>
           </h2>
           <p className="text-lg text-white/35 mb-10 max-w-xl mx-auto leading-relaxed">
-            Whether you&apos;re looking for a developer, collaborator, or just want to
-            chat about AI agents, I&apos;d love to hear from you.
+            {t.contact.subtitle}
           </p>
         </motion.div>
 
@@ -73,7 +75,7 @@ export default function Contact() {
             data-hover="true"
             className="squeeze-btn inline-block px-10 py-4 rounded-full bg-gradient-to-r from-[#ff6b2b] to-[#ffaa33] text-black font-bold text-sm uppercase tracking-wider hover:shadow-[0_0_40px_rgba(255,107,43,0.35)] transition-all duration-300"
           >
-            Get In Touch
+            {t.contact.cta}
           </a>
         </motion.div>
 
@@ -111,7 +113,7 @@ export default function Contact() {
           className="pt-16 border-t border-white/5"
         >
           <p className="text-sm text-white/12 font-mono">
-            Built with Next.js, Tailwind CSS & Framer Motion
+            {t.contact.footerTech}
           </p>
           <p className="text-xs text-white/8 mt-3">
             © {new Date().getFullYear()} Triet Phan

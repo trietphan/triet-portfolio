@@ -2,67 +2,98 @@ export const posts = [
   {
     slug: "ai-agent-swarms",
     title: "Why I'm Betting on AI Agent Swarms",
-    excerpt:
-      "Single AI agents hit a ceiling fast. Swarms of specialized agents, each with a narrow focus and quality gates, can accomplish what no single model can.",
+    titleVi: "Vì sao mình đặt cược vào AI Agent Swarm",
+    excerpt: "Single AI agents hit a ceiling fast. Swarms of specialized agents with quality gates can go much further.",
+    excerptVi: "Một AI agent đơn lẻ sớm chạm trần. Swarm gồm các agent chuyên biệt và cổng kiểm định có thể đi xa hơn nhiều.",
     date: "Mar 2026",
+    dateVi: "Tháng 3/2026",
     readTime: "5 min read",
+    readTimeVi: "5 phút đọc",
     color: "#b347ff",
     tag: "AI",
-    content: `The moment I started building ClawSwarm, I realized something most people miss about AI: a single agent, no matter how powerful, will always be limited by its context window, its single perspective, and its inability to self-review.
+    tagVi: "AI",
+    content: `The moment I started building ClawSwarm, I realized something most people miss about AI: a single agent, no matter how powerful, will always be limited by its context window and single perspective.
 
-That's why I went all-in on swarm architecture. ClawSwarm uses three specialized chiefs — CodeClaw for writing code, ResearchClaw for gathering context and analysis, and OpsClaw for infrastructure and deployment. Each chief operates independently but feeds into a shared quality gate system.
+That's why I went all-in on swarm architecture. ClawSwarm uses specialized chiefs for coding, research, and operations, each feeding a shared quality gate system.
 
-The magic is in the scoring. Every output gets evaluated on a 1-10 scale. Scores of 8 or above are auto-approved and deployed. Scores between 5-7 get escalated to human review — that's where I step in to provide feedback. Anything below 5 gets automatically reworked with specific notes on what went wrong.
+The key is scoring. High scores auto-approve, medium scores escalate to human review, and low scores trigger automatic rework with targeted feedback.
 
-This three-tier system means the swarm is self-correcting for most tasks, but humans stay in the loop for edge cases. After running 50+ soak tests, the auto-approve rate sits around 65%, which means most work flows through without bottlenecks while maintaining quality.
+This keeps humans in the loop while removing bottlenecks on routine work. The result is faster delivery without sacrificing quality.
 
-The real breakthrough was adding real-time WebSocket streaming. Watching agents think, write, and review each other's work in real-time isn't just useful for debugging — it fundamentally changes how you trust AI systems. When you can see the reasoning, you can trust the output.
+I believe swarm architectures will become the default way we build with AI because specialization plus peer review beats a lone model in most real workflows.`,
+    contentVi: `Khi bắt đầu xây ClawSwarm, mình nhận ra điều nhiều người bỏ lỡ về AI: một agent dù mạnh đến đâu vẫn bị giới hạn bởi context window và góc nhìn đơn lẻ.
 
-I believe swarm architectures will become the default way we build with AI. Not because any single model isn't good enough, but because specialization and peer review produce better outcomes than any lone genius — artificial or otherwise.`,
+Vì vậy mình đi theo kiến trúc swarm. ClawSwarm dùng các chief chuyên biệt cho code, research và operations, cùng hội tụ vào một hệ thống quality gate chung.
+
+Mấu chốt nằm ở cơ chế chấm điểm. Điểm cao thì tự duyệt, điểm trung bình thì chuyển sang review bởi con người, điểm thấp thì tự động làm lại kèm phản hồi cụ thể.
+
+Cách này giúp con người vẫn kiểm soát các trường hợp khó nhưng không làm nghẽn các tác vụ thường lệ. Kết quả là tốc độ nhanh hơn mà chất lượng vẫn giữ vững.
+
+Mình tin swarm sẽ trở thành mô hình mặc định khi xây hệ thống AI, vì chuyên môn hóa cộng với peer review thường hiệu quả hơn một mô hình đơn lẻ.`
   },
   {
     slug: "monday-marketplace",
     title: "Shipping Your First Monday.com Marketplace App",
-    excerpt:
-      "From idea to marketplace listing, building workflow tools for 200+ users taught me that the best developer tools solve one problem extraordinarily well.",
+    titleVi: "Ra mắt ứng dụng Monday.com Marketplace đầu tiên",
+    excerpt: "Building workflow tools for 200+ users taught me to solve one problem exceptionally well.",
+    excerptVi: "Xây công cụ workflow cho hơn 200 người dùng dạy mình rằng: hãy giải quyết một vấn đề thật xuất sắc.",
     date: "Feb 2026",
+    dateVi: "Tháng 2/2026",
     readTime: "4 min read",
+    readTimeVi: "4 phút đọc",
     color: "#ffaa33",
     tag: "Dev",
-    content: `When I joined AXANEXA, nobody at the company had shipped a marketplace app before. The Dependent Dropdown was our first — and the journey from "this would be useful" to "200+ people use this daily" taught me more about product development than any course ever could.
+    tagVi: "Phát triển",
+    content: `At AXANEXA, our Dependent Dropdown app was the first marketplace app we shipped.
 
-The core idea was simple: let users create dropdown menus where the options in one dropdown depend on what you selected in another. If you pick "Engineering" as the department, the role dropdown should only show engineering roles. Monday.com didn't have this natively, and teams were building hacky workarounds everywhere.
+The idea was simple: options in one dropdown depend on the value selected in another. But implementing it at scale required careful state management and API usage.
 
-The technical challenge was managing state across hundreds of items while respecting Monday.com's API rate limits. Their GraphQL API is powerful but strict — hammer it too hard and you'll get throttled. I built a queuing system that batches requests intelligently, loading hundreds of tasks without hitting the ceiling.
+Monday.com's GraphQL API is strict on rate limits, so I built a request queue that batches intelligently and keeps performance stable.
 
-But the hardest part wasn't technical. It was understanding what users actually needed versus what they asked for. Early feedback was all over the place — "add more customization," "make it simpler," "support nested dependencies three levels deep." The breakthrough came when I started watching how people actually used the tool in their workflows rather than listening to feature requests.
+The biggest lesson wasn't technical: user requests are often symptoms. Watching real workflows revealed what mattered most.
 
-The key lesson: solve one problem so well that people can't imagine going back to the old way. Don't build a Swiss Army knife. Build the world's best screwdriver.
+Don't build a Swiss Army knife. Build the best screwdriver for a painful problem.`,
+    contentVi: `Tại AXANEXA, ứng dụng Dependent Dropdown là sản phẩm Marketplace đầu tiên mà team mình phát hành.
 
-Getting listed on the Monday.com Marketplace was its own adventure — documentation, review processes, security checks. But seeing that first notification that a team you've never met installed your app? That feeling is why I build things.`,
+Ý tưởng rất đơn giản: lựa chọn ở dropdown này phụ thuộc vào giá trị của dropdown trước đó. Nhưng để chạy tốt ở quy mô lớn, cần quản lý state và API thật chặt.
+
+GraphQL API của Monday.com có giới hạn rate-limit khá nghiêm, nên mình xây cơ chế queue để gom và xử lý request thông minh, giữ hiệu năng ổn định.
+
+Bài học lớn nhất lại không thuần kỹ thuật: yêu cầu người dùng thường chỉ là biểu hiện bề mặt. Quan sát workflow thực tế mới cho thấy điều họ cần nhất.
+
+Đừng xây dao đa năng cho mọi thứ. Hãy xây chiếc tua-vít tốt nhất cho đúng một nỗi đau lớn.`
   },
   {
     slug: "teaching-code",
     title: "Teaching Code Changed How I Write It",
-    excerpt:
-      "Tutoring CIS students forced me to rethink everything I thought I knew. When you have to explain recursion to someone who's never seen a for-loop, your own code gets clearer too.",
+    titleVi: "Dạy code đã thay đổi cách mình viết code",
+    excerpt: "Teaching CIS students made my production code clearer, more intentional, and easier to maintain.",
+    excerptVi: "Việc dạy sinh viên CIS khiến code production của mình rõ ràng hơn, có chủ đích hơn và dễ bảo trì hơn.",
     date: "Jan 2026",
+    dateVi: "Tháng 1/2026",
     readTime: "3 min read",
+    readTimeVi: "3 phút đọc",
     color: "#00fff5",
     tag: "Education",
-    content: `There's a moment in every tutoring session where the student's eyes shift from confusion to understanding. It's subtle — a slight nod, a pause where they were previously rushing, the first time they say "oh wait, I think I get it" and actually mean it.
+    tagVi: "Giáo dục",
+    content: `Teaching forces precision. When students ask why a loop or data structure was chosen, vague answers don't work.
 
-I've been tutoring in some form since 2014, starting with math at Wilbur Wright College, then CS at IIT, and now back at Wright as a CIS tutor. Each round has made me a fundamentally better developer — not because I'm practicing syntax, but because teaching forces you to understand why things work, not just how.
+I learned to explain intent, tradeoffs, and readability—not just syntax.
 
-When a student asks "why do we use a for-loop here instead of a while-loop?" you can't just say "because it's cleaner." You have to articulate the actual reasoning: we know exactly how many iterations we need, the loop variable has a clear lifecycle, and the intent is immediately readable. That kind of reasoning, done hundreds of times, rewires how you think about your own code.
+The embedded tutoring model is powerful because you see confusion exactly where abstraction meets implementation.
 
-The embedded tutoring model at Wright has been particularly impactful. Instead of waiting for students to come to office hours (most won't), I'm in the classroom during instruction. I can see exactly where confusion starts — it's almost always at the point where abstract concepts meet concrete implementation.
+My rule is simple: don't give answers too early. Ask guiding questions so students discover the solution.
 
-My approach: never give the answer. Ask the next question. "What do you think this line does?" "What would happen if we changed this value?" "Where do you think the bug is?" Students who discover solutions retain them. Students who are told solutions forget them by next week.
+That same approach made my own code cleaner: clearer names, stronger error handling, and simpler architecture decisions.`,
+    contentVi: `Dạy học buộc mình phải chính xác. Khi sinh viên hỏi vì sao chọn vòng lặp hay cấu trúc dữ liệu đó, câu trả lời mơ hồ là không đủ.
 
-The unexpected side effect: my production code has gotten dramatically better. When you spend hours explaining why clear variable names matter, you stop writing cryptic one-liners. When you teach error handling, you actually implement it.
+Mình học cách giải thích mục đích, đánh đổi và độ dễ đọc — chứ không chỉ cú pháp.
 
-Teaching isn't a side gig for me — it's how I stay sharp.`,
+Mô hình hỗ trợ ngay trên lớp rất hiệu quả vì có thể nhìn thấy điểm rối đúng lúc khái niệm trừu tượng chạm vào triển khai cụ thể.
+
+Nguyên tắc của mình: đừng đưa đáp án quá sớm. Hãy đặt câu hỏi dẫn dắt để người học tự tìm ra lời giải.
+
+Cách tiếp cận đó quay lại cải thiện chính code của mình: tên biến rõ hơn, xử lý lỗi tốt hơn, và quyết định kiến trúc đơn giản hơn.`
   },
 ];
 

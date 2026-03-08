@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:800px; height:800px; background:#000; overflow:hidden; }
+  canvas { display:block; }
+</style>
+</head>
+<body>
+<canvas id="c" width="800" height="800"></canvas>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const W = 800, H = 800;
+
+function rand(a,b){ return a+Math.random()*(b-a); }
+function lerp(a,b,t){ return a+(b-a)*t; }
+
+// Arrow shape definition — particles orbit/fill the arrow
+function arrowPoint(t) {
+  // Arrow pointing up, centered at W/2, H/2
+  // Chevron tip at top, wide base
+  const cx = W/2, cy = H/2 + 30;
+  const scale = 260;
+  // Arrow outline path parameterized 0..1
+  const points = [
+    [0, -1],       // tip top
+    [0.38, -0.15], // right shoulder
+    [0.18, -0.15], // right notch top
+    [0.18, 0.65],  // right base
+    [-0.18, 0.65], // left base
+    [-0.18,-0.15], // left notch top
+    [-0.38,-0.15], // left shoulder
+  ];
+  const n = points.length;
+  const i = Math.floor(t * n);
+  const f = (t * n) - i;
+  const a = points[i % n];
+  const b = points[(i+1) % n];
+  return {
+    x: cx + lerp(a[0],b[0],f) * scale,
+    y: cy + lerp(a[1],b[1],f) * scale
+  };
+}
+
+class Particle {
+  constructor(i, total){
+    // position along arrow outline
+    this.outlineT = i / total;
+    this.offset = rand(-0.08, 0.08);
+    this.phase = rand(0, Math.PI*2);
+    this.speed = rand(0.0008, 0.002);
+    this.size = rand(2, 6);
+    this.orbitRadius = rand(0, 28);
+    this.orbitSpeed = rand(0.02, 0.06) * (Math.random() < 0.5 ? 1 : -1);
+    this.orbitAngle = rand(0, Math.PI*2);
+    const r = Math.random();
+    if(r < 0.5){
+      this.color = `rgba(255,${Math.floor(rand(107,170))},43,`;
+    } else if(r < 0.75){
+      this.color = `rgba(179,71,255,`;
+    } else if(r < 0.9){
+      this.color = `rgba(0,255,245,`;
+    } else {
+      this.color = `rgba(255,220,100,`;
+    }
+    this.trail = [];
+    this.maxTrail = Math.floor(rand(4,14));
+  }
+  update(){
+    this.outlineT = (this.outlineT + this.speed) % 1;
+    this.orbitAngle += this.orbitSpeed;
+    const base = arrowPoint((this.outlineT + this.offset + 1) % 1);
+    const jitter = Math.sin(this.phase + this.outlineT * 20) * 3;
+    this.x = base.x + Math.cos(this.orbitAngle) * this.orbitRadius + jitter;
+    this.y = base.y + Math.sin(this.orbitAngle) * this.orbitRadius + jitter;
+    this.phase += 0.02;
+    this.trail.unshift({x: this.x, y: this.y});
+    if(this.trail.length > this.maxTrail) this.trail.pop();
+  }
+  draw(){
+    if(!this.trail.length) return;
+    for(let i=1; i<this.trail.length; i++){
+      const alpha = (1-i/this.trail.length)*0.5;
+      ctx.beginPath();
+      ctx.strokeStyle = this.color + alpha + ')';
+      ctx.lineWidth = this.size*(1-i/this.trail.length);
+      ctx.moveTo(this.trail[i-1].x,this.trail[i-1].y);
+      ctx.lineTo(this.trail[i].x,this.trail[i].y);
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    ctx.fillStyle = this.color + '0.9)';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size*2.5, 0, Math.PI*2);
+    ctx.fillStyle = this.color + '0.12)';
+    ctx.fill();
+  }
+}
+
+// Dense outer particles (fill inside arrow)
+class FillParticle {
+  constructor(){
+    this.reset();
+  }
+  reset(){
+    const cx = W/2, cy = H/2+30, s = 260;
+    // place inside arrow bounding box
+    this.x = cx + rand(-s*0.38, s*0.38);
+    this.y = cy + rand(-s, s*0.65);
+    this.vy = rand(-0.3, -1.2);
+    this.vx = rand(-0.2, 0.2);
+    this.life = 0;
+    this.maxLife = rand(60,150);
+    this.size = rand(1,4);
+    this.color = `rgba(255,${Math.floor(rand(130,200))},50,`;
+  }
+  update(){
+    this.x += this.vx;
+    this.y += this.vy;
+    this.life++;
+    if(this.life > this.maxLife) this.reset();
+  }
+  draw(){
+    const alpha = Math.sin(Math.PI * this.life/this.maxLife) * 0.7;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    ctx.fillStyle = this.color + alpha + ')';
+    ctx.fill();
+  }
+}
+
+const total = 280;
+const outline = Array.from({length: total}, (_,i) => new Particle(i, total));
+const fills = Array.from({length: 120}, () => new FillParticle());
+
+let t = 0;
+function draw(){
+  ctx.fillStyle = 'rgba(0,0,0,0.2)';
+  ctx.fillRect(0,0,W,H);
+
+  fills.forEach(p => { p.update(); p.draw(); });
+  outline.forEach(p => { p.update(); p.draw(); });
+
+  // Central spine glow
+  const tip = arrowPoint(0);
+  const grd = ctx.createRadialGradient(tip.x, tip.y, 0, tip.x, tip.y, 40);
+  grd.addColorStop(0, `rgba(255,200,100,${0.7 + Math.sin(t*0.05)*0.2})`);
+  grd.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.beginPath();
+  ctx.arc(tip.x, tip.y, 40, 0, Math.PI*2);
+  ctx.fillStyle = grd;
+  ctx.fill();
+
+  t++;
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>
