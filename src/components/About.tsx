@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useCountUp } from "@/hooks/useCountUp";
-import { useLanguage } from "@/contexts/LanguageContext";
 
 const skillsRow = [
   { name: "JavaScript", color: "#f5ff00" },
@@ -32,15 +31,34 @@ function AnimatedStat({ value, label, sub, color = "#ff6b2b", countTo, suffix = 
   );
 }
 
-export default function About() {
-  const { t } = useLanguage();
+const stats = [
+  { value: "MS", label: "Computer Science", sub: "CSU Fullerton" },
+  { countTo: 10, suffix: "+", label: "Projects shipped", sub: "Web, AI & marketplace" },
+  { value: "AI-First", label: "Developer", sub: "Agent architecture" },
+  { value: "∞", label: "Curiosity level", sub: "Always learning", color: "#b347ff" },
+];
 
+const education = [
+  { degree: "M.S. Computer Science", school: "California State University, Fullerton" },
+  { degree: "B.S. Computer Science", school: "Illinois Institute of Technology" },
+  { degree: "A.S. Computer Science", school: "Wilbur Wright College" },
+];
+
+const awards = [
+  { label: "IIT Presidential Scholarship", color: "#f5ff00" },
+  { label: "Class Salutatorian", color: "#00fff5" },
+  { label: "Phi Theta Kappa", color: "#b347ff" },
+  { label: "All Illinois Academic Team", color: "#00ff88" },
+  { label: "Presidential Scholar Semi-finalist", color: "#ffaa33" },
+];
+
+export default function About() {
   return (
     <section id="about" className="relative py-32 px-6">
       <div className="max-w-6xl mx-auto">
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
           <p className="text-[#ff6b2b] font-mono text-sm tracking-widest uppercase mb-2">01</p>
-          <h2 className="text-4xl md:text-5xl font-black mb-16">{t.about.title} <span className="bg-gradient-to-r from-[#00fff5] to-[#b347ff] bg-clip-text text-transparent">{t.about.titleAccent}</span></h2>
+          <h2 className="text-4xl md:text-5xl font-black mb-16">About <span className="bg-gradient-to-r from-[#00fff5] to-[#b347ff] bg-clip-text text-transparent">Me</span></h2>
         </motion.div>
 
         <div className="grid lg:grid-cols-5 gap-16">
@@ -51,19 +69,19 @@ export default function About() {
               </div>
               <div className="pt-2">
                 <h3 className="text-2xl font-bold text-white/90 mb-1">Triet Phan</h3>
-                <p className="text-[#ffaa33] text-sm font-mono tracking-wider">{t.about.location}</p>
+                <p className="text-[#ffaa33] text-sm font-mono tracking-wider">AI Enthusiast · Chicago, IL</p>
                 <div className="flex items-center gap-2 mt-3">
                   <span className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse" />
-                  <span className="text-xs text-white/35">{t.about.status}</span>
+                  <span className="text-xs text-white/35">Open to opportunities</span>
                 </div>
               </div>
             </div>
 
-            <p className="text-lg text-white/55 leading-relaxed">{t.about.paragraph1}</p>
-            <p className="text-lg text-white/55 leading-relaxed">{t.about.paragraph2}</p>
+            <p className="text-lg text-white/55 leading-relaxed">I believe technology should empower people to pursue their dreams. From shipping marketplace apps used by hundreds at Airbnb, to architecting AI agent swarms that autonomously write, review, and deploy code, I thrive at the intersection of creativity and engineering.</p>
+            <p className="text-lg text-white/55 leading-relaxed">When I'm not coding, I'm tutoring the next generation of developers and helping people discover the power of building with code.</p>
 
             <div className="grid grid-cols-2 gap-4 pt-4">
-              {t.about.stats.map((s, idx) => (
+              {stats.map((s, idx) => (
                 <motion.div key={`${s.label}-${idx}`} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: idx * 0.08 }}>
                   <AnimatedStat value={s.value} countTo={s.countTo} suffix={s.suffix} label={s.label} sub={s.sub} color={s.color} />
                 </motion.div>
@@ -72,9 +90,9 @@ export default function About() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="lg:col-span-2">
-            <h3 className="text-xl font-bold mb-6 text-white/80">{t.about.educationTitle}</h3>
+            <h3 className="text-xl font-bold mb-6 text-white/80">Education</h3>
             <div className="space-y-5">
-              {t.about.education.map((edu, i) => (
+              {education.map((edu, i) => (
                 <motion.div key={edu.school} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="flex items-start gap-3 group">
                   <div className="w-2 h-2 mt-2 rounded-full bg-[#b347ff] shrink-0 group-hover:shadow-[0_0_8px_rgba(179,71,255,0.5)] transition-all" />
                   <div><p className="font-semibold text-white/80 text-sm">{edu.degree}</p><p className="text-xs text-white/35">{edu.school}</p></div>
@@ -82,9 +100,9 @@ export default function About() {
               ))}
             </div>
 
-            <h3 className="text-xl font-bold mb-4 mt-10 text-white/80">{t.about.honorsTitle}</h3>
+            <h3 className="text-xl font-bold mb-4 mt-10 text-white/80">Honors & Awards</h3>
             <div className="flex flex-wrap gap-2">
-              {t.about.awards.map((award) => (
+              {awards.map((award) => (
                 <span key={award.label} className="px-3 py-1.5 rounded-full text-xs font-medium border cursor-default transition-colors duration-200" style={{ borderColor: `${award.color}18`, color: `${award.color}aa`, backgroundColor: `${award.color}08` }}>{award.label}</span>
               ))}
             </div>

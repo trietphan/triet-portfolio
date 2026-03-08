@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useLanguage } from "@/contexts/LanguageContext";
 
 const socials = [
   {
@@ -37,7 +36,7 @@ const socials = [
 ];
 
 export default function Contact() {
-  const { t } = useLanguage();
+  
 
   return (
     <section id="contact" className="relative py-32 px-6">
@@ -52,13 +51,13 @@ export default function Contact() {
         >
           <p className="text-[#00ff88] font-mono text-sm tracking-widest uppercase mb-2">05</p>
           <h2 className="text-4xl md:text-6xl font-black mb-6">
-            {t.contact.title}{" "}
+            Let's Build{" "}
             <span className="bg-gradient-to-r from-[#00ff88] via-[#00fff5] to-[#b347ff] bg-clip-text text-transparent">
-              {t.contact.titleAccent}
+              Something
             </span>
           </h2>
           <p className="text-lg text-white/35 mb-10 max-w-xl mx-auto leading-relaxed">
-            {t.contact.subtitle}
+            Whether you're looking for a developer, collaborator, or just want to chat about AI agents, I'd love to hear from you.
           </p>
         </motion.div>
 
@@ -75,7 +74,7 @@ export default function Contact() {
             data-hover="true"
             className="squeeze-btn inline-block px-10 py-4 rounded-full bg-gradient-to-r from-[#ff6b2b] to-[#ffaa33] text-black font-bold text-sm uppercase tracking-wider hover:shadow-[0_0_40px_rgba(255,107,43,0.35)] transition-all duration-300"
           >
-            {t.contact.cta}
+            Get In Touch
           </a>
         </motion.div>
 
@@ -113,7 +112,7 @@ export default function Contact() {
           className="pt-16 border-t border-white/5"
         >
           <p className="text-sm text-white/12 font-mono">
-            {t.contact.footerTech}
+            Built with Next.js, Tailwind CSS & Framer Motion
           </p>
           <p className="text-xs text-white/8 mt-3">
             © {new Date().getFullYear()} Triet Phan

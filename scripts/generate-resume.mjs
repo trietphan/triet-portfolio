@@ -223,15 +223,15 @@ const html = `<!DOCTYPE html>
 
       <div class="job">
         <div class="job-header">
-          <span class="job-title">CIS Tutor (Embedded)</span>
+          <span class="job-title">Computer Information Systems Tutor</span>
           <span class="job-date">Oct 2025 — Present</span>
         </div>
         <div class="job-co">Wilbur Wright College · City Colleges of Chicago — Chicago, IL</div>
         <ul>
           <li>Provide individual and group tutoring across CIS subjects: programming, databases, algorithms, and web development</li>
-          <li>Serve as embedded tutor in live classrooms; lead workshops on study strategies and applied problem-solving</li>
+          <li>Lead workshops on study skills, learning strategies, and applied problem-solving in live classroom settings</li>
           <li>Develop personalized learning plans; collaborate with instructors to align support with course objectives</li>
-          <li>Created reference materials and exercises used as supplementary resources for enrolled students</li>
+          <li>Created reference materials and exercises adopted as supplementary resources for enrolled students</li>
         </ul>
       </div>
 
@@ -293,21 +293,27 @@ const html = `<!DOCTYPE html>
       <div class="section-title">Select Projects</div>
 
       <div class="project">
-        <div class="project-name">ClawSwarm — AI Agent Swarm Architecture</div>
-        <div class="project-desc">Autonomous multi-agent system with three specialized chiefs (CodeClaw, ResearchClaw, OpsClaw). Features auto-scoring quality gates (auto-approve ≥8, human review 5–7, rework &lt;5), real-time WebSocket streaming dashboard, ticket-based auth, and a full soak-test suite. Auto-approve rate ~65% across 50+ test runs.</div>
-        <div class="project-tags">TypeScript · Convex · Next.js · WebSockets · AI Architecture</div>
+        <div class="project-name">ClawSwarm — Multi-Agent AI Swarm System</div>
+        <div class="project-desc">Autonomous AI orchestration platform with three specialized chiefs: CodeClaw (code generation), ResearchClaw (research &amp; analysis), OpsClaw (infrastructure). Implements a 3-tier quality gate: outputs scoring ≥8 auto-approve, 5–7 escalate to human review via Discord, &lt;5 trigger auto-rework cycles (max 3). Ships with real-time WebSocket streaming dashboard, replay logging, workspace isolation per agent, and ticket-based auth. Achieved ~65% auto-approve rate across 50+ soak tests.</div>
+        <div class="project-tags">TypeScript · Convex · Next.js · WebSockets · AI Architecture · Discord API</div>
       </div>
 
       <div class="project">
-        <div class="project-name">AgentAwake — AI-Powered SaaS Platform</div>
-        <div class="project-desc">SaaS product for AI-powered productivity with tiered pricing (Free → Pro $9/mo → Team $19/mo), automated drip email campaigns via Resend, Stripe billing integration, and a free prompt library lead magnet. Full end-to-end pipeline confirmed in production.</div>
-        <div class="project-tags">Next.js · Stripe · Resend · Vercel · TypeScript</div>
+        <div class="project-name">AgentAwake — AI Productivity SaaS</div>
+        <div class="project-desc">Full-stack SaaS for AI-powered productivity. Tiered plans (Free / Pro $9 / Team $19) with Stripe billing, automated drip email sequences via Resend, an audience management pipeline, and a free prompt library lead magnet. End-to-end pipeline confirmed in production: subscribe → welcome email → audience contact → drip sequence. Deployed on Vercel with custom domain. <a href="https://agentawake.com" style="color:#ff6b2b;">agentawake.com</a></div>
+        <div class="project-tags">Next.js · TypeScript · Stripe · Resend · Vercel · SaaS</div>
       </div>
 
       <div class="project">
-        <div class="project-name">ETH Smart Contracts · Market Profile Guide</div>
-        <div class="project-desc">Ethereum smart contract deployment and interaction platform (Solidity, Web3.js). Interactive trading education site for market profile and price-action analysis, deployed on Vercel.</div>
-        <div class="project-tags">Solidity · Ethereum · Web3.js · Next.js · Tailwind CSS</div>
+        <div class="project-name">Market Profile Guide</div>
+        <div class="project-desc">Interactive trading education platform covering market profile theory, volume analysis, and price-action structure. Built with Next.js and deployed on Vercel — designed for clarity with custom visualizations and structured content for traders at every level. <a href="https://market-profile-website.vercel.app" style="color:#ff6b2b;">market-profile-website.vercel.app</a></div>
+        <div class="project-tags">Next.js · React · Tailwind CSS · Vercel</div>
+      </div>
+
+      <div class="project">
+        <div class="project-name">ETH Smart Contracts</div>
+        <div class="project-desc">Ethereum smart contract development and deployment platform — streamlines the workflow for writing, testing, and deploying on-chain contracts. Supports direct contract interaction and on-chain queries in a clean developer interface.</div>
+        <div class="project-tags">Solidity · Ethereum · Web3.js · Next.js</div>
       </div>
     </div>
 
