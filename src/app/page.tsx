@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
+import Playbook from "@/components/Playbook";
 import Blog from "@/components/Blog";
 import Now from "@/components/Now";
 import Contact from "@/components/Contact";
@@ -20,8 +21,9 @@ export default function Home() {
         <About />
         <Experience />
         <Projects />
-        <Now />
+        <Playbook />
         <Blog />
+        <Now />
         <Contact />
       </main>
     </>

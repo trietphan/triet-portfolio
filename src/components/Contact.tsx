@@ -49,7 +49,7 @@ export default function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <p className="text-[#00ff88] font-mono text-sm tracking-widest uppercase mb-2">05</p>
+          <p className="text-[#00ff88] font-mono text-sm tracking-widest uppercase mb-2">06</p>
           <h2 className="text-4xl md:text-6xl font-black mb-6">
             Let's Build{" "}
             <span className="bg-gradient-to-r from-[#00ff88] via-[#00fff5] to-[#b347ff] bg-clip-text text-transparent">

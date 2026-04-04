@@ -6,15 +6,26 @@ import { useTilt } from "@/hooks/useTilt";
 
 const projects = [
   {
-    title: "ClawSwarm",
-    tagline: "AI Agent Swarm Architecture",
-    description: "An autonomous AI swarm where specialized agents collaborate to plan, code, review, and deploy software with human-in-the-loop quality gates and real-time streaming.",
-    longDescription: "ClawSwarm is a multi-agent system with three specialized chiefs: CodeClaw (coding), ResearchClaw (research), and OpsClaw (operations). Each manages its own pipeline with an auto-scoring quality gate system. Scores ≥8 auto-approve, 5–7 escalate to human review, below 5 are reworked. Includes a real-time WebSocket streaming dashboard, ticket-based auth, and replay storage for debugging.",
-    tags: ["TypeScript", "Convex", "AI Agents", "WebSockets", "Next.js"],
+    title: "clawswarm.app",
+    tagline: "Multi-Agent AI Platform — Live",
+    description: "The hosted platform for ClawSwarm: real-time streaming dashboard, team blueprints, run history, and human-in-the-loop review. Built on top of the open-source CLI.",
+    longDescription: null,
+    tags: ["Next.js", "Convex", "WebSockets", "AI Agents", "SaaS"],
     color: "#b347ff",
+    icon: "🌐",
+    stats: [],
+    url: "https://clawswarm.app",
+  },
+  {
+    title: "ClawSwarm OSS",
+    tagline: "Open-Source Multi-Agent CLI",
+    description: "The open-source engine powering ClawSwarm. Three specialized AI chiefs — CodeClaw, ResearchClaw, OpsClaw — with auto-scoring quality gates and rework loops. Free on npm.",
+    longDescription: "ClawSwarm is a multi-agent system with three specialized chiefs: CodeClaw (coding), ResearchClaw (research), and OpsClaw (operations). Each manages its own pipeline with an auto-scoring quality gate system. Scores ≥8 auto-approve, 5–7 escalate to human review, below 5 are reworked. Includes a real-time WebSocket streaming dashboard, ticket-based auth, and replay storage for debugging. ~65% auto-approve rate across 50+ soak tests.",
+    tags: ["TypeScript", "Convex", "AI Agents", "WebSockets", "Open Source"],
+    color: "#7c3aed",
     icon: "🧠",
-    stats: ["3 specialized AI chiefs", "Auto-scoring quality gates", "Real-time stream dashboard"],
-    url: null,
+    stats: ["3 specialized AI chiefs", "Auto-scoring quality gates", "~65% auto-approve rate"],
+    url: "https://github.com/trietphan/clawswarm",
   },
   {
     title: "AgentAwake",

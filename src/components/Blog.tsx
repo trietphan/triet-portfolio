@@ -28,7 +28,7 @@ export default function Blog() {
       <div className="absolute top-1/2 right-0 w-64 h-64 bg-[#00fff5]/3 rounded-full blur-[140px]" />
       <div className="max-w-6xl mx-auto">
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
-          <p className="text-[#b347ff] font-mono text-sm tracking-widest uppercase mb-2">04</p>
+          <p className="text-[#b347ff] font-mono text-sm tracking-widest uppercase mb-2">05</p>
           <h2 className="text-4xl md:text-5xl font-black mb-4">Thoughts & <span className="bg-gradient-to-r from-[#b347ff] to-[#00fff5] bg-clip-text text-transparent">Writing</span></h2>
           <p className="text-white/30 text-lg mb-16 max-w-xl">Lessons from building, teaching, and thinking out loud.</p>
         </motion.div>
