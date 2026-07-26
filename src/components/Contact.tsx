@@ -159,13 +159,13 @@ export default function Contact() {
           transition={{ delay: 0.6 }}
           className="pt-16 border-t border-white/5"
         >
-          <p className="text-sm text-white/12 font-mono">
+          <p className="text-sm text-white/40 font-mono">
             Built with Next.js, Tailwind CSS & Framer Motion
           </p>
-          <p className="text-xs text-white/10 mt-3 font-mono">
-            Press <kbd className="border border-white/10 rounded px-1.5 py-0.5 mx-0.5">⌘K</kbd> to search anything
+          <p className="text-xs text-white/45 mt-3 font-mono">
+            Press <kbd className="border border-white/20 rounded px-1.5 py-0.5 mx-0.5">⌘K</kbd> to search anything
           </p>
-          <p className="text-xs text-white/8 mt-3">
+          <p className="text-xs text-white/35 mt-3">
             © {new Date().getFullYear()} Triet Phan · aifutures.dev
           </p>
         </motion.div>

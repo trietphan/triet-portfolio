@@ -5,19 +5,19 @@ import GlobalUI from "@/components/GlobalUI";
 export const metadata: Metadata = {
   metadataBase: new URL("https://phan.today"),
   title: "Triet Phan — Founder, aifutures.dev · AI Builder",
-  description: "Founder of aifutures.dev — an AI product studio shipping ClawSwarm, AgentAwake, and the Agent Memory Playbook. Full-stack developer and educator crafting tools that empower.",
-  keywords: ["Triet Phan", "aifutures.dev", "AI", "developer", "portfolio", "ClawSwarm", "AgentAwake", "AI agents", "multi-agent systems"],
+  description: "Founder of aifutures.dev — an independent product lab building AI Futures Trader, AIFlow and Agent Control Center. Full-stack developer and educator: machine speed, human judgment, provable evidence.",
+  keywords: ["Triet Phan", "aifutures.dev", "AI Futures Trader", "AIFlow", "Agent Control Center", "AI agents", "multi-agent systems", "developer", "portfolio"],
   icons: { icon: [{ url: "/favicon.png", type: "image/png" }], apple: "/favicon.png" },
   openGraph: {
     title: "Triet Phan — Founder, aifutures.dev · AI Builder",
-    description: "AI product studio shipping ClawSwarm, AgentAwake & the Agent Memory Playbook.",
+    description: "An independent product lab: AI Futures Trader, AIFlow & Agent Control Center.",
     type: "website",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Triet Phan" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Triet Phan — Founder, aifutures.dev · AI Builder",
-    description: "AI product studio shipping ClawSwarm, AgentAwake & the Agent Memory Playbook.",
+    description: "An independent product lab: AI Futures Trader, AIFlow & Agent Control Center.",
     images: ["/og-image.png"],
     creator: "@trietp",
   },
@@ -31,9 +31,9 @@ const personSchema = {
   image: "https://phan.today/logo.png",
   jobTitle: "Founder & Principal Builder",
   description:
-    "Founder of aifutures.dev, an AI product studio shipping ClawSwarm, AgentAwake, and the Agent Memory Playbook.",
+    "Founder of aifutures.dev, an independent product lab building AI Futures Trader, AIFlow and Agent Control Center.",
   worksFor: { "@type": "Organization", name: "aifutures.dev", url: "https://aifutures.dev" },
-  address: { "@type": "PostalPlace", addressLocality: "Chicago", addressRegion: "IL", addressCountry: "US" },
+  address: { "@type": "PostalAddress", addressLocality: "Chicago", addressRegion: "IL", addressCountry: "US" },
   alumniOf: [
     { "@type": "CollegeOrUniversity", name: "California State University, Fullerton" },
     { "@type": "CollegeOrUniversity", name: "Illinois Institute of Technology" },

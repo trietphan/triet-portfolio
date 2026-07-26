@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Magnetic from "./Magnetic";
+import { introDelay } from "@/lib/intro";
 
 function useScrambleText(text: string, delay: number = 0) {
   const [display, setDisplay] = useState("");
@@ -36,7 +37,11 @@ function useScrambleText(text: string, delay: number = 0) {
 const roles = ["Founder @ aifutures.dev", "Agent Systems Architect", "Full-Stack Developer", "Market Structure Nerd", "Educator & Mentor"];
 
 export default function Hero() {
-  const scrambledName = useScrambleText("Triet Phan", 2200);
+  const reduce = !!useReducedMotion();
+  // Every entrance step is an offset on the shared intro timeline, so the
+  // loader and the hero always hand off to each other cleanly.
+  const d = (offset: number) => introDelay(offset, reduce);
+  const scrambledName = useScrambleText("Triet Phan", d(0.3) * 1000);
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
@@ -78,7 +83,7 @@ export default function Hero() {
 
       <motion.div style={{ y, opacity }} className="relative z-10 text-center max-w-4xl">
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.9, ease: "easeOut" }}
+          transition={{ duration: 0.5, delay: d(0), ease: "easeOut" }}
           className="flex justify-center mb-6">
           <a href="#projects" data-hover="true"
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#ff6b2b]/25 bg-[#ff6b2b]/6 hover:bg-[#ff6b2b]/12 hover:border-[#ff6b2b]/40 transition-colors duration-300 group">
@@ -91,12 +96,12 @@ export default function Hero() {
         </motion.div>
 
         <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 2.1, ease: "easeOut" }}
+          transition={{ duration: 0.5, delay: d(0.2), ease: "easeOut" }}
           className="text-[#ffaa33] font-mono text-sm md:text-base mb-6 tracking-[0.3em] uppercase">
           Hello, World
         </motion.p>
 
-        <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: 2.1 }}
+        <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: d(0.2) }}
           className="text-6xl md:text-8xl lg:text-9xl font-black mb-8 leading-[0.95] tracking-tight">
           <span className="bg-gradient-to-r from-[#ff6b2b] via-[#ffaa33] to-[#ff8800] bg-clip-text text-transparent font-mono">
             {scrambledName || "\u00A0"}
@@ -104,7 +109,7 @@ export default function Hero() {
         </motion.h1>
 
         <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 3, ease: "easeOut" }}
+          transition={{ duration: 0.6, delay: d(1.1), ease: "easeOut" }}
           className="text-xl md:text-2xl text-white/55 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
           I build at{" "}
           <span className="text-[#50d6e6] font-medium">machine speed</span>
@@ -114,11 +119,11 @@ export default function Hero() {
           <span className="text-[#c175ef] font-medium">provable evidence</span>.
         </motion.p>
 
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 3.4 }}
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: d(1.5) }}
           className="flex flex-wrap justify-center gap-3 mb-14">
           {roles.map((role, i) => (
             <motion.span key={role} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 3.5 + i * 0.08 }}
+              transition={{ duration: 0.35, delay: d(1.6 + i * 0.08) }}
               whileHover={{ scale: 1.06, y: -2 }} data-hover="true"
               className="px-5 py-2.5 rounded-full text-sm font-medium border border-white/8 bg-white/[0.03] text-white/60 hover:border-[#ff6b2b]/30 hover:text-[#ffaa33] transition-colors duration-200 cursor-default">
               {role}
@@ -127,7 +132,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 3.9, ease: "easeOut" }}
+          transition={{ duration: 0.5, delay: d(2.0), ease: "easeOut" }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Magnetic>
             <a href="#projects" data-hover="true"
@@ -143,7 +148,7 @@ export default function Hero() {
           </Magnetic>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 4.5 }}
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: d(2.6) }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2">
           <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="w-5 h-9 rounded-full border-2 border-white/10 flex items-start justify-center p-1.5">

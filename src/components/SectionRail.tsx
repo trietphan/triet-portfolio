@@ -1,7 +1,7 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { scrollToElement } from "@/lib/scroll";
 
 const SECTIONS = [
   { id: "about", label: "About", color: "#00fff5" },
@@ -12,7 +12,18 @@ const SECTIONS = [
   { id: "contact", label: "Contact", color: "#50d6e6" },
 ];
 
-/** A slim vertical rail marking where you are in the page. Desktop only. */
+/**
+ * A slim vertical rail marking where you are in the page. Desktop only.
+ *
+ * It unmounts entirely while hidden rather than fading to opacity 0: a
+ * transparent-but-present rail still takes tab stops, still exposes a landmark
+ * to screen readers, and its invisible labels still swallow clicks aimed at the
+ * content underneath.
+ *
+ * The targets are real anchors, so activating one also moves the sequential
+ * focus starting point to that section — a button that only scrolls would drop
+ * a keyboard user back at the top of the document on their next Tab.
+ */
 export default function SectionRail() {
   const [active, setActive] = useState("");
   const [shown, setShown] = useState(false);
@@ -40,34 +51,40 @@ export default function SectionRail() {
   }, []);
 
   return (
-    <nav
-      aria-label="Section navigation"
-      className={`section-rail hidden lg:flex ${shown ? "is-visible" : ""}`}
-    >
-      {SECTIONS.map((s) => {
-        const isActive = active === s.id;
-        return (
-          <button
-            key={s.id}
-            onClick={() => {
-              const el = document.getElementById(s.id);
-              if (el) scrollToElement(el);
-            }}
-            data-hover="true"
-            aria-label={`Go to ${s.label}`}
-            aria-current={isActive ? "true" : undefined}
-            className="rail-dot group"
-          >
-            <span
-              className="rail-mark"
-              style={isActive ? { background: s.color, boxShadow: `0 0 10px ${s.color}90` } : undefined}
-            />
-            <span className="rail-label" style={{ color: s.color }}>
-              {s.label}
-            </span>
-          </button>
-        );
-      })}
-    </nav>
+    <AnimatePresence>
+      {shown && (
+        <motion.nav
+          key="rail"
+          aria-label="Section navigation"
+          initial={{ opacity: 0, x: 8 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 8 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="section-rail hidden lg:flex"
+        >
+          {SECTIONS.map((s) => {
+            const isActive = active === s.id;
+            return (
+              <a
+                key={s.id}
+                href={`#${s.id}`}
+                data-hover="true"
+                aria-current={isActive ? "true" : undefined}
+                className="rail-dot group"
+              >
+                <span className="rail-label" style={{ color: s.color }} aria-hidden="true">
+                  {s.label}
+                </span>
+                <span
+                  className="rail-mark"
+                  style={isActive ? { background: s.color, boxShadow: `0 0 10px ${s.color}90` } : undefined}
+                />
+                <span className="sr-only">{s.label}</span>
+              </a>
+            );
+          })}
+        </motion.nav>
+      )}
+    </AnimatePresence>
   );
 }

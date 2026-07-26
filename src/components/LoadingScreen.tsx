@@ -3,15 +3,18 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Logo from "./Logo";
+import { loaderHold } from "@/lib/intro";
 
 export default function LoadingScreen() {
   const [visible, setVisible] = useState(true);
   const [progress, setProgress] = useState(0);
   const reduceMotion = useReducedMotion();
+  const reduce = !!reduceMotion;
 
   // Petals bloom over ~0.8s; hold the mark a beat, then hand off to the page.
-  const duration = reduceMotion ? 600 : 1900;
-  const hold = reduceMotion ? 700 : 2300;
+  // The hand-off point is shared with the hero/navbar entrance via lib/intro.
+  const duration = reduce ? 500 : 1900;
+  const hold = loaderHold(reduce);
 
   useEffect(() => {
     const start = performance.now();
@@ -40,9 +43,9 @@ export default function LoadingScreen() {
             <div className="relative">
               {/* Colour bleeding out from behind the mark as it opens */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: [0, 0.55, 0.3], scale: 1.6 }}
-                transition={{ duration: 1.6, ease: "easeOut", times: [0, 0.5, 1] }}
+                initial={reduce ? { opacity: 0.3, scale: 1.6 } : { opacity: 0, scale: 0.5 }}
+                animate={reduce ? { opacity: 0.3, scale: 1.6 } : { opacity: [0, 0.55, 0.3], scale: 1.6 }}
+                transition={reduce ? { duration: 0 } : { duration: 1.6, ease: "easeOut", times: [0, 0.5, 1] }}
                 className="absolute inset-0 rounded-full blur-[38px] pointer-events-none"
                 style={{
                   background:
@@ -62,9 +65,9 @@ export default function LoadingScreen() {
                   stroke="url(#loaderRing)"
                   strokeWidth="0.7"
                   strokeLinecap="round"
-                  initial={{ pathLength: 0, opacity: 0 }}
+                  initial={reduce ? { pathLength: 1, opacity: 0.75 } : { pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: 1, opacity: 0.75 }}
-                  transition={{ duration: 1.5, delay: 0.35, ease: "easeInOut" }}
+                  transition={reduce ? { duration: 0 } : { duration: 1.5, delay: 0.35, ease: "easeInOut" }}
                   transform="rotate(-90 50 50)"
                 />
                 <defs>
@@ -77,7 +80,7 @@ export default function LoadingScreen() {
               </svg>
 
               <motion.div
-                initial={{ rotate: reduceMotion ? 0 : -18 }}
+                initial={{ rotate: reduce ? 0 : -18 }}
                 animate={{ rotate: 0 }}
                 transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                 className="relative z-10"
@@ -89,7 +92,7 @@ export default function LoadingScreen() {
             <motion.p
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: reduceMotion ? 0 : 0.95, duration: 0.5 }}
+              transition={{ delay: reduce ? 0 : 0.95, duration: reduce ? 0 : 0.5 }}
               className="text-[11px] font-mono tracking-[0.42em] uppercase text-white/30 pl-[0.42em]"
             >
               aifutures

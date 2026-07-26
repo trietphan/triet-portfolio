@@ -129,11 +129,10 @@ export default function CommandPalette() {
   }, [open, openPalette]);
 
   useEffect(() => {
-    if (!open) {
-      document.body.style.overflow = "";
-      return;
-    }
-    document.body.style.overflow = "hidden";
+    if (!open) return;
+    // Locking body alone is not enough: html carries overflow-x, so it is the
+    // scrolling element and the page would still scroll behind the dialog.
+    document.documentElement.classList.add("scroll-locked");
 
     // Remember where focus came from so it can be handed back on close.
     const opener = document.activeElement as HTMLElement | null;
@@ -162,7 +161,7 @@ export default function CommandPalette() {
 
     return () => {
       document.removeEventListener("keydown", onTab);
-      document.body.style.overflow = "";
+      document.documentElement.classList.remove("scroll-locked");
       opener?.focus?.();
     };
   }, [open]);
@@ -243,14 +242,20 @@ export default function CommandPalette() {
                 onKeyDown={onInputKey}
                 placeholder="Jump to a section, project, or post…"
                 className="flex-1 bg-transparent outline-none text-sm text-white/85 placeholder:text-white/25"
+                role="combobox"
+                aria-expanded="true"
+                aria-controls="cmdk-listbox"
+                aria-activedescendant={ordered[cursor] ? `cmdk-opt-${ordered[cursor].id}` : undefined}
+                aria-autocomplete="list"
+                aria-label="Search sections, projects and posts"
               />
               <kbd className="text-[10px] font-mono text-white/25 border border-white/10 rounded px-1.5 py-0.5">ESC</kbd>
             </div>
 
             {/* Results */}
-            <div ref={listRef} className="max-h-[52vh] overflow-y-auto py-2">
+            <div ref={listRef} id="cmdk-listbox" role="listbox" aria-label="Results" className="max-h-[52vh] overflow-y-auto py-2">
               {grouped.length === 0 && (
-                <p className="px-5 py-8 text-center text-sm text-white/25">
+                <p className="px-5 py-8 text-center text-sm text-white/40">
                   No matches for &ldquo;{query}&rdquo;
                 </p>
               )}
@@ -261,8 +266,15 @@ export default function CommandPalette() {
                     {group}
                   </p>
                   {items.map(({ item, index }) => (
+                    // tabIndex -1: selection is driven by the arrow keys through
+                    // aria-activedescendant, so Tab must not create a second,
+                    // competing selection indicator inside the list.
                     <button
                       key={item.id}
+                      id={`cmdk-opt-${item.id}`}
+                      role="option"
+                      aria-selected={cursor === index}
+                      tabIndex={-1}
                       data-idx={index}
                       onMouseEnter={() => setCursor(index)}
                       onClick={() => run(item)}
@@ -288,7 +300,9 @@ export default function CommandPalette() {
             <div className="flex items-center gap-4 px-5 py-2.5 border-t border-white/8 text-[10px] font-mono text-white/25">
               <span className="flex items-center gap-1"><kbd className="border border-white/10 rounded px-1">↑↓</kbd> navigate</span>
               <span className="flex items-center gap-1"><kbd className="border border-white/10 rounded px-1">↵</kbd> open</span>
-              <span className="ml-auto text-white/15">{ordered.length} result{ordered.length === 1 ? "" : "s"}</span>
+              <span className="ml-auto text-white/35" aria-live="polite" aria-atomic="true">
+                {ordered.length} result{ordered.length === 1 ? "" : "s"}
+              </span>
             </div>
           </motion.div>
         </motion.div>

@@ -6,11 +6,14 @@ import { useTilt } from "@/hooks/useTilt";
 import RevealHeading from "./RevealHeading";
 
 // The three instruments shipping under aifutures.dev.
+// `pulse` drives the live indicator — an explicit flag rather than a string
+// comparison, which silently stops matching the moment a label is reworded.
 const studioProjects = [
   {
     name: "AI Futures Trader",
     detail: "Machine-speed markets, human-grade discipline",
     status: "Live markets",
+    pulse: true,
     color: "#ffd05a",
     url: "https://trade.aifutures.dev",
   },
@@ -18,6 +21,7 @@ const studioProjects = [
     name: "AIFlow",
     detail: "See the system inside your system",
     status: "Cartography",
+    pulse: false,
     color: "#50d6e6",
     url: "https://github.com/trietphan",
   },
@@ -25,6 +29,7 @@ const studioProjects = [
     name: "Agent Control Center",
     detail: "Mission control for autonomous work",
     status: "Operations",
+    pulse: false,
     color: "#c175ef",
     url: "https://github.com/trietphan",
   },
@@ -217,7 +222,7 @@ function StudioCard() {
                   <motion.div key={p.name} initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }} transition={{ duration: 0.35, delay: 0.15 + i * 0.07 }}
                     className="group/row flex items-center gap-3 p-3 rounded-xl border border-white/5 hover:border-white/15 hover:bg-white/[0.03] transition-all duration-200">
-                    <span className={p.status === "Live" ? "status-dot w-2 h-2 rounded-full shrink-0" : "w-2 h-2 rounded-full shrink-0"}
+                    <span className={p.pulse ? "status-dot w-2 h-2 rounded-full shrink-0" : "w-2 h-2 rounded-full shrink-0"}
                       style={{ background: p.color }} />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-semibold text-white/75 group-hover/row:text-white transition-colors duration-200 truncate">{p.name}</p>

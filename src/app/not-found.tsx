@@ -30,8 +30,8 @@ export default function NotFound() {
           </Link>
         </div>
 
-        <p className="mt-12 text-xs font-mono text-white/20">
-          Press <kbd className="border border-white/12 rounded px-1.5 py-0.5 mx-1">⌘K</kbd> to search anything
+        <p className="mt-12 text-xs font-mono text-white/45">
+          Press <kbd className="border border-white/20 rounded px-1.5 py-0.5 mx-1">⌘K</kbd> to search anything
         </p>
       </div>
     </main>

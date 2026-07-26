@@ -16,11 +16,13 @@ export default function Home() {
   return (
     <>
       <LoadingScreen />
-      <a href="#about" className="skip-link">Skip to content</a>
+      <a href="#main" className="skip-link">Skip to content</a>
       <Particles />
       <Navbar />
       <SectionRail />
-      <main id="main" className="relative z-10">
+      {/* tabIndex -1 so the skip link actually moves focus here, not just the
+          scroll position — otherwise a screen-reader user hears nothing move. */}
+      <main id="main" tabIndex={-1} className="relative z-10 outline-none">
         <Hero />
         <About />
         <Experience />
