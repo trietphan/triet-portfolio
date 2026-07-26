@@ -33,7 +33,7 @@ function useScrambleText(text: string, delay: number = 0) {
   return display;
 }
 
-const roles = ["Founder @ aifutures.dev", "AI Agent Architect", "Full-Stack Developer", "Open Source Builder", "Educator & Mentor"];
+const roles = ["Founder @ aifutures.dev", "Agent Systems Architect", "Full-Stack Developer", "Market Structure Nerd", "Educator & Mentor"];
 
 export default function Hero() {
   const scrambledName = useScrambleText("Triet Phan", 2200);
@@ -106,12 +106,12 @@ export default function Hero() {
         <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 3, ease: "easeOut" }}
           className="text-xl md:text-2xl text-white/55 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
-          I craft{" "}
-          <span className="text-[#00fff5] font-medium">tools that empower</span>
-          , build{" "}
-          <span className="text-[#ff6b2b] font-medium">systems that scale</span>
-          , and inspire the{" "}
-          <span className="text-[#f5ff00] font-medium">next generation to dream bigger</span>.
+          I build at{" "}
+          <span className="text-[#50d6e6] font-medium">machine speed</span>
+          , keep{" "}
+          <span className="text-[#ff993b] font-medium">human judgment in the loop</span>
+          , and ship on{" "}
+          <span className="text-[#c175ef] font-medium">provable evidence</span>.
         </motion.p>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 3.4 }}

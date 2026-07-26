@@ -6,14 +6,15 @@ import RevealHeading from "./RevealHeading";
 const items = [
   {
     title: "Founder & Principal Builder",
-    company: "aifutures.dev — AI Product Studio",
-    period: "2025 — Present",
+    company: "aifutures.dev — Independent Product Lab",
+    period: "2026 — Present",
     color: "#ff6b2b",
     highlights: [
-      "Founded an independent AI product studio shipping tools for the agentic era: ClawSwarm, AgentAwake, and the Agent Memory Playbook",
-      "Architected ClawSwarm's multi-agent engine — three specialized AI chiefs with auto-scoring quality gates, ~65% auto-approve across 50+ soak tests",
-      "Built clawswarm.app: real-time streaming dashboard, team blueprints, and human-in-the-loop review on Convex + WebSockets",
-      "Run the full product cycle solo — design, engineering, Stripe billing, lifecycle email, docs, and launch",
+      "Founded an independent product lab building instruments for the agentic age, with human judgment wired into every loop",
+      "AI Futures Trader — live auction analysis across ES, NQ, GC and CL: TPO profiles, value-area mapping, confirmation gates, server-side brackets and kill switches (0 naked positions)",
+      "AIFlow — repository cartography that maps a codebase's architecture at AST level with file:line evidence across TypeScript, Python, Go and Rust; runs fully local, 0 bytes uploaded",
+      "Agent Control Center — local-first control plane running agents in isolated git worktrees with independent verification, sealed SHA-256 evidence and Ed25519-signed federation",
+      "Run the full product cycle solo: architecture, engineering, verification, docs and launch — built in public on GitHub",
     ],
   },
   {

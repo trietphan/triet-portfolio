@@ -1,9 +1,10 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { posts } from "@/data/posts";
+import { scrollToElement } from "@/lib/scroll";
 
 type Command = {
   id: string;
@@ -23,9 +24,11 @@ const baseCommands: Command[] = [
   { id: "blog", label: "Writing", hint: "Thoughts & essays", group: "Navigate", icon: "◆", action: "scroll", target: "#blog" },
   { id: "contact", label: "Contact", hint: "Let's build something", group: "Navigate", icon: "◆", action: "scroll", target: "#contact" },
 
-  { id: "aifutures", label: "aifutures.dev", hint: "My AI product studio", group: "Projects", icon: "🚀", action: "external", target: "https://aifutures.dev" },
+  { id: "aifutures", label: "aifutures.dev", hint: "My independent product lab", group: "Projects", icon: "✦", action: "external", target: "https://aifutures.dev" },
+  { id: "trader", label: "AI Futures Trader", hint: "Live markets — ES, NQ, GC, CL", group: "Projects", icon: "📊", action: "external", target: "https://trade.aifutures.dev" },
+  { id: "aiflow", label: "AIFlow", hint: "Repository cartography", group: "Projects", icon: "🗺", action: "external", target: "https://github.com/trietphan" },
+  { id: "acc", label: "Agent Control Center", hint: "Mission control for agent fleets", group: "Projects", icon: "🛰", action: "external", target: "https://github.com/trietphan" },
   { id: "clawswarm-app", label: "clawswarm.app", hint: "Multi-agent AI platform", group: "Projects", icon: "🌐", action: "external", target: "https://clawswarm.app" },
-  { id: "clawswarm-oss", label: "ClawSwarm OSS", hint: "Open-source multi-agent CLI", group: "Projects", icon: "🧠", action: "external", target: "https://github.com/trietphan/clawswarm" },
   { id: "agentawake", label: "AgentAwake", hint: "AI productivity SaaS", group: "Projects", icon: "⚡", action: "external", target: "https://agentawake.com" },
   { id: "playbook-read", label: "Agent Memory Playbook", hint: "Read all 36 chapters free", group: "Projects", icon: "📚", action: "external", target: "https://agentawake.com/chapters" },
 
@@ -56,6 +59,7 @@ export default function CommandPalette() {
   const [cursor, setCursor] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const results = useMemo(() => {
@@ -66,22 +70,41 @@ export default function CommandPalette() {
     );
   }, [query]);
 
-  // Group results while preserving the flat index used for keyboard navigation
-  const grouped = useMemo(() => {
-    let i = 0;
-    return groupOrder
-      .map((group) => ({
+  // Group for display, and derive the keyboard order FROM that grouping.
+  // `results` is in source order (Navigate, Projects, Connect, Writing) while the
+  // rendered order follows groupOrder — indexing into `results` would select a
+  // different command than the one highlighted.
+  const { grouped, ordered } = useMemo(() => {
+    const gs: { group: Command["group"]; items: { item: Command; index: number }[] }[] = [];
+    const flat: Command[] = [];
+    for (const group of groupOrder) {
+      const items = results.filter((r) => r.group === group);
+      if (!items.length) continue;
+      gs.push({
         group,
-        items: results.filter((r) => r.group === group).map((item) => ({ item, index: i++ })),
-      }))
-      .filter((g) => g.items.length > 0);
+        items: items.map((item) => {
+          flat.push(item);
+          return { item, index: flat.length - 1 };
+        }),
+      });
+    }
+    return { grouped: gs, ordered: flat };
   }, [results]);
+
+  // Reset at the point of opening rather than in an effect, so the palette
+  // never renders a frame with the previous query still in it.
+  const openPalette = useCallback(() => {
+    setQuery("");
+    setCursor(0);
+    setOpen(true);
+  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
-        setOpen((v) => !v);
+        if (open) setOpen(false);
+        else openPalette();
         return;
       }
       if (e.key === "Escape") setOpen(false);
@@ -90,12 +113,12 @@ export default function CommandPalette() {
         const t = e.target as HTMLElement;
         if (t.tagName !== "INPUT" && t.tagName !== "TEXTAREA" && !t.isContentEditable) {
           e.preventDefault();
-          setOpen(true);
+          openPalette();
         }
       }
     };
     // Lets the navbar button (and anything else) open the palette
-    const onOpen = () => setOpen(true);
+    const onOpen = () => openPalette();
 
     window.addEventListener("keydown", onKey);
     window.addEventListener("open-command-palette", onOpen);
@@ -103,21 +126,46 @@ export default function CommandPalette() {
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("open-command-palette", onOpen);
     };
-  }, [open]);
+  }, [open, openPalette]);
 
   useEffect(() => {
-    if (open) {
-      setQuery("");
-      setCursor(0);
-      document.body.style.overflow = "hidden";
-      requestAnimationFrame(() => inputRef.current?.focus());
-    } else {
+    if (!open) {
       document.body.style.overflow = "";
+      return;
     }
-    return () => { document.body.style.overflow = ""; };
-  }, [open]);
+    document.body.style.overflow = "hidden";
 
-  useEffect(() => setCursor(0), [query]);
+    // Remember where focus came from so it can be handed back on close.
+    const opener = document.activeElement as HTMLElement | null;
+    requestAnimationFrame(() => inputRef.current?.focus());
+
+    // Keep Tab inside the dialog while it is open.
+    const onTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const root = dialogRef.current;
+      if (!root) return;
+      const focusable = root.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onTab);
+
+    return () => {
+      document.removeEventListener("keydown", onTab);
+      document.body.style.overflow = "";
+      opener?.focus?.();
+    };
+  }, [open]);
 
   // Keep the highlighted row inside the scroll viewport
   useEffect(() => {
@@ -128,7 +176,11 @@ export default function CommandPalette() {
   const run = (cmd: Command) => {
     setOpen(false);
     if (cmd.action === "scroll") {
-      document.querySelector(cmd.target)?.scrollIntoView({ behavior: "smooth" });
+      const el = document.querySelector(cmd.target);
+      // Sections only exist on the home page — from a post or the 404 page,
+      // route home with the hash instead of silently doing nothing.
+      if (el) scrollToElement(el);
+      else router.push(`/${cmd.target}`);
     } else if (cmd.action === "route") {
       router.push(cmd.target);
     } else if (cmd.target.startsWith("mailto:")) {
@@ -141,13 +193,13 @@ export default function CommandPalette() {
   const onInputKey = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setCursor((c) => (results.length ? (c + 1) % results.length : 0));
+      setCursor((c) => (ordered.length ? (c + 1) % ordered.length : 0));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      setCursor((c) => (results.length ? (c - 1 + results.length) % results.length : 0));
+      setCursor((c) => (ordered.length ? (c - 1 + ordered.length) % ordered.length : 0));
     } else if (e.key === "Enter") {
       e.preventDefault();
-      const cmd = results[cursor];
+      const cmd = ordered[cursor];
       if (cmd) run(cmd);
     }
   };
@@ -166,6 +218,7 @@ export default function CommandPalette() {
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
 
           <motion.div
+            ref={dialogRef}
             initial={{ opacity: 0, y: -12, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
@@ -186,7 +239,7 @@ export default function CommandPalette() {
               <input
                 ref={inputRef}
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => { setQuery(e.target.value); setCursor(0); }}
                 onKeyDown={onInputKey}
                 placeholder="Jump to a section, project, or post…"
                 className="flex-1 bg-transparent outline-none text-sm text-white/85 placeholder:text-white/25"
@@ -235,7 +288,7 @@ export default function CommandPalette() {
             <div className="flex items-center gap-4 px-5 py-2.5 border-t border-white/8 text-[10px] font-mono text-white/25">
               <span className="flex items-center gap-1"><kbd className="border border-white/10 rounded px-1">↑↓</kbd> navigate</span>
               <span className="flex items-center gap-1"><kbd className="border border-white/10 rounded px-1">↵</kbd> open</span>
-              <span className="ml-auto text-white/15">{results.length} result{results.length === 1 ? "" : "s"}</span>
+              <span className="ml-auto text-white/15">{ordered.length} result{ordered.length === 1 ? "" : "s"}</span>
             </div>
           </motion.div>
         </motion.div>

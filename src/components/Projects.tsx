@@ -5,50 +5,99 @@ import { useState } from "react";
 import { useTilt } from "@/hooks/useTilt";
 import RevealHeading from "./RevealHeading";
 
+// The three instruments shipping under aifutures.dev.
 const studioProjects = [
-  { name: "ClawSwarm Platform", detail: "clawswarm.app — hosted multi-agent dashboard", status: "Live", color: "#00ff88", url: "https://clawswarm.app" },
-  { name: "ClawSwarm OSS", detail: "Open-source multi-agent CLI on npm", status: "Open Source", color: "#b347ff", url: "https://github.com/trietphan/clawswarm" },
-  { name: "AgentAwake", detail: "AI productivity SaaS — plans, prompts, playbooks", status: "Live", color: "#00ff88", url: "https://agentawake.com" },
-  { name: "Agent Memory Playbook", detail: "36 free chapters on agents with persistent memory", status: "Free", color: "#00fff5", url: "https://agentawake.com/chapters" },
-  { name: "ClawSwarm v2", detail: "Next-gen orchestration — agent memory & team blueprints", status: "In the lab", color: "#ffaa33", url: null },
+  {
+    name: "AI Futures Trader",
+    detail: "Machine-speed markets, human-grade discipline",
+    status: "Live markets",
+    color: "#ffd05a",
+    url: "https://trade.aifutures.dev",
+  },
+  {
+    name: "AIFlow",
+    detail: "See the system inside your system",
+    status: "Cartography",
+    color: "#50d6e6",
+    url: "https://github.com/trietphan",
+  },
+  {
+    name: "Agent Control Center",
+    detail: "Mission control for autonomous work",
+    status: "Operations",
+    color: "#c175ef",
+    url: "https://github.com/trietphan",
+  },
+];
+
+// The lab's operating principles, quoted from aifutures.dev.
+const principles = [
+  "The switch stays human",
+  "Evidence over vibes",
+  "Local-first",
+  "Machine tempo",
 ];
 
 const projects = [
   {
+    title: "AI Futures Trader",
+    tagline: "Live Markets — Decision Support",
+    description: "Real-time auction analysis for futures: TPO profiles, value-area mapping and point-of-control, with a human confirmation gate on every entry. Server-side brackets and kill switches mean zero naked positions.",
+    longDescription: null,
+    tags: ["Market Structure", "TPO / Value Area", "Risk Controls", "Real-Time"],
+    color: "#ffd05a",
+    icon: "📊",
+    stats: ["4 markets — ES, NQ, GC, CL", "70% value area · 30m TPO", "0 naked positions. Ever."],
+    url: "https://trade.aifutures.dev",
+    venture: true,
+  },
+  {
+    title: "AIFlow",
+    tagline: "Repository Cartography",
+    description: "Maps the architecture living inside a codebase — AST-level detection with file:line evidence for every claim. Runs entirely on your machine: scan, view, share, diff.",
+    longDescription: null,
+    tags: ["TypeScript", "Python", "Go", "Rust", "AST", "Self-Hosted"],
+    color: "#50d6e6",
+    icon: "🗺",
+    stats: ["4 languages scanned", "38 tests green", "0 bytes uploaded · 1 command to map"],
+    url: "https://github.com/trietphan",
+    venture: true,
+  },
+  {
+    title: "Agent Control Center",
+    tagline: "Mission Control for Agent Fleets",
+    description: "A local-first control plane for multi-agent work. Each task runs in an isolated git worktree, gets independently verified, and lands as sealed SHA-256 evidence — with Ed25519-signed federation between nodes.",
+    longDescription: null,
+    tags: ["Node", "SQLite", "MCP", "Ed25519", "Local-First"],
+    color: "#c175ef",
+    icon: "🛰",
+    stats: ["3 agent runtimes — Codex, Claude, OpenClaw", "7 stages per loop", "100% human final say"],
+    url: "https://github.com/trietphan",
+    venture: true,
+  },
+  {
     title: "clawswarm.app",
-    tagline: "Multi-Agent AI Platform — Live",
-    description: "The hosted platform for ClawSwarm: real-time streaming dashboard, team blueprints, run history, and human-in-the-loop review. Built on top of the open-source CLI.",
+    tagline: "Multi-Agent AI Platform",
+    description: "A hosted multi-agent platform: real-time streaming dashboard, team blueprints, run history, and human-in-the-loop review, built on top of an open-source CLI.",
     longDescription: null,
     tags: ["Next.js", "Convex", "WebSockets", "AI Agents", "SaaS"],
     color: "#b347ff",
     icon: "🌐",
     stats: [],
     url: "https://clawswarm.app",
-    venture: true,
-  },
-  {
-    title: "ClawSwarm OSS",
-    tagline: "Open-Source Multi-Agent CLI",
-    description: "The open-source engine powering ClawSwarm. Three specialized AI chiefs — CodeClaw, ResearchClaw, OpsClaw — with auto-scoring quality gates and rework loops. Free on npm.",
-    longDescription: "ClawSwarm is a multi-agent system with three specialized chiefs: CodeClaw (coding), ResearchClaw (research), and OpsClaw (operations). Each manages its own pipeline with an auto-scoring quality gate system. Scores ≥8 auto-approve, 5–7 escalate to human review, below 5 are reworked. Includes a real-time WebSocket streaming dashboard, ticket-based auth, and replay storage for debugging. ~65% auto-approve rate across 50+ soak tests.",
-    tags: ["TypeScript", "Convex", "AI Agents", "WebSockets", "Open Source"],
-    color: "#7c3aed",
-    icon: "🧠",
-    stats: ["3 specialized AI chiefs", "Auto-scoring quality gates", "~65% auto-approve rate"],
-    url: "https://github.com/trietphan/clawswarm",
-    venture: true,
+    venture: false,
   },
   {
     title: "AgentAwake",
     tagline: "AI-Powered SaaS Platform",
-    description: "A SaaS product helping users leverage AI agents for productivity. Features professional plans, prompt libraries, and template bundles.",
+    description: "A SaaS product helping users leverage AI agents for productivity — professional plans, prompt libraries, template bundles, and a free 36-chapter playbook on agent memory.",
     longDescription: null,
     tags: ["Next.js", "Stripe", "Resend", "Vercel", "SaaS"],
     color: "#ff6b2b",
     icon: "⚡",
     stats: [],
     url: "https://agentawake.com",
-    venture: true,
+    venture: false,
   },
   {
     title: "Market Profile Guide",
@@ -140,16 +189,19 @@ function StudioCard() {
                   aifutures.dev
                 </span>
               </h3>
-              <p className="text-xs font-mono tracking-[0.25em] uppercase text-white/30 mb-5">AI Product Studio · Founder</p>
+              <p className="text-xs font-mono tracking-[0.25em] uppercase text-white/30 mb-5">Independent Product Lab · Founder</p>
 
-              <p className="text-white/50 leading-relaxed mb-6 max-w-md">
-                My independent studio for the agentic era — where ClawSwarm, AgentAwake, and the
-                Agent Memory Playbook are designed, built, and shipped. One builder, a swarm of agents,
-                products that compound.
+              <p className="text-base font-semibold text-white/70 mb-3 leading-snug">
+                The future isn&apos;t predicted. It&apos;s engineered.
+              </p>
+              <p className="text-white/45 leading-relaxed mb-6 max-w-md text-sm">
+                An independent product lab building instruments for the agentic age — systems that
+                trade live markets, map living codebases and command fleets of autonomous agents,
+                with human judgment wired into every loop.
               </p>
 
               <div className="flex flex-wrap gap-2">
-                {["AI Agents", "Multi-Agent Systems", "SaaS", "Open Source", "Education"].map((t) => (
+                {principles.map((t) => (
                   <span key={t} className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase tracking-wider bg-white/5 text-white/35 border border-white/5">
                     {t}
                   </span>
@@ -245,6 +297,19 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
         </AnimatePresence>
       )}
 
+      {/* Headline numbers stay visible on cards that link out — they never open
+          the expand panel, so stats would otherwise be unreachable. */}
+      {project.url && project.stats.length > 0 && (
+        <div className="mb-3.5 space-y-1">
+          {project.stats.map((s) => (
+            <p key={s} className="text-xs text-white/32 flex items-start gap-2 leading-relaxed">
+              <span className="mt-px shrink-0" style={{ color: project.color }}>✦</span>
+              {s}
+            </p>
+          ))}
+        </div>
+      )}
+
       <div className="flex flex-wrap gap-1.5">
         {project.venture && (
           <span className="px-2 py-0.5 rounded-md text-[10px] font-mono uppercase tracking-wider border border-[#ff6b2b]/25 text-[#ffaa33] bg-[#ff6b2b]/8">
@@ -265,11 +330,25 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.4, delay: index * 0.07, ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number] }}>
       <div ref={ref} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave} className="tilt-card h-full"
-        onClick={!project.url && project.longDescription ? () => setExpanded(!expanded) : undefined}
         data-hover="true">
-        {project.url
-          ? <a href={project.url} target="_blank" rel="noopener noreferrer" data-hover="true" className="block h-full">{inner}</a>
-          : <div className={project.longDescription ? "cursor-pointer" : ""}>{inner}</div>}
+        {project.url ? (
+          <a href={project.url} target="_blank" rel="noopener noreferrer" data-hover="true" className="block h-full">
+            {inner}
+          </a>
+        ) : project.longDescription ? (
+          // A real button so the expand is reachable by keyboard and announced
+          // to assistive tech — a click handler on a div is neither.
+          <button
+            type="button"
+            onClick={() => setExpanded((v) => !v)}
+            aria-expanded={expanded}
+            className="block w-full h-full text-left cursor-pointer rounded-2xl"
+          >
+            {inner}
+          </button>
+        ) : (
+          <div>{inner}</div>
+        )}
       </div>
     </motion.div>
   );
@@ -286,7 +365,7 @@ export default function Projects() {
             accentClass="bg-gradient-to-r from-[#f5ff00] to-[#00ff88] bg-clip-text text-transparent"
             className="text-4xl md:text-5xl font-black mb-4" />
           <p className="text-white/30 text-lg mb-16 max-w-xl">
-            Everything AI ships under my studio, aifutures.dev. Live sites open directly — others expand on click.
+            The three instruments below ship under my product lab, aifutures.dev. Live links open directly — the rest expand on click.
           </p>
         </motion.div>
 

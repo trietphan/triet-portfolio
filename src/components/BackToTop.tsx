@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { scrollToTop } from "@/lib/scroll";
 
 export default function BackToTop() {
   const [visible, setVisible] = useState(false);
@@ -21,7 +22,7 @@ export default function BackToTop() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 16, scale: 0.9 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={scrollToTop}
           className="back-to-top"
           aria-label="Back to top"
           data-hover="true"

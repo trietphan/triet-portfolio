@@ -3,12 +3,12 @@
 import { motion } from "framer-motion";
 
 const items = [
-  { icon: "🚀", label: "Founding", value: "aifutures.dev — my AI product studio, home of everything below", color: "#ff6b2b" },
-  { icon: "🧠", label: "Building", value: "ClawSwarm v2 — multi-agent orchestration with agent memory", color: "#b347ff" },
-  { icon: "⚡", label: "Shipping", value: "AgentAwake — AI productivity SaaS + free 36-chapter playbook", color: "#ffaa33" },
+  { icon: "✦", label: "Running", value: "aifutures.dev — an independent product lab for the agentic age", color: "#ff6b2b" },
+  { icon: "📊", label: "Trading", value: "AI Futures Trader — live auction analysis on ES, NQ, GC, CL", color: "#ffd05a" },
+  { icon: "🗺", label: "Mapping", value: "AIFlow — repository cartography with file:line evidence", color: "#50d6e6" },
+  { icon: "🛰", label: "Commanding", value: "Agent Control Center — local-first control plane for agent fleets", color: "#c175ef" },
   { icon: "📚", label: "Teaching", value: "CIS at Wilbur Wright College", color: "#00fff5" },
-  { icon: "🔍", label: "Exploring", value: "LLM reasoning, agent memory & RAG systems", color: "#00ff88" },
-  { icon: "🎯", label: "Goal", value: "Ship tools that genuinely change how people work", color: "#f5ff00" },
+  { icon: "🎯", label: "Principle", value: "Machine speed, human judgment, provable evidence", color: "#00ff88" },
 ];
 
 export default function Now() {

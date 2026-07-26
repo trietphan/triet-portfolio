@@ -10,14 +10,17 @@ import Contact from "@/components/Contact";
 import Particles from "@/components/Particles";
 import LoadingScreen from "@/components/LoadingScreen";
 import BackToTop from "@/components/BackToTop";
+import SectionRail from "@/components/SectionRail";
 
 export default function Home() {
   return (
     <>
       <LoadingScreen />
+      <a href="#about" className="skip-link">Skip to content</a>
       <Particles />
       <Navbar />
-      <main className="relative z-10">
+      <SectionRail />
+      <main id="main" className="relative z-10">
         <Hero />
         <About />
         <Experience />

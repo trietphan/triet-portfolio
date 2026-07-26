@@ -205,7 +205,7 @@ const html = `<!DOCTYPE html>
 <!-- ═══ SUMMARY ═══ -->
 <div class="section">
   <div class="summary">
-    Founder of <b>aifutures.dev</b>, an independent AI product studio, and full-stack developer with an M.S. in Computer Science. Shipping multi-agent AI systems (ClawSwarm), an AI productivity SaaS (AgentAwake), and production marketplace apps used by 200+ users at Airbnb — while mentoring the next generation of computer science students. Passionate about building technology that empowers people to dream bigger and move faster.
+    Founder of <b>aifutures.dev</b>, an independent product lab building instruments for the agentic age — software that trades live markets, maps living codebases and commands fleets of autonomous agents, with human judgment wired into every loop. Full-stack developer with an M.S. in Computer Science, previously shipping production marketplace apps used by 200+ users at Airbnb. Operating principle: machine speed, human judgment, provable evidence.
   </div>
 </div>
 
@@ -224,13 +224,14 @@ const html = `<!DOCTYPE html>
       <div class="job">
         <div class="job-header">
           <span class="job-title">Founder &amp; Principal Builder — aifutures.dev</span>
-          <span class="job-date">2025 — Present</span>
+          <span class="job-date">2026 — Present</span>
         </div>
-        <div class="job-co">AI Product Studio — Chicago, IL · <a href="https://aifutures.dev" style="color:#ff6b2b; text-decoration:none;">aifutures.dev</a></div>
+        <div class="job-co">Independent Product Lab — Chicago, IL · <a href="https://aifutures.dev" style="color:#ff6b2b; text-decoration:none;">aifutures.dev</a></div>
         <ul>
-          <li>Founded an independent AI product studio shipping tools for the agentic era: ClawSwarm, AgentAwake, and the free 36-chapter Agent Memory Playbook</li>
-          <li>Architected ClawSwarm's multi-agent engine — 3 specialized AI chiefs with auto-scoring quality gates, ~65% auto-approve rate across 50+ soak tests</li>
-          <li>Run the full product cycle solo: design, engineering, Stripe billing, lifecycle email (Resend), documentation, and launch across the portfolio</li>
+          <li>Built and shipped three production systems solo — architecture, engineering, verification, docs and launch — developed in public on GitHub</li>
+          <li><b>AI Futures Trader</b> (live): real-time auction analysis across ES, NQ, GC and CL with TPO profiles, 70% value-area mapping and point-of-control; human confirmation gate on every entry, server-side brackets and kill switches enforce 0 naked positions</li>
+          <li><b>AIFlow</b>: repository cartography mapping system architecture at AST level with file:line evidence across TypeScript, Python, Go and Rust; fully self-hosted — 1 command to map, 0 bytes uploaded, 38 tests green</li>
+          <li><b>Agent Control Center</b>: local-first control plane running 3 agent runtimes (Codex, Claude, OpenClaw) in isolated git worktrees through a 7-stage verify loop, with sealed SHA-256 evidence and Ed25519-signed federation — 100% human final say</li>
         </ul>
       </div>
 
@@ -298,17 +299,17 @@ const html = `<!DOCTYPE html>
 
     <!-- Projects -->
     <div class="section">
-      <div class="section-title">Select Projects — aifutures.dev Studio</div>
+      <div class="section-title">Other Projects</div>
 
       <div class="project">
         <div class="project-name">ClawSwarm — Multi-Agent AI Orchestration <span style="color:#999; font-weight:400;">(OSS + hosted platform)</span></div>
-        <div class="project-desc">Autonomous AI orchestration with three specialized chiefs: CodeClaw (code), ResearchClaw (research), OpsClaw (infrastructure). 3-tier quality gate: ≥8 auto-approves, 5–7 escalates to human review, &lt;5 auto-reworks. Real-time WebSocket streaming dashboard, replay logging, per-agent workspace isolation. ~65% auto-approve across 50+ soak tests. Open source on npm; hosted at <a href="https://clawswarm.app" style="color:#ff6b2b;">clawswarm.app</a></div>
+        <div class="project-desc">Autonomous orchestration with three specialized chiefs: CodeClaw (code), ResearchClaw (research), OpsClaw (infrastructure). 3-tier quality gate: ≥8 auto-approves, 5–7 escalates to human review, &lt;5 auto-reworks. Real-time WebSocket streaming dashboard, replay logging, per-agent workspace isolation. ~65% auto-approve across 50+ soak tests. <a href="https://clawswarm.app" style="color:#ff6b2b;">clawswarm.app</a></div>
         <div class="project-tags">TypeScript · Convex · Next.js · WebSockets · AI Architecture</div>
       </div>
 
       <div class="project">
         <div class="project-name">AgentAwake — AI Productivity SaaS + Agent Memory Playbook</div>
-        <div class="project-desc">Full-stack SaaS with tiered Stripe billing, automated Resend drip sequences, and audience pipeline — confirmed end-to-end in production. Includes a free 36-chapter playbook on building AI agents with persistent memory (Claude, ChatGPT, CrewAI, LangChain, n8n &amp; more). <a href="https://agentawake.com" style="color:#ff6b2b;">agentawake.com</a></div>
+        <div class="project-desc">Full-stack SaaS with tiered Stripe billing, automated Resend drip sequences and audience pipeline — confirmed end-to-end in production. Includes a free 36-chapter playbook on building AI agents with persistent memory (Claude, ChatGPT, CrewAI, LangChain, n8n &amp; more). <a href="https://agentawake.com" style="color:#ff6b2b;">agentawake.com</a></div>
         <div class="project-tags">Next.js · TypeScript · Stripe · Resend · Vercel · SaaS</div>
       </div>
 
@@ -391,10 +392,22 @@ const html = `<!DOCTYPE html>
       <div class="skills-group">
         <div class="skills-label">AI & Architecture</div>
         <div class="skill-wrap">
-          <span class="skill-tag s-purple">AI Agent Systems</span>
+          <span class="skill-tag s-purple">Agent Systems</span>
           <span class="skill-tag s-purple">LLM Integration</span>
-          <span class="skill-tag s-orange">Swarm Architecture</span>
+          <span class="skill-tag s-orange">Multi-Agent Orchestration</span>
           <span class="skill-tag s-green">RAG / Retrieval</span>
+          <span class="skill-tag s-gray">MCP</span>
+          <span class="skill-tag s-cyan">AST Analysis</span>
+          <span class="skill-tag s-gray">Local-First Systems</span>
+        </div>
+      </div>
+
+      <div class="skills-group">
+        <div class="skills-label">Markets & Security</div>
+        <div class="skill-wrap">
+          <span class="skill-tag s-orange">Market Structure / TPO</span>
+          <span class="skill-tag s-gray">Risk Controls</span>
+          <span class="skill-tag s-green">Ed25519 / SHA-256</span>
         </div>
       </div>
     </div>

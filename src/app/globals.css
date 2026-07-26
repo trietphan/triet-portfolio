@@ -358,6 +358,73 @@ body::before {
   transform: translateY(-2px);
 }
 
+/* ─── Section rail ─── */
+.section-rail {
+  position: fixed;
+  right: 1.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  flex-direction: column;
+  gap: 0.85rem;
+  align-items: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.section-rail.is-visible { opacity: 1; pointer-events: auto; }
+
+.rail-dot {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.rail-mark {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.16);
+  transition: width 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+.rail-dot:hover .rail-mark { width: 26px; background: rgba(255, 255, 255, 0.4); }
+.rail-dot[aria-current="true"] .rail-mark { width: 30px; }
+
+.rail-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+  white-space: nowrap;
+  order: -1;
+}
+.rail-dot:hover .rail-label,
+.rail-dot[aria-current="true"] .rail-label { opacity: 0.75; transform: translateX(0); }
+
+/* ─── Skip link ─── */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 50%;
+  translate: -50% -180%;
+  z-index: 100001;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  background: var(--color-amber);
+  color: #10101f;
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition: translate 0.25s ease;
+}
+.skip-link:focus-visible { translate: -50% 0; }
+
 /* ─── Keyboard focus — visible ring for a11y ─── */
 :focus-visible {
   outline: 2px solid rgba(255, 170, 51, 0.7);
@@ -367,6 +434,13 @@ body::before {
 
 /* ─── Magnetic wrapper ─── */
 .magnetic { display: inline-block; will-change: transform; }
+
+/* ─── Logo mark ─── */
+.logo-spin-hover {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center;
+}
+.group:hover .logo-spin-hover { transform: rotate(45deg) scale(1.08); }
 
 /* ─── Reduced motion — stop ambient/looping motion for users who ask ─── */
 @media (prefers-reduced-motion: reduce) {
@@ -382,6 +456,9 @@ body::before {
   }
   .loading-logo .letter { opacity: 1; transform: none; }
   .cursor-dot, .cursor-ring { display: none; }
+  .logo-spin-hover { transition: none; }
+  .group:hover .logo-spin-hover { transform: none; }
+  .rail-mark, .rail-label, .section-rail, .skip-link { transition: none; }
   @media (pointer: fine) {
     body, a, button, [role="button"] { cursor: auto; }
   }
