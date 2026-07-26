@@ -3,6 +3,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { useTilt } from "@/hooks/useTilt";
+import RevealHeading from "./RevealHeading";
+
+const studioProjects = [
+  { name: "ClawSwarm Platform", detail: "clawswarm.app — hosted multi-agent dashboard", status: "Live", color: "#00ff88", url: "https://clawswarm.app" },
+  { name: "ClawSwarm OSS", detail: "Open-source multi-agent CLI on npm", status: "Open Source", color: "#b347ff", url: "https://github.com/trietphan/clawswarm" },
+  { name: "AgentAwake", detail: "AI productivity SaaS — plans, prompts, playbooks", status: "Live", color: "#00ff88", url: "https://agentawake.com" },
+  { name: "Agent Memory Playbook", detail: "36 free chapters on agents with persistent memory", status: "Free", color: "#00fff5", url: "https://agentawake.com/chapters" },
+  { name: "ClawSwarm v2", detail: "Next-gen orchestration — agent memory & team blueprints", status: "In the lab", color: "#ffaa33", url: null },
+];
 
 const projects = [
   {
@@ -15,6 +24,7 @@ const projects = [
     icon: "🌐",
     stats: [],
     url: "https://clawswarm.app",
+    venture: true,
   },
   {
     title: "ClawSwarm OSS",
@@ -26,6 +36,7 @@ const projects = [
     icon: "🧠",
     stats: ["3 specialized AI chiefs", "Auto-scoring quality gates", "~65% auto-approve rate"],
     url: "https://github.com/trietphan/clawswarm",
+    venture: true,
   },
   {
     title: "AgentAwake",
@@ -37,6 +48,7 @@ const projects = [
     icon: "⚡",
     stats: [],
     url: "https://agentawake.com",
+    venture: true,
   },
   {
     title: "Market Profile Guide",
@@ -48,6 +60,7 @@ const projects = [
     icon: "📈",
     stats: [],
     url: "https://market-profile-website.vercel.app",
+    venture: false,
   },
   {
     title: "ETH Smart Contracts",
@@ -59,6 +72,7 @@ const projects = [
     icon: "⛓️",
     stats: [],
     url: "https://vercel.com/trietphans-projects/ethsmartcontracts",
+    venture: false,
   },
   {
     title: "Resource Management App",
@@ -70,6 +84,7 @@ const projects = [
     icon: "🏠",
     stats: ["200+ active users", "Full-cycle development", "GraphQL integration"],
     url: null,
+    venture: false,
   },
   {
     title: "Dependent Dropdown",
@@ -81,6 +96,7 @@ const projects = [
     icon: "🔗",
     stats: ["First marketplace app", "Pioneered workflow logic", "Cross-org adoption"],
     url: null,
+    venture: false,
   },
 ];
 
@@ -95,12 +111,96 @@ function ExternalIcon() {
   );
 }
 
+function StudioCard() {
+  const { ref, onMouseMove, onMouseLeave } = useTilt(1.5);
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number] }}
+      className="mb-8">
+      <div ref={ref} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave} className="tilt-card">
+        <div className="aurora-border spotlight rounded-3xl p-8 md:p-10 overflow-hidden relative">
+          <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#ff6b2b]/8 rounded-full blur-[110px] pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#b347ff]/8 rounded-full blur-[110px] pointer-events-none" />
+
+          <div className="relative grid lg:grid-cols-2 gap-10 items-center">
+            {/* Left — studio identity.
+                min-w-0: grid items default to min-width:auto, and the truncated
+                (white-space:nowrap) rows opposite would otherwise force the column
+                wider than the card on narrow screens. */}
+            <div className="min-w-0">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#ff6b2b]/25 bg-[#ff6b2b]/8 mb-5">
+                <span className="status-dot w-1.5 h-1.5 rounded-full bg-[#ff6b2b]" />
+                <span className="text-[11px] font-mono text-[#ffaa33] tracking-[0.2em] uppercase">Featured Venture</span>
+              </div>
+
+              <h3 className="text-3xl md:text-4xl font-black mb-1 tracking-tight">
+                <span className="bg-gradient-to-r from-[#ff6b2b] via-[#ffaa33] to-[#b347ff] bg-clip-text text-transparent">
+                  aifutures.dev
+                </span>
+              </h3>
+              <p className="text-xs font-mono tracking-[0.25em] uppercase text-white/30 mb-5">AI Product Studio · Founder</p>
+
+              <p className="text-white/50 leading-relaxed mb-6 max-w-md">
+                My independent studio for the agentic era — where ClawSwarm, AgentAwake, and the
+                Agent Memory Playbook are designed, built, and shipped. One builder, a swarm of agents,
+                products that compound.
+              </p>
+
+              <div className="flex flex-wrap gap-2">
+                {["AI Agents", "Multi-Agent Systems", "SaaS", "Open Source", "Education"].map((t) => (
+                  <span key={t} className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase tracking-wider bg-white/5 text-white/35 border border-white/5">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Right — active projects */}
+            <div className="space-y-2.5 min-w-0">
+              <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/25 mb-3">Now in the studio</p>
+              {studioProjects.map((p, i) => {
+                const row = (
+                  <motion.div key={p.name} initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }} transition={{ duration: 0.35, delay: 0.15 + i * 0.07 }}
+                    className="group/row flex items-center gap-3 p-3 rounded-xl border border-white/5 hover:border-white/15 hover:bg-white/[0.03] transition-all duration-200">
+                    <span className={p.status === "Live" ? "status-dot w-2 h-2 rounded-full shrink-0" : "w-2 h-2 rounded-full shrink-0"}
+                      style={{ background: p.color }} />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-white/75 group-hover/row:text-white transition-colors duration-200 truncate">{p.name}</p>
+                      <p className="text-xs text-white/30 truncate">{p.detail}</p>
+                    </div>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border shrink-0"
+                      style={{ color: p.color, borderColor: `${p.color}30`, background: `${p.color}0d` }}>
+                      {p.status}
+                    </span>
+                    {p.url && (
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                        className="text-white/20 group-hover/row:text-white/50 transition-colors duration-200 shrink-0">
+                        <path d="M7 17L17 7M7 7h10v10" />
+                      </svg>
+                    )}
+                  </motion.div>
+                );
+                return p.url
+                  ? <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer" data-hover="true" className="block">{row}</a>
+                  : <div key={p.name}>{row}</div>;
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 function ProjectCard({ project, index }: { project: (typeof projects)[0]; index: number }) {
   const [expanded, setExpanded] = useState(false);
   const { ref, onMouseMove, onMouseLeave } = useTilt(4);
 
   const inner = (
-    <div className="group relative p-6 rounded-2xl border border-white/5 group-hover:border-white/12 transition-colors duration-300 h-full overflow-hidden"
+    <div className="spotlight group relative p-6 rounded-2xl border border-white/5 group-hover:border-white/12 transition-colors duration-300 h-full overflow-hidden"
       style={{ background: "rgba(255,255,255,0.02)" }}>
       <div className="absolute top-0 left-6 right-6 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         style={{ background: `linear-gradient(90deg, transparent, ${project.color}30, transparent)` }} />
@@ -146,6 +246,11 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
       )}
 
       <div className="flex flex-wrap gap-1.5">
+        {project.venture && (
+          <span className="px-2 py-0.5 rounded-md text-[10px] font-mono uppercase tracking-wider border border-[#ff6b2b]/25 text-[#ffaa33] bg-[#ff6b2b]/8">
+            aifutures.dev
+          </span>
+        )}
         {project.tags.map((tag) => (
           <span key={tag} className="px-2 py-0.5 rounded-md text-[10px] font-mono uppercase tracking-wider bg-white/5 text-white/28">
             {tag}
@@ -177,12 +282,16 @@ export default function Projects() {
       <div className="max-w-6xl mx-auto">
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
           <p className="text-[#00fff5] font-mono text-sm tracking-widest uppercase mb-2">03</p>
-          <h2 className="text-4xl md:text-5xl font-black mb-4">
-            Things I&apos;ve{" "}
-            <span className="bg-gradient-to-r from-[#f5ff00] to-[#00ff88] bg-clip-text text-transparent">Built</span>
-          </h2>
-          <p className="text-white/30 text-lg mb-16 max-w-xl">Live sites open directly. Others expand on click.</p>
+          <RevealHeading text="Things I'm" accent="Building"
+            accentClass="bg-gradient-to-r from-[#f5ff00] to-[#00ff88] bg-clip-text text-transparent"
+            className="text-4xl md:text-5xl font-black mb-4" />
+          <p className="text-white/30 text-lg mb-16 max-w-xl">
+            Everything AI ships under my studio, aifutures.dev. Live sites open directly — others expand on click.
+          </p>
         </motion.div>
+
+        <StudioCard />
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {projects.map((project, i) => (
             <ProjectCard key={project.title} project={project} index={i} />

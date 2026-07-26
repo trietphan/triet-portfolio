@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useCountUp } from "@/hooks/useCountUp";
+import RevealHeading from "./RevealHeading";
 
 const skillsRow = [
   { name: "JavaScript", color: "#f5ff00" },
@@ -34,7 +35,7 @@ function AnimatedStat({ value, label, sub, color = "#ff6b2b", countTo, suffix = 
 const stats = [
   { value: "MS", label: "Computer Science", sub: "CSU Fullerton" },
   { countTo: 10, suffix: "+", label: "Projects shipped", sub: "Web, AI & marketplace" },
-  { value: "AI-First", label: "Developer", sub: "Agent architecture" },
+  { value: "1 Studio", label: "aifutures.dev", sub: "AI products, solo-built" },
   { value: "∞", label: "Curiosity level", sub: "Always learning", color: "#b347ff" },
 ];
 
@@ -58,7 +59,9 @@ export default function About() {
       <div className="max-w-6xl mx-auto">
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
           <p className="text-[#ff6b2b] font-mono text-sm tracking-widest uppercase mb-2">01</p>
-          <h2 className="text-4xl md:text-5xl font-black mb-16">About <span className="bg-gradient-to-r from-[#00fff5] to-[#b347ff] bg-clip-text text-transparent">Me</span></h2>
+          <RevealHeading text="About" accent="Me"
+            accentClass="bg-gradient-to-r from-[#00fff5] to-[#b347ff] bg-clip-text text-transparent"
+            className="text-4xl md:text-5xl font-black mb-16" />
         </motion.div>
 
         <div className="grid lg:grid-cols-5 gap-16">
@@ -69,7 +72,7 @@ export default function About() {
               </div>
               <div className="pt-2">
                 <h3 className="text-2xl font-bold text-white/90 mb-1">Triet Phan</h3>
-                <p className="text-[#ffaa33] text-sm font-mono tracking-wider">AI Enthusiast · Chicago, IL</p>
+                <p className="text-[#ffaa33] text-sm font-mono tracking-wider">Founder, aifutures.dev · Chicago, IL</p>
                 <div className="flex items-center gap-2 mt-3">
                   <span className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse" />
                   <span className="text-xs text-white/35">Open to opportunities</span>
@@ -78,7 +81,7 @@ export default function About() {
             </div>
 
             <p className="text-lg text-white/55 leading-relaxed">I believe technology should empower people to pursue their dreams. From shipping marketplace apps used by hundreds at Airbnb, to architecting AI agent swarms that autonomously write, review, and deploy code, I thrive at the intersection of creativity and engineering.</p>
-            <p className="text-lg text-white/55 leading-relaxed">When I'm not coding, I'm tutoring the next generation of developers and helping people discover the power of building with code.</p>
+            <p className="text-lg text-white/55 leading-relaxed">Today that belief has a home: <span className="text-[#ffaa33] font-medium">aifutures.dev</span>, my AI product studio — where ClawSwarm, AgentAwake, and the Agent Memory Playbook are built and shipped. When I&apos;m not in the studio, I&apos;m tutoring the next generation of developers.</p>
 
             <div className="grid grid-cols-2 gap-4 pt-4">
               {stats.map((s, idx) => (

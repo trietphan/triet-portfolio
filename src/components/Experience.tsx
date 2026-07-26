@@ -1,8 +1,21 @@
 "use client";
 
 import { motion } from "framer-motion";
+import RevealHeading from "./RevealHeading";
 
 const items = [
+  {
+    title: "Founder & Principal Builder",
+    company: "aifutures.dev — AI Product Studio",
+    period: "2025 — Present",
+    color: "#ff6b2b",
+    highlights: [
+      "Founded an independent AI product studio shipping tools for the agentic era: ClawSwarm, AgentAwake, and the Agent Memory Playbook",
+      "Architected ClawSwarm's multi-agent engine — three specialized AI chiefs with auto-scoring quality gates, ~65% auto-approve across 50+ soak tests",
+      "Built clawswarm.app: real-time streaming dashboard, team blueprints, and human-in-the-loop review on Convex + WebSockets",
+      "Run the full product cycle solo — design, engineering, Stripe billing, lifecycle email, docs, and launch",
+    ],
+  },
   {
     title: "Computer Information Systems Tutor",
     company: "Wilbur Wright College — City Colleges of Chicago",
@@ -73,10 +86,9 @@ export default function Experience() {
       <div className="max-w-4xl mx-auto">
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
           <p className="text-[#ffaa33] font-mono text-sm tracking-widest uppercase mb-2">02</p>
-          <h2 className="text-4xl md:text-5xl font-black mb-16">
-            Where I&apos;ve{" "}
-            <span className="bg-gradient-to-r from-[#ffaa33] to-[#ff6b2b] bg-clip-text text-transparent">Been</span>
-          </h2>
+          <RevealHeading text="Where I've" accent="Been"
+            accentClass="bg-gradient-to-r from-[#ffaa33] to-[#ff6b2b] bg-clip-text text-transparent"
+            className="text-4xl md:text-5xl font-black mb-16" />
         </motion.div>
 
         <div className="relative">

@@ -9,6 +9,7 @@ import Now from "@/components/Now";
 import Contact from "@/components/Contact";
 import Particles from "@/components/Particles";
 import LoadingScreen from "@/components/LoadingScreen";
+import BackToTop from "@/components/BackToTop";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
         <Now />
         <Contact />
       </main>
+      <BackToTop />
     </>
   );
 }

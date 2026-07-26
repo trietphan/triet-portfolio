@@ -2,7 +2,6 @@ import { useRef, useCallback, useEffect } from "react";
 
 export function useTilt(strength: number = 5) {
   const ref = useRef<HTMLDivElement>(null);
-  const raf = useRef<number>(0);
   const target = useRef({ rx: 0, ry: 0 });
   const current = useRef({ rx: 0, ry: 0 });
   const active = useRef(false);
@@ -32,6 +31,9 @@ export function useTilt(strength: number = 5) {
       target.current.rx = ((y - rect.height / 2) / (rect.height / 2)) * -strength;
       target.current.ry = ((x - rect.width / 2) / (rect.width / 2)) * strength;
       active.current = true;
+      // Feed the spotlight overlay — CSS vars inherit down to .spotlight children
+      el.style.setProperty("--mx", `${x}px`);
+      el.style.setProperty("--my", `${y}px`);
     },
     [strength]
   );

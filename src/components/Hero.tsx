@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import Magnetic from "./Magnetic";
 
 function useScrambleText(text: string, delay: number = 0) {
   const [display, setDisplay] = useState("");
@@ -32,7 +33,7 @@ function useScrambleText(text: string, delay: number = 0) {
   return display;
 }
 
-const roles = ["AI Agent Architect", "Full-Stack Developer", "Open Source Builder", "Educator & Mentor"];
+const roles = ["Founder @ aifutures.dev", "AI Agent Architect", "Full-Stack Developer", "Open Source Builder", "Educator & Mentor"];
 
 export default function Hero() {
   const scrambledName = useScrambleText("Triet Phan", 2200);
@@ -76,6 +77,19 @@ export default function Hero() {
       <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-[#ffaa33]/3 rounded-full blur-[140px]" />
 
       <motion.div style={{ y, opacity }} className="relative z-10 text-center max-w-4xl">
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1.9, ease: "easeOut" }}
+          className="flex justify-center mb-6">
+          <a href="#projects" data-hover="true"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#ff6b2b]/25 bg-[#ff6b2b]/6 hover:bg-[#ff6b2b]/12 hover:border-[#ff6b2b]/40 transition-colors duration-300 group">
+            <span className="status-dot w-1.5 h-1.5 rounded-full bg-[#00ff88]" />
+            <span className="text-[11px] font-mono text-[#ffaa33] tracking-[0.2em] uppercase">
+              Now building aifutures.dev
+            </span>
+            <span className="text-[#ffaa33]/50 group-hover:translate-x-0.5 transition-transform duration-200 text-xs">→</span>
+          </a>
+        </motion.div>
+
         <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 2.1, ease: "easeOut" }}
           className="text-[#ffaa33] font-mono text-sm md:text-base mb-6 tracking-[0.3em] uppercase">
@@ -114,15 +128,19 @@ export default function Hero() {
 
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 3.9, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="#projects" data-hover="true"
-            className="squeeze-btn px-8 py-3.5 rounded-full bg-gradient-to-r from-[#ff6b2b] to-[#ffaa33] text-black font-bold text-sm uppercase tracking-wider hover:shadow-[0_0_40px_rgba(255,107,43,0.3)] transition-shadow duration-300">
-            See What I&apos;ve Built
-          </a>
-          <a href="#contact" data-hover="true"
-            className="squeeze-btn px-8 py-3.5 rounded-full border border-[#ff6b2b]/30 text-[#ffaa33] font-bold text-sm uppercase tracking-wider hover:bg-[#ff6b2b]/8 transition-all duration-300">
-            Let&apos;s Connect
-          </a>
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <Magnetic>
+            <a href="#projects" data-hover="true"
+              className="squeeze-btn inline-block px-8 py-3.5 rounded-full bg-gradient-to-r from-[#ff6b2b] to-[#ffaa33] text-black font-bold text-sm uppercase tracking-wider hover:shadow-[0_0_40px_rgba(255,107,43,0.3)] transition-shadow duration-300">
+              See What I&apos;m Building
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a href="#contact" data-hover="true"
+              className="squeeze-btn inline-block px-8 py-3.5 rounded-full border border-[#ff6b2b]/30 text-[#ffaa33] font-bold text-sm uppercase tracking-wider hover:bg-[#ff6b2b]/8 transition-all duration-300">
+              Let&apos;s Connect
+            </a>
+          </Magnetic>
         </motion.div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 4.5 }}

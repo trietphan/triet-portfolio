@@ -3,11 +3,11 @@
 import { motion } from "framer-motion";
 
 const items = [
-  { icon: "🧠", label: "Building", value: "ClawSwarm v2 — multi-agent orchestration", color: "#b347ff" },
-  { icon: "⚡", label: "Shipping", value: "AgentAwake — AI productivity SaaS", color: "#ff6b2b" },
+  { icon: "🚀", label: "Founding", value: "aifutures.dev — my AI product studio, home of everything below", color: "#ff6b2b" },
+  { icon: "🧠", label: "Building", value: "ClawSwarm v2 — multi-agent orchestration with agent memory", color: "#b347ff" },
+  { icon: "⚡", label: "Shipping", value: "AgentAwake — AI productivity SaaS + free 36-chapter playbook", color: "#ffaa33" },
   { icon: "📚", label: "Teaching", value: "CIS at Wilbur Wright College", color: "#00fff5" },
-  { icon: "🔍", label: "Exploring", value: "LLM reasoning, agent memory & RAG systems", color: "#ffaa33" },
-  { icon: "🌐", label: "Learning", value: "Web3, smart contracts & on-chain apps", color: "#00ff88" },
+  { icon: "🔍", label: "Exploring", value: "LLM reasoning, agent memory & RAG systems", color: "#00ff88" },
   { icon: "🎯", label: "Goal", value: "Ship tools that genuinely change how people work", color: "#f5ff00" },
 ];
 
@@ -20,7 +20,7 @@ export default function Now() {
           viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-14">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#00ff88]/20 bg-[#00ff88]/5 mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00ff88] animate-pulse" />
-            <span className="text-xs font-mono text-[#00ff88] tracking-wider uppercase">Now — March 2026</span>
+            <span className="text-xs font-mono text-[#00ff88] tracking-wider uppercase">Now — July 2026</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-black mb-3">
             What I&apos;m{" "}
