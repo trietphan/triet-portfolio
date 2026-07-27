@@ -230,8 +230,9 @@ body::before {
 /* ─── Tilt Card ─── */
 .tilt-card {
   transform-style: preserve-3d;
-  will-change: transform;
+  transition: transform 0.14s ease-out;
 }
+.tilt-card:hover { will-change: transform; }
 
 /* ─── Marquee — GPU ─── */
 @keyframes marquee {

@@ -4,31 +4,11 @@ import { useReducedMotion } from "framer-motion";
 export function useTilt(strength: number = 5) {
   const reduceMotion = !!useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
-  const target = useRef({ rx: 0, ry: 0 });
-  const current = useRef({ rx: 0, ry: 0 });
-  const active = useRef(false);
 
   useEffect(() => {
     if (reduceMotion) {
-      target.current = { rx: 0, ry: 0 };
-      current.current = { rx: 0, ry: 0 };
-      active.current = false;
       if (ref.current) ref.current.style.transform = "";
-      return;
     }
-
-    let id: number;
-    const loop = () => {
-      current.current.rx += (target.current.rx - current.current.rx) * 0.1;
-      current.current.ry += (target.current.ry - current.current.ry) * 0.1;
-      if (ref.current) {
-        const s = active.current ? 1.02 : 1;
-        ref.current.style.transform = `perspective(800px) rotateX(${current.current.rx}deg) rotateY(${current.current.ry}deg) scale3d(${s},${s},1)`;
-      }
-      id = requestAnimationFrame(loop);
-    };
-    id = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(id);
   }, [reduceMotion]);
 
   const onMouseMove = useCallback(
@@ -44,17 +24,15 @@ export function useTilt(strength: number = 5) {
       el.style.setProperty("--my", `${y}px`);
       if (reduceMotion) return;
 
-      target.current.rx = ((y - rect.height / 2) / (rect.height / 2)) * -strength;
-      target.current.ry = ((x - rect.width / 2) / (rect.width / 2)) * strength;
-      active.current = true;
+      const rx = ((y - rect.height / 2) / (rect.height / 2)) * -strength;
+      const ry = ((x - rect.width / 2) / (rect.width / 2)) * strength;
+      el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.02,1.02,1)`;
     },
     [reduceMotion, strength]
   );
 
   const onMouseLeave = useCallback(() => {
-    target.current.rx = 0;
-    target.current.ry = 0;
-    active.current = false;
+    if (ref.current) ref.current.style.transform = "";
   }, []);
 
   return { ref, onMouseMove, onMouseLeave };

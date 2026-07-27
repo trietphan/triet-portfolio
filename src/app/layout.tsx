@@ -62,14 +62,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
         {/*
-          Runs before first paint so a repeat visit can skip the intro without
-          the loader flashing on screen. It only sets an attribute; the DOM the
-          server sent stays exactly as it was, so hydration still matches.
+          Runs before first paint so client-side return visits can skip the
+          intro without flashing the loader. A real browser refresh deliberately
+          replays the full animation.
         */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{if(sessionStorage.getItem('intro-played'))document.documentElement.dataset.intro='skip'}catch(e){}",
+              "try{var n=performance.getEntriesByType('navigation')[0];if(n&&n.type!=='reload'&&sessionStorage.getItem('intro-played'))document.documentElement.dataset.intro='skip'}catch(e){}",
           }}
         />
         <script

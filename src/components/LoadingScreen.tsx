@@ -10,8 +10,8 @@ const MARK = 104;
 const RING = 136;
 
 /**
- * The intro plays once per tab. Coming back to the home page from a blog post
- * and sitting through the whole thing again is what makes a site feel slow.
+ * The intro replays on a real refresh, but not when returning to the home page
+ * from another route in the same tab.
  */
 export default function LoadingScreen() {
   const [visible, setVisible] = useState(true);
