@@ -5,11 +5,16 @@ import { useEffect, useRef, useState } from "react";
 import Magnetic from "./Magnetic";
 import { introDelay } from "@/lib/intro";
 
-function useScrambleText(text: string, delay: number = 0) {
-  const [display, setDisplay] = useState("");
+function useScrambleText(text: string, delay: number = 0, reduceMotion = false) {
+  const [display, setDisplay] = useState(reduceMotion ? text : "");
   const chars = "!@#$%^&*_+{}|:<>?01234567890";
 
   useEffect(() => {
+    if (reduceMotion) {
+      setDisplay(text);
+      return;
+    }
+
     const timeout = setTimeout(() => {
       let frame = 0;
       const totalFrames = text.length * 3;
@@ -29,7 +34,7 @@ function useScrambleText(text: string, delay: number = 0) {
       return () => clearInterval(interval);
     }, delay);
     return () => clearTimeout(timeout);
-  }, [text, delay]);
+  }, [text, delay, reduceMotion]);
 
   return display;
 }
@@ -41,7 +46,7 @@ export default function Hero() {
   // Every entrance step is an offset on the shared intro timeline, so the
   // loader and the hero always hand off to each other cleanly.
   const d = (offset: number) => introDelay(offset, reduce);
-  const scrambledName = useScrambleText("Triet Phan", d(0.3) * 1000);
+  const scrambledName = useScrambleText("Triet Phan", d(0.3) * 1000, reduce);
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
