@@ -40,9 +40,12 @@ export default function ScrambleText({
   const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (reduce) return;
     const el = ref.current;
     if (!el) return;
+    if (reduce) {
+      el.textContent = text;
+      return;
+    }
 
     const noise = () => GLYPHS[(Math.random() * GLYPHS.length) | 0];
     // Start fully scrambled so the headline is never a blank box.
