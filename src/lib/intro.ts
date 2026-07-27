@@ -3,34 +3,37 @@
  *
  * The loading screen covers the viewport while the navbar and hero play their
  * staggered entrance underneath. Those two things have to be tuned together:
- * shortening the loader without shortening the entrance leaves the user staring
- * at an empty page, which is exactly what reduced-motion users would otherwise
- * get — the preference they set to *reduce* motion would hand them a blank
- * screen for a second instead.
+ * shorten one without the other and the visitor is left staring at an empty
+ * page. That happens in two situations, so both collapse the same way.
  *
- * So the entrance is expressed as offsets from a single start point, and both
- * the start point and the spread collapse under reduced motion.
+ *   reduced motion  the visitor asked for less animation
+ *   repeat visit    the intro already played once this session
  */
+
+export const INTRO_SEEN_KEY = "intro-played";
+
+/**
+ * Set by the inline script in the document head, before first paint, so the
+ * loader can be hidden with CSS instead of flashing on screen. Reading a DOM
+ * attribute rather than sessionStorage keeps this cheap enough to call during
+ * render, and it is `false` on the server, which is the safe default.
+ */
+export function introSkipped(): boolean {
+  return typeof document !== "undefined" && document.documentElement.dataset.intro === "skip";
+}
 
 /** How long the loader stays up, in ms. */
 export function loaderHold(reduce: boolean): number {
   return reduce ? 700 : 2300;
 }
 
-/** When the content behind the loader begins revealing itself, in seconds. */
-function introStart(reduce: boolean): number {
-  return reduce ? 0.35 : 1.9;
-}
-
-/** Reduced motion keeps the order but compresses the gaps. */
-function spread(reduce: boolean): number {
-  return reduce ? 0.12 : 1;
-}
-
 /**
- * Absolute delay for an entrance step, in seconds.
- * `offset` is the step's position in the sequence, measured from the start.
+ * Absolute delay for an entrance step, in seconds. `offset` is the step's
+ * position in the sequence, measured from the start of the entrance.
  */
 export function introDelay(offset: number, reduce: boolean): number {
-  return +(introStart(reduce) + offset * spread(reduce)).toFixed(3);
+  const quick = reduce || introSkipped();
+  const start = quick ? 0.15 : 1.9;
+  const spread = quick ? 0.12 : 1;
+  return +(start + offset * spread).toFixed(3);
 }

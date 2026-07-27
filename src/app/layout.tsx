@@ -4,23 +4,31 @@ import GlobalUI from "@/components/GlobalUI";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://phan.today"),
-  title: "Triet Phan — Founder, aifutures.dev · AI Builder",
-  description: "Founder of aifutures.dev — an independent product lab building AI Futures Trader, AIFlow and Agent Control Center. Full-stack developer and educator: machine speed, human judgment, provable evidence.",
+  title: "Triet Phan · Founder of aifutures.dev",
+  description:
+    "I run aifutures.dev, an independent product lab. We build AI Futures Trader, AIFlow and Agent Control Center. Machine speed, human judgment, provable evidence.",
   keywords: ["Triet Phan", "aifutures.dev", "AI Futures Trader", "AIFlow", "Agent Control Center", "AI agents", "multi-agent systems", "developer", "portfolio"],
-  icons: { icon: [{ url: "/favicon.png", type: "image/png" }], apple: "/favicon.png" },
+  // Icons come from the app/ file conventions (icon.svg, apple-icon.png,
+  // favicon.ico). Declaring them here as well would override those.
+  manifest: "/site.webmanifest",
   openGraph: {
-    title: "Triet Phan — Founder, aifutures.dev · AI Builder",
-    description: "An independent product lab: AI Futures Trader, AIFlow & Agent Control Center.",
+    title: "Triet Phan · Founder of aifutures.dev",
+    description: "An independent product lab building AI Futures Trader, AIFlow and Agent Control Center.",
     type: "website",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Triet Phan" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Triet Phan — Founder, aifutures.dev · AI Builder",
-    description: "An independent product lab: AI Futures Trader, AIFlow & Agent Control Center.",
+    title: "Triet Phan · Founder of aifutures.dev",
+    description: "An independent product lab building AI Futures Trader, AIFlow and Agent Control Center.",
     images: ["/og-image.png"],
     creator: "@trietp",
   },
+};
+
+export const viewport = {
+  themeColor: "#0a0a1a",
+  colorScheme: "dark" as const,
 };
 
 const personSchema = {
@@ -53,6 +61,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+        {/*
+          Runs before first paint so a repeat visit can skip the intro without
+          the loader flashing on screen. It only sets an attribute; the DOM the
+          server sent stays exactly as it was, so hydration still matches.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(sessionStorage.getItem('intro-played'))document.documentElement.dataset.intro='skip'}catch(e){}",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}

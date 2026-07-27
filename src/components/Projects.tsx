@@ -46,20 +46,20 @@ const principles = [
 const projects = [
   {
     title: "AI Futures Trader",
-    tagline: "Live Markets — Decision Support",
-    description: "Real-time auction analysis for futures: TPO profiles, value-area mapping and point-of-control, with a human confirmation gate on every entry. Server-side brackets and kill switches mean zero naked positions.",
+    tagline: "Live Markets · Decision Support",
+    description: "Reads the futures auction in real time using TPO profiles, value-area mapping and point of control. Nothing goes in without my confirmation, and server-side brackets plus kill switches mean there is never a naked position.",
     longDescription: null,
     tags: ["Market Structure", "TPO / Value Area", "Risk Controls", "Real-Time"],
     color: "#ffd05a",
     icon: "📊",
-    stats: ["4 markets — ES, NQ, GC, CL", "70% value area · 30m TPO", "0 naked positions. Ever."],
+    stats: ["4 markets: ES, NQ, GC, CL", "70% value area · 30m TPO", "0 naked positions. Ever."],
     url: "https://trade.aifutures.dev",
     venture: true,
   },
   {
     title: "AIFlow",
     tagline: "Repository Cartography",
-    description: "Maps the architecture living inside a codebase — AST-level detection with file:line evidence for every claim. Runs entirely on your machine: scan, view, share, diff.",
+    description: "Shows you the architecture that is already inside your codebase. It works at the AST level and cites a file and line for every claim it makes. Everything runs on your own machine: scan, view, share, diff.",
     longDescription: null,
     tags: ["TypeScript", "Python", "Go", "Rust", "AST", "Self-Hosted"],
     color: "#50d6e6",
@@ -71,19 +71,19 @@ const projects = [
   {
     title: "Agent Control Center",
     tagline: "Mission Control for Agent Fleets",
-    description: "A local-first control plane for multi-agent work. Each task runs in an isolated git worktree, gets independently verified, and lands as sealed SHA-256 evidence — with Ed25519-signed federation between nodes.",
+    description: "A local-first control plane for multi-agent work. Every task gets its own git worktree, an independent check, and a sealed SHA-256 receipt. Nodes talk to each other over Ed25519-signed federation.",
     longDescription: null,
     tags: ["Node", "SQLite", "MCP", "Ed25519", "Local-First"],
     color: "#c175ef",
     icon: "🛰",
-    stats: ["3 agent runtimes — Codex, Claude, OpenClaw", "7 stages per loop", "100% human final say"],
+    stats: ["3 agent runtimes: Codex, Claude, OpenClaw", "7 stages per loop", "100% human final say"],
     url: "https://github.com/trietphan",
     venture: true,
   },
   {
     title: "clawswarm.app",
     tagline: "Multi-Agent AI Platform",
-    description: "A hosted multi-agent platform: real-time streaming dashboard, team blueprints, run history, and human-in-the-loop review, built on top of an open-source CLI.",
+    description: "A hosted multi-agent platform with a live streaming dashboard, team blueprints, run history and human review, built on top of an open source CLI.",
     longDescription: null,
     tags: ["Next.js", "Convex", "WebSockets", "AI Agents", "SaaS"],
     color: "#b347ff",
@@ -95,7 +95,7 @@ const projects = [
   {
     title: "AgentAwake",
     tagline: "AI-Powered SaaS Platform",
-    description: "A SaaS product helping users leverage AI agents for productivity — professional plans, prompt libraries, template bundles, and a free 36-chapter playbook on agent memory.",
+    description: "A SaaS product for getting real work out of AI agents. Paid plans, prompt libraries, template bundles, and a 36 chapter playbook on agent memory that costs nothing.",
     longDescription: null,
     tags: ["Next.js", "Stripe", "Resend", "Vercel", "SaaS"],
     color: "#ff6b2b",
@@ -107,7 +107,7 @@ const projects = [
   {
     title: "Market Profile Guide",
     tagline: "Trading Education Platform",
-    description: "An interactive market profile and trading education website, helping traders understand price action, volume analysis, and market structure.",
+    description: "A market profile and trading course site that teaches price action, volume and market structure by letting you poke at them.",
     longDescription: null,
     tags: ["Next.js", "React", "Tailwind CSS", "Vercel"],
     color: "#00ff88",
@@ -119,7 +119,7 @@ const projects = [
   {
     title: "ETH Smart Contracts",
     tagline: "Ethereum Smart Contract Platform",
-    description: "A platform for deploying and interacting with Ethereum smart contracts — streamlining the development, testing, and deployment workflow for Web3 projects.",
+    description: "A platform for deploying and talking to Ethereum smart contracts, built to take the friction out of writing, testing and shipping Web3 projects.",
     longDescription: null,
     tags: ["Solidity", "Ethereum", "Web3.js", "Next.js"],
     color: "#00fff5",
@@ -131,8 +131,8 @@ const projects = [
   {
     title: "Resource Management App",
     tagline: "Monday.com Platform App for Airbnb",
-    description: "A resource management application built for Airbnb's operations team on monday.com. Full-cycle development with GraphQL + REST API integration.",
-    longDescription: "Built for Airbnb's operations team, this monday.com application focused on modularity, scalability, and deep GraphQL/REST API integration. Adopted by over 200 team members, it enhanced project coordination and resource allocation across the organization.",
+    description: "A resource management app built for Airbnb's operations team on monday.com, taken from first sketch to production with GraphQL and REST behind it.",
+    longDescription: "Built for Airbnb's operations team on monday.com. I kept it modular so it could grow, and leaned on GraphQL and REST to keep it fast. Around 200 people ended up using it to plan work and move people between projects.",
     tags: ["React", "Monday.com SDK", "GraphQL", "REST API", "UI/UX"],
     color: "#ffaa33",
     icon: "🏠",
@@ -143,8 +143,8 @@ const projects = [
   {
     title: "Dependent Dropdown",
     tagline: "Monday.com Marketplace App",
-    description: "The company's first marketplace app — a dependent dropdown widget essential for project management workflows across client organizations.",
-    longDescription: "A pioneering initiative that put AXANEXA on the Monday.com Marketplace. The widget enables cascading selections based on parent values, requiring innovative workflow logic and complex state management for dynamic option trees.",
+    description: "The company's first marketplace app. A dependent dropdown widget that turned out to be load-bearing for how client teams ran their project workflows.",
+    longDescription: "This is the app that put AXANEXA on the Monday.com Marketplace. Picking a value in one dropdown narrows the next, which sounds simple until you have to hold a whole tree of options in state and keep it in sync.",
     tags: ["JavaScript", "Monday.com API", "GraphQL", "Marketplace"],
     color: "#f5ff00",
     icon: "🔗",
@@ -200,9 +200,9 @@ function StudioCard() {
                 The future isn&apos;t predicted. It&apos;s engineered.
               </p>
               <p className="text-white/45 leading-relaxed mb-6 max-w-md text-sm">
-                An independent product lab building instruments for the agentic age — systems that
-                trade live markets, map living codebases and command fleets of autonomous agents,
-                with human judgment wired into every loop.
+                An independent product lab building tools for the agentic age. Software that trades live
+                markets, maps living codebases and runs fleets of autonomous agents, with a person
+                in the loop wherever it counts.
               </p>
 
               <div className="flex flex-wrap gap-2">
@@ -370,7 +370,7 @@ export default function Projects() {
             accentClass="bg-gradient-to-r from-[#f5ff00] to-[#00ff88] bg-clip-text text-transparent"
             className="text-4xl md:text-5xl font-black mb-4" />
           <p className="text-white/30 text-lg mb-16 max-w-xl">
-            The three instruments below ship under my product lab, aifutures.dev. Live links open directly — the rest expand on click.
+            The three below ship under my product lab, aifutures.dev. Live ones open straight away, the rest expand when you click.
           </p>
         </motion.div>
 

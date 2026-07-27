@@ -2,12 +2,12 @@ export const posts = [
   {
     slug: "building-clawswarm-app",
     title: "Building ClawSwarm: From CLI to Production SaaS",
-    excerpt: "How a side experiment in multi-agent coordination became a full platform — and what we learned about shipping AI infrastructure in public.",
+    excerpt: "How a side experiment in multi-agent coordination turned into a real platform, and what shipping AI infrastructure in public actually taught us.",
     date: "Apr 2026",
     readTime: "7 min read",
     color: "#b347ff",
     tag: "AI",
-    content: `What started as a local script to orchestrate a few AI agents has become something I'm genuinely excited to put in front of people: ClawSwarm — a multi-agent AI platform where specialized agents collaborate, critique each other's work, and ship real results.
+    content: `What started as a local script to orchestrate a few AI agents has become something I'm genuinely excited to put in front of people. ClawSwarm is a multi-agent AI platform where specialized agents work together, pick holes in each other's output, and ship something real.
 
 Here's the honest story of how we got here.
 
@@ -15,17 +15,17 @@ The core idea was frustratingly simple: single AI agents fail at complex tasks n
 
 So I built a system where agents have defined roles. CodeClaw handles implementation. ResearchClaw handles analysis and investigation. OpsClaw handles infrastructure and deployment. Each agent is good at exactly one thing and hands off when it reaches its edge.
 
-The quality gate was the real unlock. Every agent output gets scored 0–10 by a separate review layer. Scores of 8 or higher auto-approve and continue the pipeline. Scores between 5 and 7 escalate to a human via Discord — a quick judgment call that takes 30 seconds. Scores below 5 trigger automatic rework with specific feedback, looping back through the agent until it gets it right. We cap rework cycles at 3 to prevent infinite loops.
+The quality gate was the real unlock. Every agent output gets scored 0 to 10 by a separate review layer. Scores of 8 or higher auto-approve and continue the pipeline. Scores between 5 and 7 go to a human on Discord, which is usually a 30 second judgment call. Scores below 5 trigger automatic rework with specific feedback, looping back through the agent until it gets it right. We cap rework cycles at 3 to prevent infinite loops.
 
 The result? About 65% of all tasks auto-complete without any human intervention. The other 35% get a quick human touch that takes under a minute. Complex software tasks that used to take hours now run overnight.
 
-What surprised me most was how much better the outputs got when agents stopped trying to do everything. Specialization isn't just an engineering pattern — it's how high-performing teams actually work.
+What surprised me most was how much better the outputs got when agents stopped trying to do everything. Specialization is not just an engineering pattern. It is how good teams actually work.
 
 We built the OSS CLI (clawswarm on npm) first so other developers can run this locally against their own agents and models. The hosted platform at clawswarm.app adds a real-time streaming dashboard, team management, blueprint templates, and persistent run history.
 
-The next frontier is agent memory — teaching these systems not just to complete tasks, but to learn from each run, recognize patterns, and get measurably better over time. That's what we're building toward.
+The next thing is agent memory. Not just finishing tasks, but learning from each run, spotting patterns, and getting measurably better over time. That's what we're building toward.
 
-If you're thinking about how to structure AI agents for real work — not demos, not toys, but actual production pipelines — come try ClawSwarm. The OSS version is free and the platform has a free tier. I want to hear where it breaks for your use case.`,
+If you are trying to work out how to structure AI agents for real work, meaning production pipelines rather than demos, come try ClawSwarm. The OSS version is free and the platform has a free tier. I want to hear where it breaks for your use case.`,
   },
   {
     slug: "ai-agent-swarms",
@@ -73,7 +73,7 @@ Don't build a Swiss Army knife. Build the best screwdriver for a painful problem
     tag: "Education",
     content: `Teaching forces precision. When students ask why a loop or data structure was chosen, vague answers don't work.
 
-I learned to explain intent, tradeoffs, and readability—not just syntax.
+I learned to explain intent, tradeoffs and readability, not just syntax.
 
 The embedded tutoring model is powerful because you see confusion exactly where abstraction meets implementation.
 

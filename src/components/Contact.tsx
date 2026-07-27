@@ -69,7 +69,7 @@ export default function Contact() {
             accentClass="bg-gradient-to-r from-[#00ff88] via-[#00fff5] to-[#b347ff] bg-clip-text text-transparent"
             className="text-4xl md:text-6xl font-black mb-6" />
           <p className="text-lg text-white/35 mb-10 max-w-xl mx-auto leading-relaxed">
-            Whether you&apos;re looking for a developer, collaborator, or just want to chat about AI agents, I&apos;d love to hear from you.
+            Looking for a developer, a collaborator, or just want to argue about AI agents? Say hi.
           </p>
         </motion.div>
 

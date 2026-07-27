@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 
 const items = [
-  { icon: "✦", label: "Running", value: "aifutures.dev — an independent product lab for the agentic age", color: "#ff6b2b" },
-  { icon: "📊", label: "Trading", value: "AI Futures Trader — live auction analysis on ES, NQ, GC, CL", color: "#ffd05a" },
-  { icon: "🗺", label: "Mapping", value: "AIFlow — repository cartography with file:line evidence", color: "#50d6e6" },
-  { icon: "🛰", label: "Commanding", value: "Agent Control Center — local-first control plane for agent fleets", color: "#c175ef" },
+  { icon: "✦", label: "Running", value: "aifutures.dev, my independent product lab for the agentic age", color: "#ff6b2b" },
+  { icon: "📊", label: "Trading", value: "AI Futures Trader, reading the live auction on ES, NQ, GC and CL", color: "#ffd05a" },
+  { icon: "🗺", label: "Mapping", value: "AIFlow, mapping codebases with file and line evidence", color: "#50d6e6" },
+  { icon: "🛰", label: "Commanding", value: "Agent Control Center, a local-first control plane for agent fleets", color: "#c175ef" },
   { icon: "📚", label: "Teaching", value: "CIS at Wilbur Wright College", color: "#00fff5" },
   { icon: "🎯", label: "Principle", value: "Machine speed, human judgment, provable evidence", color: "#00ff88" },
 ];
@@ -20,7 +20,7 @@ export default function Now() {
           viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-14">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#00ff88]/20 bg-[#00ff88]/5 mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00ff88] animate-pulse" />
-            <span className="text-xs font-mono text-[#00ff88] tracking-wider uppercase">Now — July 2026</span>
+            <span className="text-xs font-mono text-[#00ff88] tracking-wider uppercase">Now, July 2026</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-black mb-3">
             What I&apos;m{" "}

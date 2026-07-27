@@ -1,43 +1,10 @@
 "use client";
 
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
 import Magnetic from "./Magnetic";
+import ScrambleText from "./ScrambleText";
 import { introDelay } from "@/lib/intro";
-
-function useScrambleText(text: string, delay: number = 0, reduceMotion = false) {
-  const [display, setDisplay] = useState(reduceMotion ? text : "");
-  const chars = "!@#$%^&*_+{}|:<>?01234567890";
-
-  useEffect(() => {
-    if (reduceMotion) {
-      setDisplay(text);
-      return;
-    }
-
-    const timeout = setTimeout(() => {
-      let frame = 0;
-      const totalFrames = text.length * 3;
-      const interval = setInterval(() => {
-        frame++;
-        const progress = frame / totalFrames;
-        const revealed = Math.floor(progress * text.length);
-        let result = "";
-        for (let i = 0; i < text.length; i++) {
-          if (i < revealed) result += text[i];
-          else if (i < revealed + 3) result += chars[Math.floor(Math.random() * chars.length)];
-          else result += "\u00A0";
-        }
-        setDisplay(result);
-        if (frame >= totalFrames) { clearInterval(interval); setDisplay(text); }
-      }, 35);
-      return () => clearInterval(interval);
-    }, delay);
-    return () => clearTimeout(timeout);
-  }, [text, delay, reduceMotion]);
-
-  return display;
-}
 
 const roles = ["Founder @ aifutures.dev", "Agent Systems Architect", "Full-Stack Developer", "Market Structure Nerd", "Educator & Mentor"];
 
@@ -46,14 +13,34 @@ export default function Hero() {
   // Every entrance step is an offset on the shared intro timeline, so the
   // loader and the hero always hand off to each other cleanly.
   const d = (offset: number) => introDelay(offset, reduce);
-  const scrambledName = useScrambleText("Triet Phan", d(0.3) * 1000, reduce);
   const ref = useRef<HTMLDivElement>(null);
+  const lightRef = useRef<HTMLDivElement>(null);
+
+  // A soft light that follows the pointer. Written straight to CSS variables so
+  // it never triggers a React render on mouse move.
+  const onPointer = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const el = lightRef.current;
+    if (!el || reduce) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    el.style.setProperty("--hx", `${e.clientX - r.left}px`);
+    el.style.setProperty("--hy", `${e.clientY - r.top}px`);
+    el.classList.add("lit");
+  }, [reduce]);
+
+  const onLeave = useCallback(() => lightRef.current?.classList.remove("lit"), []);
+
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden px-6">
+    <section
+      ref={ref}
+      onMouseMove={onPointer}
+      onMouseLeave={onLeave}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden px-6"
+    >
+      <div ref={lightRef} className="hero-light" aria-hidden="true" />
       <div className="absolute inset-0 overflow-hidden">
         <div className="geo-shape geo-bob" style={{ top: "15%", left: "8%", animationDuration: "7s" }}>
           <svg width="70" height="70" viewBox="0 0 70 70" className="geo-spin" style={{ animationDuration: "22s" }}>
@@ -108,9 +95,12 @@ export default function Hero() {
 
         <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: d(0.2) }}
           className="text-6xl md:text-8xl lg:text-9xl font-black mb-8 leading-[0.95] tracking-tight">
-          <span className="bg-gradient-to-r from-[#ff6b2b] via-[#ffaa33] to-[#ff8800] bg-clip-text text-transparent font-mono">
-            {scrambledName || "\u00A0"}
-          </span>
+          <ScrambleText
+            text="Triet Phan"
+            delay={d(0.3) * 1000}
+            reduce={reduce}
+            className="bg-gradient-to-r from-[#ff6b2b] via-[#ffaa33] to-[#ff8800] bg-clip-text text-transparent font-mono"
+          />
         </motion.h1>
 
         <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}

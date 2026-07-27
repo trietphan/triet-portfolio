@@ -205,7 +205,7 @@ const html = `<!DOCTYPE html>
 <!-- ═══ SUMMARY ═══ -->
 <div class="section">
   <div class="summary">
-    Founder of <b>aifutures.dev</b>, an independent product lab building instruments for the agentic age — software that trades live markets, maps living codebases and commands fleets of autonomous agents, with human judgment wired into every loop. Full-stack developer with an M.S. in Computer Science, previously shipping production marketplace apps used by 200+ users at Airbnb. Operating principle: machine speed, human judgment, provable evidence.
+    I run <b>aifutures.dev</b>, an independent product lab building tools for the agentic age. The software there trades live markets, maps living codebases and runs fleets of autonomous agents, always with a person in the loop where it counts. Full-stack developer with an M.S. in Computer Science. Before this I shipped production marketplace apps used by 200+ people at Airbnb. How I work: machine speed, human judgment, provable evidence.
   </div>
 </div>
 
@@ -223,24 +223,24 @@ const html = `<!DOCTYPE html>
 
       <div class="job">
         <div class="job-header">
-          <span class="job-title">Founder &amp; Principal Builder — aifutures.dev</span>
-          <span class="job-date">2026 — Present</span>
+          <span class="job-title">Founder &amp; Principal Builder, aifutures.dev</span>
+          <span class="job-date">2026 to now</span>
         </div>
-        <div class="job-co">Independent Product Lab — Chicago, IL · <a href="https://aifutures.dev" style="color:#ff6b2b; text-decoration:none;">aifutures.dev</a></div>
+        <div class="job-co">Independent Product Lab · Chicago, IL · <a href="https://aifutures.dev" style="color:#ff6b2b; text-decoration:none;">aifutures.dev</a></div>
         <ul>
-          <li>Built and shipped three production systems solo — architecture, engineering, verification, docs and launch — developed in public on GitHub</li>
+          <li>Built and shipped three production systems on my own, covering architecture, engineering, verification, docs and launch, all in public on GitHub</li>
           <li><b>AI Futures Trader</b> (live): real-time auction analysis across ES, NQ, GC and CL with TPO profiles, 70% value-area mapping and point-of-control; human confirmation gate on every entry, server-side brackets and kill switches enforce 0 naked positions</li>
-          <li><b>AIFlow</b>: repository cartography mapping system architecture at AST level with file:line evidence across TypeScript, Python, Go and Rust; fully self-hosted — 1 command to map, 0 bytes uploaded, 38 tests green</li>
-          <li><b>Agent Control Center</b>: local-first control plane running 3 agent runtimes (Codex, Claude, OpenClaw) in isolated git worktrees through a 7-stage verify loop, with sealed SHA-256 evidence and Ed25519-signed federation — 100% human final say</li>
+          <li><b>AIFlow</b>: repository cartography mapping system architecture at AST level with file:line evidence across TypeScript, Python, Go and Rust; fully self-hosted, so it is 1 command to map, 0 bytes uploaded, 38 tests green</li>
+          <li><b>Agent Control Center</b>: local-first control plane running 3 agent runtimes (Codex, Claude, OpenClaw) in isolated git worktrees through a 7-stage verify loop, with sealed SHA-256 evidence and Ed25519-signed federation, and 100% human final say</li>
         </ul>
       </div>
 
       <div class="job">
         <div class="job-header">
           <span class="job-title">Computer Information Systems Tutor</span>
-          <span class="job-date">Oct 2025 — Present</span>
+          <span class="job-date">Oct 2025 to now</span>
         </div>
-        <div class="job-co">Wilbur Wright College · City Colleges of Chicago — Chicago, IL</div>
+        <div class="job-co">Wilbur Wright College · City Colleges of Chicago · Chicago, IL</div>
         <ul>
           <li>Provide individual and group tutoring across CIS subjects: programming, databases, algorithms, and web development</li>
           <li>Lead workshops on study skills and applied problem-solving; develop personalized learning plans aligned with course objectives</li>
@@ -250,12 +250,12 @@ const html = `<!DOCTYPE html>
       <div class="job">
         <div class="job-header">
           <span class="job-title">JavaScript Developer I</span>
-          <span class="job-date">Feb 2023 — Nov 2023</span>
+          <span class="job-date">Feb 2023 to Nov 2023</span>
         </div>
-        <div class="job-co">AXANEXA — Chicago, IL</div>
+        <div class="job-co">AXANEXA · Chicago, IL</div>
         <ul>
           <li>Architected and delivered a resource management application on monday.com for Airbnb, adopted by 200+ team members for day-to-day project coordination and resource allocation</li>
-          <li>Launched the company's inaugural Dependent Dropdown app on the Monday.com Marketplace — first-ever marketplace listing, now used across multiple client organizations</li>
+          <li>Launched the company's first Marketplace listing, a Dependent Dropdown app now used across several client organizations</li>
           <li>Built a Role Assignment system capable of processing hundreds of concurrent tasks with intelligent API rate-limit queuing and GraphQL batch optimization</li>
           <li>Pioneered reactive UI/UX design patterns across desktop and mobile, reducing user onboarding friction and increasing adoption</li>
         </ul>
@@ -263,10 +263,10 @@ const html = `<!DOCTYPE html>
 
       <div class="job">
         <div class="job-header">
-          <span class="job-title">Teaching Assistant — Accelerated Intro to CS</span>
-          <span class="job-date">Aug 2016 — Dec 2017</span>
+          <span class="job-title">Teaching Assistant, Accelerated Intro to CS</span>
+          <span class="job-date">Aug 2016 to Dec 2017</span>
         </div>
-        <div class="job-co">Illinois Institute of Technology — Chicago, IL</div>
+        <div class="job-co">Illinois Institute of Technology · Chicago, IL</div>
         <ul>
           <li>Assisted professor in lab sessions for 60+ students; held weekly office hours and graded assignments with detailed feedback</li>
           <li>Identified common misconceptions and developed targeted exercises that improved class average by ~12%</li>
@@ -276,9 +276,9 @@ const html = `<!DOCTYPE html>
       <div class="job">
         <div class="job-header">
           <span class="job-title">Digital Communications, Institutional Advancement</span>
-          <span class="job-date">Nov 2015 — Dec 2017</span>
+          <span class="job-date">Nov 2015 to Dec 2017</span>
         </div>
-        <div class="job-co">Illinois Institute of Technology — Chicago, IL</div>
+        <div class="job-co">Illinois Institute of Technology · Chicago, IL</div>
         <ul>
           <li>Administered IIT Alumni and Mies Van der Rohe Society websites; migrated legacy media database improving load performance by 40%</li>
           <li>Produced Giving Day 2016 promotional video; published digital content reaching 10,000+ alumni and donors</li>
@@ -288,9 +288,9 @@ const html = `<!DOCTYPE html>
       <div class="job">
         <div class="job-header">
           <span class="job-title">Mathematics Tutor</span>
-          <span class="job-date">Jun 2014 — May 2015</span>
+          <span class="job-date">Jun 2014 to May 2015</span>
         </div>
-        <div class="job-co">Wilbur Wright College · City Colleges of Chicago — Chicago, IL</div>
+        <div class="job-co">Wilbur Wright College · City Colleges of Chicago · Chicago, IL</div>
         <ul>
           <li>Delivered personalized math tutoring (Algebra through Calculus) to 30+ students per semester with 95%+ satisfaction rating</li>
         </ul>
@@ -302,14 +302,14 @@ const html = `<!DOCTYPE html>
       <div class="section-title">Other Projects</div>
 
       <div class="project">
-        <div class="project-name">ClawSwarm — Multi-Agent AI Orchestration <span style="color:#999; font-weight:400;">(OSS + hosted platform)</span></div>
+        <div class="project-name">ClawSwarm · Multi-Agent AI Orchestration <span style="color:#999; font-weight:400;">(OSS + hosted platform)</span></div>
         <div class="project-desc">Autonomous orchestration with three specialized chiefs: CodeClaw (code), ResearchClaw (research), OpsClaw (infrastructure). 3-tier quality gate: ≥8 auto-approves, 5–7 escalates to human review, &lt;5 auto-reworks. Real-time WebSocket streaming dashboard, replay logging, per-agent workspace isolation. ~65% auto-approve across 50+ soak tests. <a href="https://clawswarm.app" style="color:#ff6b2b;">clawswarm.app</a></div>
         <div class="project-tags">TypeScript · Convex · Next.js · WebSockets · AI Architecture</div>
       </div>
 
       <div class="project">
-        <div class="project-name">AgentAwake — AI Productivity SaaS + Agent Memory Playbook</div>
-        <div class="project-desc">Full-stack SaaS with tiered Stripe billing, automated Resend drip sequences and audience pipeline — confirmed end-to-end in production. Includes a free 36-chapter playbook on building AI agents with persistent memory (Claude, ChatGPT, CrewAI, LangChain, n8n &amp; more). <a href="https://agentawake.com" style="color:#ff6b2b;">agentawake.com</a></div>
+        <div class="project-name">AgentAwake · AI Productivity SaaS + Agent Memory Playbook</div>
+        <div class="project-desc">Full-stack SaaS with tiered Stripe billing, automated Resend drip sequences and an audience pipeline, all confirmed end to end in production. Includes a free 36-chapter playbook on building AI agents with persistent memory (Claude, ChatGPT, CrewAI, LangChain, n8n &amp; more). <a href="https://agentawake.com" style="color:#ff6b2b;">agentawake.com</a></div>
         <div class="project-tags">Next.js · TypeScript · Stripe · Resend · Vercel · SaaS</div>
       </div>
 
@@ -427,8 +427,8 @@ const html = `<!DOCTYPE html>
     <!-- Languages -->
     <div class="section">
       <div class="section-title">Languages</div>
-      <div class="lang-row">🇻🇳 Vietnamese — Native</div>
-      <div class="lang-row" style="margin-top:2px;">🇺🇸 English — Professional</div>
+      <div class="lang-row">🇻🇳 Vietnamese · Native</div>
+      <div class="lang-row" style="margin-top:2px;">🇺🇸 English · Professional</div>
     </div>
 
     <!-- Interests -->
