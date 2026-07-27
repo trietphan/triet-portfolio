@@ -36,6 +36,10 @@ export default function LoadingScreen() {
       const t = setTimeout(() => setVisible(false), 350);
       return () => clearTimeout(t);
     }
+    // Keep the in-memory flag in sync for client-side navigation. The layout
+    // script only runs on a full document load, so storage alone would not make
+    // introSkipped() true when returning from a blog post in the same tab.
+    document.documentElement.dataset.intro = "skip";
     try { sessionStorage.setItem(INTRO_SEEN_KEY, "1"); } catch { /* private mode */ }
 
     const start = performance.now();
