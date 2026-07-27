@@ -3,8 +3,16 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Logo from "./Logo";
-import { loaderHold } from "@/lib/intro";
+import { loaderHold, introSkipped, INTRO_SEEN_KEY } from "@/lib/intro";
 
+/** Mark size, and the ring drawn around it. Both in CSS pixels. */
+const MARK = 104;
+const RING = 136;
+
+/**
+ * The intro plays once per tab. Coming back to the home page from a blog post
+ * and sitting through the whole thing again is what makes a site feel slow.
+ */
 export default function LoadingScreen() {
   const [visible, setVisible] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -17,6 +25,19 @@ export default function LoadingScreen() {
   const hold = loaderHold(reduce);
 
   useEffect(() => {
+    // Repeat visit: keep the mark up just long enough to cover hydration.
+    //
+    // Removing the loader outright looked faster on paper and was worse in
+    // practice: the hero markup ships with opacity 0 and only animates in once
+    // React has hydrated, so dropping the cover left a blank page for as long
+    // as hydration took. This effect runs when hydration finishes, which makes
+    // it the right moment to measure from.
+    if (introSkipped()) {
+      const t = setTimeout(() => setVisible(false), 350);
+      return () => clearTimeout(t);
+    }
+    try { sessionStorage.setItem(INTRO_SEEN_KEY, "1"); } catch { /* private mode */ }
+
     const start = performance.now();
     let raf: number;
     const step = (now: number) => {
@@ -40,14 +61,27 @@ export default function LoadingScreen() {
           className="loading-screen"
         >
           <div className="flex flex-col items-center gap-7">
-            <div className="relative">
+            {/*
+              Fixed square with everything centred inside it. The ring used to
+              size itself from `absolute -inset-4` alone, which only works if the
+              engine resolves the insets; an <svg> is a replaced element with a
+              300x150 intrinsic size, so an engine that falls back to that draws
+              the ring too large and off to one side. Explicit width/height here
+              means every browser gets the same circle.
+            */}
+            <div
+              className="relative flex items-center justify-center"
+              style={{ width: RING, height: RING }}
+            >
               {/* Colour bleeding out from behind the mark as it opens */}
               <motion.div
                 initial={reduce ? { opacity: 0.3, scale: 1.6 } : { opacity: 0, scale: 0.5 }}
                 animate={reduce ? { opacity: 0.3, scale: 1.6 } : { opacity: [0, 0.55, 0.3], scale: 1.6 }}
                 transition={reduce ? { duration: 0 } : { duration: 1.6, ease: "easeOut", times: [0, 0.5, 1] }}
-                className="absolute inset-0 rounded-full blur-[38px] pointer-events-none"
+                className="absolute rounded-full blur-[38px] pointer-events-none"
                 style={{
+                  width: MARK,
+                  height: MARK,
                   background:
                     "conic-gradient(from -90deg, #ff6e60, #ff993b, #ffd05a, #6ddf88, #50d6e6, #5791ff, #827aef, #c175ef, #ff6e60)",
                 }}
@@ -55,7 +89,9 @@ export default function LoadingScreen() {
 
               {/* Ring that draws itself around the finished mark */}
               <svg
-                className="absolute -inset-4 pointer-events-none"
+                className="absolute inset-0 pointer-events-none"
+                width={RING}
+                height={RING}
                 viewBox="0 0 100 100"
                 aria-hidden="true"
               >
@@ -85,7 +121,7 @@ export default function LoadingScreen() {
                 transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                 className="relative z-10"
               >
-                <Logo size={104} animated />
+                <Logo size={MARK} animated />
               </motion.div>
             </div>
 

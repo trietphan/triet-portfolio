@@ -81,8 +81,8 @@ export default function About() {
               </div>
             </div>
 
-            <p className="text-lg text-white/55 leading-relaxed">I believe technology should empower people to pursue their dreams. From shipping marketplace apps used by hundreds at Airbnb, to architecting AI agent swarms that autonomously write, review, and deploy code, I thrive at the intersection of creativity and engineering.</p>
-            <p className="text-lg text-white/55 leading-relaxed">Today that belief has a home: <span className="text-[#ffaa33] font-medium">aifutures.dev</span>, an independent product lab where I build instruments for the agentic age — software that trades live markets, maps living codebases, and commands fleets of agents. Machine speed, human judgment, provable evidence. When I&apos;m not in the lab, I&apos;m tutoring the next generation of developers.</p>
+            <p className="text-lg text-white/55 leading-relaxed">I got into this because software lets people try things they otherwise could not. That has taken me from shipping marketplace apps that a few hundred people at Airbnb used every day, to building agent systems that write, review and deploy code on their own.</p>
+            <p className="text-lg text-white/55 leading-relaxed">These days that belief lives at <span className="text-[#ffaa33] font-medium">aifutures.dev</span>, my independent product lab. I build software that reads live markets, maps codebases, and runs fleets of agents. Fast where machines are good, careful where people are. When I&apos;m not in the lab I&apos;m tutoring the next batch of developers.</p>
 
             <div className="grid grid-cols-2 gap-4 pt-4">
               {stats.map((s, idx) => (

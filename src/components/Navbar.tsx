@@ -59,7 +59,7 @@ export default function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-3">
         <a href="#" data-hover="true" className="flex items-center gap-2.5 group">
-          <Logo size={34} className="logo-spin-hover shrink-0" title="Triet Phan — aifutures" />
+          <Logo size={34} className="logo-spin-hover shrink-0" title="Triet Phan · aifutures" />
           <span className="text-sm font-bold text-white/50 group-hover:text-[#ffaa33] transition-colors duration-300 hidden sm:block">
             Triet Phan
           </span>
@@ -79,7 +79,7 @@ export default function Navbar() {
             onClick={() => window.dispatchEvent(new Event("open-command-palette"))}
             data-hover="true"
             aria-label="Open command palette"
-            title="Search — ⌘K"
+            title="Search with ⌘K"
             className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-white/8 text-white/30 hover:text-[#ffaa33] hover:border-[#ff6b2b]/30 transition-colors duration-300"
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

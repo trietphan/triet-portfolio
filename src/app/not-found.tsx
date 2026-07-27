@@ -16,7 +16,7 @@ export default function NotFound() {
 
         <p className="text-lg text-white/45 mb-2">This page went off-script.</p>
         <p className="text-sm text-white/25 mb-10">
-          Even my agents couldn&apos;t find it — and they check everything twice.
+          Even my agents came up empty, and they check everything twice.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

@@ -15,6 +15,10 @@
 /* ─── Base ─── */
 html {
   scroll-behavior: smooth;
+  /* The navbar is fixed, so an anchor would otherwise drop its heading behind
+     it. Offsetting here covers link clicks, the rail, the palette and the
+     browser's own hash restore in one go. */
+  scroll-padding-top: 6rem;
   /* Decorative blurs and entrance transforms extend past the viewport;
      clip them so mobile never gets a stray horizontal scrollbar.
      `clip` (unlike `hidden`) does not create a scroll container. */
@@ -449,6 +453,22 @@ body::before {
   outline: 2px solid rgba(255, 170, 51, 0.7);
   outline-offset: 3px;
 }
+
+/* ─── Pointer-reactive hero light ─── */
+.hero-light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  background: radial-gradient(
+    460px circle at var(--hx, 50%) var(--hy, 40%),
+    rgba(255, 153, 59, 0.09),
+    transparent 60%
+  );
+}
+.hero-light.lit { opacity: 1; }
 
 /* ─── Scroll lock ─── */
 /* html carries overflow-x, which makes it the scrolling element — so locking
