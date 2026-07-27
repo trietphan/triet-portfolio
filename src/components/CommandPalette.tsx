@@ -144,7 +144,7 @@ export default function CommandPalette() {
       const root = dialogRef.current;
       if (!root) return;
       const focusable = root.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])'
+        'a[href], button:not([disabled]):not([tabindex="-1"]), input, [tabindex]:not([tabindex="-1"])'
       );
       if (!focusable.length) return;
       const first = focusable[0];
