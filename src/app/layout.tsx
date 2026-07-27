@@ -69,7 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{var n=performance.getEntriesByType('navigation')[0];if(n&&n.type!=='reload'&&sessionStorage.getItem('intro-played'))document.documentElement.dataset.intro='skip'}catch(e){}",
+              "try{var n=performance.getEntriesByType('navigation')[0];if(sessionStorage.getItem('intro-played')&&(!n||n.type!=='reload'||location.pathname!=='/'))document.documentElement.dataset.intro='skip'}catch(e){}",
           }}
         />
         <script
