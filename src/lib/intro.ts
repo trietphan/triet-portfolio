@@ -23,8 +23,8 @@ export function introSkipped(): boolean {
 }
 
 /** How long the loader stays up, in ms. */
-export function loaderHold(reduce: boolean): number {
-  return reduce ? 700 : 2450;
+export function loaderHold(reduce: boolean, compact = false): number {
+  return reduce ? 650 : compact ? 1700 : 2200;
 }
 
 /**

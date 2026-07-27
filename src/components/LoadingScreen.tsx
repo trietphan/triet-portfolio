@@ -21,9 +21,6 @@ export default function LoadingScreen() {
 
   // Petals bloom over ~0.8s; hold the mark a beat, then hand off to the page.
   // The hand-off point is shared with the hero/navbar entrance via lib/intro.
-  const duration = reduce ? 500 : 1900;
-  const hold = loaderHold(reduce);
-
   useEffect(() => {
     // Repeat visit: keep the mark up just long enough to cover hydration.
     //
@@ -33,7 +30,7 @@ export default function LoadingScreen() {
     // as hydration took. This effect runs when hydration finishes, which makes
     // it the right moment to measure from.
     if (introSkipped()) {
-      const t = setTimeout(() => setVisible(false), 350);
+      const t = setTimeout(() => setVisible(false), 250);
       return () => clearTimeout(t);
     }
     // Keep the in-memory flag in sync for client-side navigation. The layout
@@ -42,6 +39,9 @@ export default function LoadingScreen() {
     document.documentElement.dataset.intro = "skip";
     try { sessionStorage.setItem(INTRO_SEEN_KEY, "1"); } catch { /* private mode */ }
 
+    const compact = window.matchMedia("(max-width: 640px)").matches;
+    const duration = reduce ? 450 : compact ? 1350 : 1750;
+    const hold = loaderHold(reduce, compact);
     const start = performance.now();
     let raf: number;
     const step = (now: number) => {
@@ -53,15 +53,15 @@ export default function LoadingScreen() {
 
     const timer = setTimeout(() => setVisible(false), hold);
     return () => { clearTimeout(timer); cancelAnimationFrame(raf); };
-  }, [duration, hold]);
+  }, [reduce]);
 
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
           key="loader"
-          exit={{ opacity: 0, scale: 1.04 }}
-          transition={{ duration: 0.55, ease: [0.65, 0, 0.35, 1] }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
           className="loading-screen"
         >
           <div className="flex flex-col items-center gap-7">
@@ -77,17 +77,17 @@ export default function LoadingScreen() {
               className="relative flex items-center justify-center"
               style={{ width: RING, height: RING }}
             >
-              {/* Colour bleeding out from behind the mark as it opens */}
+              {/* Soft radial light without a filtered square compositing layer. */}
               <motion.div
-                initial={reduce ? { opacity: 0.3, scale: 1.6 } : { opacity: 0, scale: 0.5 }}
-                animate={reduce ? { opacity: 0.3, scale: 1.6 } : { opacity: [0, 0.55, 0.3], scale: 1.6 }}
-                transition={reduce ? { duration: 0 } : { duration: 1.6, ease: "easeOut", times: [0, 0.5, 1] }}
-                className="absolute rounded-full blur-[38px] pointer-events-none"
+                initial={reduce ? { opacity: 0.3 } : { opacity: 0, scale: 0.65 }}
+                animate={reduce ? { opacity: 0.3 } : { opacity: [0, 0.5, 0.28], scale: 1 }}
+                transition={reduce ? { duration: 0 } : { duration: 1.15, ease: "easeOut", times: [0, 0.55, 1] }}
+                className="absolute rounded-full pointer-events-none"
                 style={{
-                  width: MARK,
-                  height: MARK,
+                  width: RING,
+                  height: RING,
                   background:
-                    "conic-gradient(from -90deg, #ff6e60, #ff993b, #ffd05a, #6ddf88, #50d6e6, #5791ff, #827aef, #c175ef, #ff6e60)",
+                    "radial-gradient(circle, rgba(255,153,59,0.2) 0%, rgba(80,214,230,0.08) 42%, transparent 72%)",
                 }}
               />
 
@@ -107,7 +107,7 @@ export default function LoadingScreen() {
                   strokeLinecap="round"
                   initial={reduce ? { pathLength: 1, opacity: 0.75 } : { pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: 1, opacity: 0.75 }}
-                  transition={reduce ? { duration: 0 } : { duration: 1.5, delay: 0.35, ease: "easeInOut" }}
+                  transition={reduce ? { duration: 0 } : { duration: 1.15, delay: 0.2, ease: "easeInOut" }}
                   transform="rotate(-90 50 50)"
                 />
                 <defs>
@@ -120,9 +120,6 @@ export default function LoadingScreen() {
               </svg>
 
               <motion.div
-                initial={{ rotate: reduce ? 0 : -18 }}
-                animate={{ rotate: 0 }}
-                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                 className="relative z-10"
               >
                 <Logo size={MARK} animated />

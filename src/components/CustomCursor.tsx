@@ -63,8 +63,16 @@ export default function CustomCursor() {
 
   return (
     <>
-      <div ref={dotRef} className="cursor-dot hidden md:block" />
-      <div ref={ringRef} className="cursor-ring hidden md:block" />
+      <div
+        ref={dotRef}
+        className="cursor-dot hidden md:block"
+        style={{ transform: "translate3d(-100px,-100px,0)" }}
+      />
+      <div
+        ref={ringRef}
+        className="cursor-ring hidden md:block"
+        style={{ transform: "translate3d(-118px,-118px,0)" }}
+      />
     </>
   );
 }
