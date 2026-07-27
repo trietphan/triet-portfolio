@@ -8,7 +8,7 @@ export default function Particles() {
   // Generate once, no re-renders
   const particles = useMemo(
     () =>
-      Array.from({ length: 18 }, (_, i) => ({
+      Array.from({ length: 10 }, (_, i) => ({
         id: i,
         left: `${(i * 5.5 + 2) % 100}%`,
         size: (i % 3) + 2,

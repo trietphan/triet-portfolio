@@ -7,7 +7,7 @@
  * page. That happens in two situations, so both collapse the same way.
  *
  *   reduced motion  the visitor asked for less animation
- *   repeat visit    the intro already played once this session
+ *   client return   the intro already played before navigating to another route
  */
 
 export const INTRO_SEEN_KEY = "intro-played";
@@ -24,7 +24,7 @@ export function introSkipped(): boolean {
 
 /** How long the loader stays up, in ms. */
 export function loaderHold(reduce: boolean): number {
-  return reduce ? 700 : 2300;
+  return reduce ? 700 : 2450;
 }
 
 /**

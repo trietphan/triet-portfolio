@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useCallback, useRef } from "react";
 import Magnetic from "./Magnetic";
 import ScrambleText from "./ScrambleText";
@@ -13,7 +13,6 @@ export default function Hero() {
   // Every entrance step is an offset on the shared intro timeline, so the
   // loader and the hero always hand off to each other cleanly.
   const d = (offset: number) => introDelay(offset, reduce);
-  const ref = useRef<HTMLDivElement>(null);
   const lightRef = useRef<HTMLDivElement>(null);
 
   // A soft light that follows the pointer. Written straight to CSS variables so
@@ -29,13 +28,8 @@ export default function Hero() {
 
   const onLeave = useCallback(() => lightRef.current?.classList.remove("lit"), []);
 
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-
   return (
     <section
-      ref={ref}
       onMouseMove={onPointer}
       onMouseLeave={onLeave}
       className="relative min-h-screen flex items-center justify-center overflow-hidden px-6"
@@ -73,7 +67,7 @@ export default function Hero() {
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#b347ff]/5 rounded-full blur-[160px]" />
       <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-[#ffaa33]/3 rounded-full blur-[140px]" />
 
-      <motion.div style={{ y, opacity }} className="relative z-10 text-center max-w-4xl">
+      <motion.div className="relative z-10 text-center max-w-4xl">
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: d(0), ease: "easeOut" }}
           className="flex justify-center mb-6">
