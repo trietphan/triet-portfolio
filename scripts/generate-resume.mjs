@@ -190,7 +190,7 @@ const html = `<!DOCTYPE html>
   ${logoBase64 ? `<img class="header-logo" src="${logoBase64}" alt="logo">` : ""}
   <div class="header-name">
     <h1>Triet Phan</h1>
-    <div class="tagline">AI Enthusiast · Full-Stack Developer · Educator</div>
+    <div class="tagline">Founder, aifutures.dev · Full-Stack Developer · Educator</div>
   </div>
   <div class="header-contact">
     Chicago, IL &nbsp;|&nbsp;
@@ -205,7 +205,7 @@ const html = `<!DOCTYPE html>
 <!-- ═══ SUMMARY ═══ -->
 <div class="section">
   <div class="summary">
-    Full-stack developer and AI enthusiast with an M.S. in Computer Science. Experienced in shipping production marketplace apps used by 200+ users at Airbnb, architecting multi-agent AI swarm systems, and mentoring students in computer science. Passionate about building technology that empowers people to dream bigger and move faster.
+    Founder of <b>aifutures.dev</b>, an independent product lab building instruments for the agentic age — software that trades live markets, maps living codebases and commands fleets of autonomous agents, with human judgment wired into every loop. Full-stack developer with an M.S. in Computer Science, previously shipping production marketplace apps used by 200+ users at Airbnb. Operating principle: machine speed, human judgment, provable evidence.
   </div>
 </div>
 
@@ -223,15 +223,27 @@ const html = `<!DOCTYPE html>
 
       <div class="job">
         <div class="job-header">
+          <span class="job-title">Founder &amp; Principal Builder — aifutures.dev</span>
+          <span class="job-date">2026 — Present</span>
+        </div>
+        <div class="job-co">Independent Product Lab — Chicago, IL · <a href="https://aifutures.dev" style="color:#ff6b2b; text-decoration:none;">aifutures.dev</a></div>
+        <ul>
+          <li>Built and shipped three production systems solo — architecture, engineering, verification, docs and launch — developed in public on GitHub</li>
+          <li><b>AI Futures Trader</b> (live): real-time auction analysis across ES, NQ, GC and CL with TPO profiles, 70% value-area mapping and point-of-control; human confirmation gate on every entry, server-side brackets and kill switches enforce 0 naked positions</li>
+          <li><b>AIFlow</b>: repository cartography mapping system architecture at AST level with file:line evidence across TypeScript, Python, Go and Rust; fully self-hosted — 1 command to map, 0 bytes uploaded, 38 tests green</li>
+          <li><b>Agent Control Center</b>: local-first control plane running 3 agent runtimes (Codex, Claude, OpenClaw) in isolated git worktrees through a 7-stage verify loop, with sealed SHA-256 evidence and Ed25519-signed federation — 100% human final say</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
           <span class="job-title">Computer Information Systems Tutor</span>
           <span class="job-date">Oct 2025 — Present</span>
         </div>
         <div class="job-co">Wilbur Wright College · City Colleges of Chicago — Chicago, IL</div>
         <ul>
           <li>Provide individual and group tutoring across CIS subjects: programming, databases, algorithms, and web development</li>
-          <li>Lead workshops on study skills, learning strategies, and applied problem-solving in live classroom settings</li>
-          <li>Develop personalized learning plans; collaborate with instructors to align support with course objectives</li>
-          <li>Created reference materials and exercises adopted as supplementary resources for enrolled students</li>
+          <li>Lead workshops on study skills and applied problem-solving; develop personalized learning plans aligned with course objectives</li>
         </ul>
       </div>
 
@@ -246,7 +258,6 @@ const html = `<!DOCTYPE html>
           <li>Launched the company's inaugural Dependent Dropdown app on the Monday.com Marketplace — first-ever marketplace listing, now used across multiple client organizations</li>
           <li>Built a Role Assignment system capable of processing hundreds of concurrent tasks with intelligent API rate-limit queuing and GraphQL batch optimization</li>
           <li>Pioneered reactive UI/UX design patterns across desktop and mobile, reducing user onboarding friction and increasing adoption</li>
-          <li>Contributed to technical documentation and internal component libraries used across the full engineering team</li>
         </ul>
       </div>
 
@@ -269,9 +280,8 @@ const html = `<!DOCTYPE html>
         </div>
         <div class="job-co">Illinois Institute of Technology — Chicago, IL</div>
         <ul>
-          <li>Administered and maintained IIT Alumni and Mies Van der Rohe Society websites; migrated legacy media database improving load performance by 40%</li>
-          <li>Produced Giving Day 2016 promotional video and proposed cloud backup architecture reducing infrastructure overhead</li>
-          <li>Collaborated with marketing team to publish digital content reaching 10,000+ alumni and donors</li>
+          <li>Administered IIT Alumni and Mies Van der Rohe Society websites; migrated legacy media database improving load performance by 40%</li>
+          <li>Produced Giving Day 2016 promotional video; published digital content reaching 10,000+ alumni and donors</li>
         </ul>
       </div>
 
@@ -282,38 +292,31 @@ const html = `<!DOCTYPE html>
         </div>
         <div class="job-co">Wilbur Wright College · City Colleges of Chicago — Chicago, IL</div>
         <ul>
-          <li>Delivered personalized math tutoring (Algebra through Calculus) to 30+ students per semester</li>
-          <li>Maintained 95%+ student satisfaction rating; mentored students toward STEM pathways and scholarship opportunities</li>
+          <li>Delivered personalized math tutoring (Algebra through Calculus) to 30+ students per semester with 95%+ satisfaction rating</li>
         </ul>
       </div>
     </div>
 
     <!-- Projects -->
     <div class="section">
-      <div class="section-title">Select Projects</div>
+      <div class="section-title">Other Projects</div>
 
       <div class="project">
-        <div class="project-name">ClawSwarm — Multi-Agent AI Swarm System</div>
-        <div class="project-desc">Autonomous AI orchestration platform with three specialized chiefs: CodeClaw (code generation), ResearchClaw (research &amp; analysis), OpsClaw (infrastructure). Implements a 3-tier quality gate: outputs scoring ≥8 auto-approve, 5–7 escalate to human review via Discord, &lt;5 trigger auto-rework cycles (max 3). Ships with real-time WebSocket streaming dashboard, replay logging, workspace isolation per agent, and ticket-based auth. Achieved ~65% auto-approve rate across 50+ soak tests.</div>
-        <div class="project-tags">TypeScript · Convex · Next.js · WebSockets · AI Architecture · Discord API</div>
+        <div class="project-name">ClawSwarm — Multi-Agent AI Orchestration <span style="color:#999; font-weight:400;">(OSS + hosted platform)</span></div>
+        <div class="project-desc">Autonomous orchestration with three specialized chiefs: CodeClaw (code), ResearchClaw (research), OpsClaw (infrastructure). 3-tier quality gate: ≥8 auto-approves, 5–7 escalates to human review, &lt;5 auto-reworks. Real-time WebSocket streaming dashboard, replay logging, per-agent workspace isolation. ~65% auto-approve across 50+ soak tests. <a href="https://clawswarm.app" style="color:#ff6b2b;">clawswarm.app</a></div>
+        <div class="project-tags">TypeScript · Convex · Next.js · WebSockets · AI Architecture</div>
       </div>
 
       <div class="project">
-        <div class="project-name">AgentAwake — AI Productivity SaaS</div>
-        <div class="project-desc">Full-stack SaaS for AI-powered productivity. Tiered plans (Free / Pro $9 / Team $19) with Stripe billing, automated drip email sequences via Resend, an audience management pipeline, and a free prompt library lead magnet. End-to-end pipeline confirmed in production: subscribe → welcome email → audience contact → drip sequence. Deployed on Vercel with custom domain. <a href="https://agentawake.com" style="color:#ff6b2b;">agentawake.com</a></div>
+        <div class="project-name">AgentAwake — AI Productivity SaaS + Agent Memory Playbook</div>
+        <div class="project-desc">Full-stack SaaS with tiered Stripe billing, automated Resend drip sequences and audience pipeline — confirmed end-to-end in production. Includes a free 36-chapter playbook on building AI agents with persistent memory (Claude, ChatGPT, CrewAI, LangChain, n8n &amp; more). <a href="https://agentawake.com" style="color:#ff6b2b;">agentawake.com</a></div>
         <div class="project-tags">Next.js · TypeScript · Stripe · Resend · Vercel · SaaS</div>
       </div>
 
       <div class="project">
-        <div class="project-name">Market Profile Guide</div>
-        <div class="project-desc">Interactive trading education platform covering market profile theory, volume analysis, and price-action structure. Built with Next.js and deployed on Vercel — designed for clarity with custom visualizations and structured content for traders at every level. <a href="https://market-profile-website.vercel.app" style="color:#ff6b2b;">market-profile-website.vercel.app</a></div>
-        <div class="project-tags">Next.js · React · Tailwind CSS · Vercel</div>
-      </div>
-
-      <div class="project">
-        <div class="project-name">ETH Smart Contracts</div>
-        <div class="project-desc">Ethereum smart contract development and deployment platform — streamlines the workflow for writing, testing, and deploying on-chain contracts. Supports direct contract interaction and on-chain queries in a clean developer interface.</div>
-        <div class="project-tags">Solidity · Ethereum · Web3.js · Next.js</div>
+        <div class="project-name">Market Profile Guide &amp; ETH Smart Contracts</div>
+        <div class="project-desc">Interactive trading education platform for market profile theory and price-action structure (<a href="https://market-profile-website.vercel.app" style="color:#ff6b2b;">live on Vercel</a>) · Ethereum smart contract development platform streamlining write–test–deploy workflows for on-chain apps.</div>
+        <div class="project-tags">Next.js · React · Tailwind CSS · Solidity · Web3.js</div>
       </div>
     </div>
 
@@ -389,10 +392,22 @@ const html = `<!DOCTYPE html>
       <div class="skills-group">
         <div class="skills-label">AI & Architecture</div>
         <div class="skill-wrap">
-          <span class="skill-tag s-purple">AI Agent Systems</span>
+          <span class="skill-tag s-purple">Agent Systems</span>
           <span class="skill-tag s-purple">LLM Integration</span>
-          <span class="skill-tag s-orange">Swarm Architecture</span>
+          <span class="skill-tag s-orange">Multi-Agent Orchestration</span>
           <span class="skill-tag s-green">RAG / Retrieval</span>
+          <span class="skill-tag s-gray">MCP</span>
+          <span class="skill-tag s-cyan">AST Analysis</span>
+          <span class="skill-tag s-gray">Local-First Systems</span>
+        </div>
+      </div>
+
+      <div class="skills-group">
+        <div class="skills-label">Markets & Security</div>
+        <div class="skill-wrap">
+          <span class="skill-tag s-orange">Market Structure / TPO</span>
+          <span class="skill-tag s-gray">Risk Controls</span>
+          <span class="skill-tag s-green">Ed25519 / SHA-256</span>
         </div>
       </div>
     </div>
@@ -431,14 +446,19 @@ const html = `<!DOCTYPE html>
 
 <!-- ═══ FOOTER ═══ -->
 <div class="footer">
-  <a href="https://phan.today">phan.today</a> &nbsp;·&nbsp; Chicago, IL &nbsp;·&nbsp; Available for new opportunities
+  <a href="https://phan.today">phan.today</a> &nbsp;·&nbsp; <a href="https://aifutures.dev">aifutures.dev</a> &nbsp;·&nbsp; Chicago, IL &nbsp;·&nbsp; Available for new opportunities
 </div>
 
 </body>
 </html>`;
 
 async function generatePDF() {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({
+    headless: true,
+    // PUPPETEER_EXECUTABLE_PATH lets CI/sandbox environments point at a system Chromium
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
   const page = await browser.newPage();
   await page.setContent(html, { waitUntil: "networkidle0" });
 

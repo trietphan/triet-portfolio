@@ -9,14 +9,20 @@ import Now from "@/components/Now";
 import Contact from "@/components/Contact";
 import Particles from "@/components/Particles";
 import LoadingScreen from "@/components/LoadingScreen";
+import BackToTop from "@/components/BackToTop";
+import SectionRail from "@/components/SectionRail";
 
 export default function Home() {
   return (
     <>
       <LoadingScreen />
+      <a href="#main" className="skip-link">Skip to content</a>
       <Particles />
       <Navbar />
-      <main className="relative z-10">
+      <SectionRail />
+      {/* tabIndex -1 so the skip link actually moves focus here, not just the
+          scroll position — otherwise a screen-reader user hears nothing move. */}
+      <main id="main" tabIndex={-1} className="relative z-10 outline-none">
         <Hero />
         <About />
         <Experience />
@@ -26,6 +32,7 @@ export default function Home() {
         <Now />
         <Contact />
       </main>
+      <BackToTop />
     </>
   );
 }

@@ -1,17 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import Logo from "./Logo";
+import { loaderHold } from "@/lib/intro";
 
 export default function LoadingScreen() {
   const [visible, setVisible] = useState(true);
   const [progress, setProgress] = useState(0);
+  const reduceMotion = useReducedMotion();
+  const reduce = !!reduceMotion;
+
+  // Petals bloom over ~0.8s; hold the mark a beat, then hand off to the page.
+  // The hand-off point is shared with the hero/navbar entrance via lib/intro.
+  const duration = reduce ? 500 : 1900;
+  const hold = loaderHold(reduce);
 
   useEffect(() => {
-    // Animate progress bar to 100% over ~1.8s
     const start = performance.now();
-    const duration = 1800;
     let raf: number;
     const step = (now: number) => {
       const p = Math.min((now - start) / duration, 1);
@@ -20,65 +26,84 @@ export default function LoadingScreen() {
     };
     raf = requestAnimationFrame(step);
 
-    const timer = setTimeout(() => setVisible(false), 2200);
+    const timer = setTimeout(() => setVisible(false), hold);
     return () => { clearTimeout(timer); cancelAnimationFrame(raf); };
-  }, []);
+  }, [duration, hold]);
 
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
           key="loader"
-          exit={{ opacity: 0, scale: 1.02 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          exit={{ opacity: 0, scale: 1.04 }}
+          transition={{ duration: 0.55, ease: [0.65, 0, 0.35, 1] }}
           className="loading-screen"
         >
-          <div className="flex flex-col items-center gap-6">
-            {/* Logo */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
-              className="relative"
-            >
-              {/* Outer glow ring */}
+          <div className="flex flex-col items-center gap-7">
+            <div className="relative">
+              {/* Colour bleeding out from behind the mark as it opens */}
               <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0 rounded-full"
+                initial={reduce ? { opacity: 0.3, scale: 1.6 } : { opacity: 0, scale: 0.5 }}
+                animate={reduce ? { opacity: 0.3, scale: 1.6 } : { opacity: [0, 0.55, 0.3], scale: 1.6 }}
+                transition={reduce ? { duration: 0 } : { duration: 1.6, ease: "easeOut", times: [0, 0.5, 1] }}
+                className="absolute inset-0 rounded-full blur-[38px] pointer-events-none"
                 style={{
-                  background: "conic-gradient(from 0deg, #ff6b2b, #ffaa33, #b347ff, #00fff5, #ff6b2b)",
-                  padding: "2px",
-                  borderRadius: "50%",
-                  WebkitMask: "radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 2px))",
-                  mask: "radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 2px))",
+                  background:
+                    "conic-gradient(from -90deg, #ff6e60, #ff993b, #ffd05a, #6ddf88, #50d6e6, #5791ff, #827aef, #c175ef, #ff6e60)",
                 }}
               />
-              {/* Pulse ring */}
-              <motion.div
-                animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0, 0.4] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-0 rounded-full"
-                style={{ background: "rgba(255,107,43,0.2)", borderRadius: "50%" }}
-              />
-              <Image
-                src="/logo.png"
-                alt="Logo"
-                width={88}
-                height={88}
-                className="rounded-full relative z-10"
-                priority
-              />
-            </motion.div>
 
-            {/* Progress bar */}
-            <div className="w-32 h-[2px] rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
+              {/* Ring that draws itself around the finished mark */}
+              <svg
+                className="absolute -inset-4 pointer-events-none"
+                viewBox="0 0 100 100"
+                aria-hidden="true"
+              >
+                <motion.circle
+                  cx="50" cy="50" r="47"
+                  fill="none"
+                  stroke="url(#loaderRing)"
+                  strokeWidth="0.7"
+                  strokeLinecap="round"
+                  initial={reduce ? { pathLength: 1, opacity: 0.75 } : { pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 0.75 }}
+                  transition={reduce ? { duration: 0 } : { duration: 1.5, delay: 0.35, ease: "easeInOut" }}
+                  transform="rotate(-90 50 50)"
+                />
+                <defs>
+                  <linearGradient id="loaderRing" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stopColor="#ff6e60" />
+                    <stop offset="0.5" stopColor="#50d6e6" />
+                    <stop offset="1" stopColor="#c175ef" />
+                  </linearGradient>
+                </defs>
+              </svg>
+
               <motion.div
+                initial={{ rotate: reduce ? 0 : -18 }}
+                animate={{ rotate: 0 }}
+                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                className="relative z-10"
+              >
+                <Logo size={104} animated />
+              </motion.div>
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: reduce ? 0 : 0.95, duration: reduce ? 0 : 0.5 }}
+              className="text-[11px] font-mono tracking-[0.42em] uppercase text-white/30 pl-[0.42em]"
+            >
+              aifutures
+            </motion.p>
+
+            <div className="w-32 h-[2px] rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
+              <div
                 className="h-full rounded-full"
                 style={{
                   width: `${progress * 100}%`,
-                  background: "linear-gradient(90deg, #ff6b2b, #ffaa33, #b347ff)",
-                  transition: "width 0.05s linear",
+                  background: "linear-gradient(90deg, #ff6e60, #ffd05a, #50d6e6, #c175ef)",
                 }}
               />
             </div>

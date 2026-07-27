@@ -1,6 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
+import Magnetic from "./Magnetic";
+import RevealHeading from "./RevealHeading";
 
 const socials = [
   {
@@ -35,8 +38,20 @@ const socials = [
   },
 ];
 
+const EMAIL = "trietphan85@gmail.com";
+
 export default function Contact() {
-  
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      window.location.href = `mailto:${EMAIL}`;
+    }
+  };
 
   return (
     <section id="contact" className="relative py-32 px-6">
@@ -50,14 +65,11 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
         >
           <p className="text-[#00ff88] font-mono text-sm tracking-widest uppercase mb-2">06</p>
-          <h2 className="text-4xl md:text-6xl font-black mb-6">
-            Let's Build{" "}
-            <span className="bg-gradient-to-r from-[#00ff88] via-[#00fff5] to-[#b347ff] bg-clip-text text-transparent">
-              Something
-            </span>
-          </h2>
+          <RevealHeading text="Let's Build" accent="Something"
+            accentClass="bg-gradient-to-r from-[#00ff88] via-[#00fff5] to-[#b347ff] bg-clip-text text-transparent"
+            className="text-4xl md:text-6xl font-black mb-6" />
           <p className="text-lg text-white/35 mb-10 max-w-xl mx-auto leading-relaxed">
-            Whether you're looking for a developer, collaborator, or just want to chat about AI agents, I'd love to hear from you.
+            Whether you&apos;re looking for a developer, collaborator, or just want to chat about AI agents, I&apos;d love to hear from you.
           </p>
         </motion.div>
 
@@ -67,14 +79,50 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="mb-10"
+          className="mb-10 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <a
-            href="mailto:trietphan85@gmail.com"
+          <Magnetic>
+            <a
+              href={`mailto:${EMAIL}`}
+              data-hover="true"
+              className="squeeze-btn inline-block px-10 py-4 rounded-full bg-gradient-to-r from-[#ff6b2b] to-[#ffaa33] text-black font-bold text-sm uppercase tracking-wider hover:shadow-[0_0_40px_rgba(255,107,43,0.35)] transition-all duration-300"
+            >
+              Get In Touch
+            </a>
+          </Magnetic>
+          <button
+            onClick={copyEmail}
             data-hover="true"
-            className="squeeze-btn inline-block px-10 py-4 rounded-full bg-gradient-to-r from-[#ff6b2b] to-[#ffaa33] text-black font-bold text-sm uppercase tracking-wider hover:shadow-[0_0_40px_rgba(255,107,43,0.35)] transition-all duration-300"
+            className="squeeze-btn inline-flex items-center gap-2 px-6 py-4 rounded-full border border-white/10 text-white/50 text-sm font-medium hover:border-[#00fff5]/40 hover:text-[#00fff5] transition-all duration-300"
           >
-            Get In Touch
+            {copied ? (
+              <>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg>
+                <span className="text-[#00ff88]">Copied!</span>
+              </>
+            ) : (
+              <>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                </svg>
+                Copy email
+              </>
+            )}
+          </button>
+          <a
+            href="/Triet_Phan_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-hover="true"
+            className="squeeze-btn inline-flex items-center gap-2 px-6 py-4 rounded-full border border-white/10 text-white/50 text-sm font-medium hover:border-[#b347ff]/40 hover:text-[#b347ff] transition-all duration-300"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
+            </svg>
+            Resume
           </a>
         </motion.div>
 
@@ -111,11 +159,14 @@ export default function Contact() {
           transition={{ delay: 0.6 }}
           className="pt-16 border-t border-white/5"
         >
-          <p className="text-sm text-white/12 font-mono">
+          <p className="text-sm text-white/40 font-mono">
             Built with Next.js, Tailwind CSS & Framer Motion
           </p>
-          <p className="text-xs text-white/8 mt-3">
-            © {new Date().getFullYear()} Triet Phan
+          <p className="text-xs text-white/45 mt-3 font-mono">
+            Press <kbd className="border border-white/20 rounded px-1.5 py-0.5 mx-0.5">⌘K</kbd> to search anything
+          </p>
+          <p className="text-xs text-white/35 mt-3">
+            © {new Date().getFullYear()} Triet Phan · aifutures.dev
           </p>
         </motion.div>
       </div>

@@ -1,8 +1,22 @@
 "use client";
 
 import { motion } from "framer-motion";
+import RevealHeading from "./RevealHeading";
 
 const items = [
+  {
+    title: "Founder & Principal Builder",
+    company: "aifutures.dev — Independent Product Lab",
+    period: "2026 — Present",
+    color: "#ff6b2b",
+    highlights: [
+      "Founded an independent product lab building instruments for the agentic age, with human judgment wired into every loop",
+      "AI Futures Trader — live auction analysis across ES, NQ, GC and CL: TPO profiles, value-area mapping, confirmation gates, server-side brackets and kill switches (0 naked positions)",
+      "AIFlow — repository cartography that maps a codebase's architecture at AST level with file:line evidence across TypeScript, Python, Go and Rust; runs fully local, 0 bytes uploaded",
+      "Agent Control Center — local-first control plane running agents in isolated git worktrees with independent verification, sealed SHA-256 evidence and Ed25519-signed federation",
+      "Run the full product cycle solo: architecture, engineering, verification, docs and launch — built in public on GitHub",
+    ],
+  },
   {
     title: "Computer Information Systems Tutor",
     company: "Wilbur Wright College — City Colleges of Chicago",
@@ -73,10 +87,9 @@ export default function Experience() {
       <div className="max-w-4xl mx-auto">
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
           <p className="text-[#ffaa33] font-mono text-sm tracking-widest uppercase mb-2">02</p>
-          <h2 className="text-4xl md:text-5xl font-black mb-16">
-            Where I&apos;ve{" "}
-            <span className="bg-gradient-to-r from-[#ffaa33] to-[#ff6b2b] bg-clip-text text-transparent">Been</span>
-          </h2>
+          <RevealHeading text="Where I've" accent="Been"
+            accentClass="bg-gradient-to-r from-[#ffaa33] to-[#ff6b2b] bg-clip-text text-transparent"
+            className="text-4xl md:text-5xl font-black mb-16" />
         </motion.div>
 
         <div className="relative">
