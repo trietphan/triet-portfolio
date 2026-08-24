@@ -223,15 +223,16 @@ const html = `<!DOCTYPE html>
 
       <div class="job">
         <div class="job-header">
-          <span class="job-title">Founder &amp; Principal Builder, aifutures.dev</span>
+          <span class="job-title">Founder &amp; Software Engineer, tpochart.tech</span>
           <span class="job-date">2026 to now</span>
         </div>
-        <div class="job-co">Independent Product Lab · Chicago, IL · <a href="https://aifutures.dev" style="color:#ff6b2b; text-decoration:none;">aifutures.dev</a></div>
+        <div class="job-co">Futures Trading Platform · Chicago, IL · <a href="https://www.tpochart.tech" style="color:#ff6b2b; text-decoration:none;">tpochart.tech</a></div>
         <ul>
-          <li>Built and shipped three production systems on my own, covering architecture, engineering, verification, docs and launch, all in public on GitHub</li>
-          <li><b>AI Futures Trader</b> (live): real-time auction analysis across ES, NQ, GC and CL with TPO profiles, 70% value-area mapping and point-of-control; human confirmation gate on every entry, server-side brackets and kill switches enforce 0 naked positions</li>
-          <li><b>AIFlow</b>: repository cartography mapping system architecture at AST level with file:line evidence across TypeScript, Python, Go and Rust; fully self-hosted, so it is 1 command to map, 0 bytes uploaded, 38 tests green</li>
-          <li><b>Agent Control Center</b>: local-first control plane running 3 agent runtimes (Codex, Claude, OpenClaw) in isolated git worktrees through a 7-stage verify loop, with sealed SHA-256 evidence and Ed25519-signed federation, and 100% human final say</li>
+          <li>Built and operate a production futures trading platform end to end using TypeScript, Node.js, Next.js, React, and PostgreSQL through Supabase</li>
+          <li>Integrated ProjectX and TopstepX REST and SignalR APIs for live market data, account state, and order events, with reconnect, polling fallback, token refresh, rate-limit handling, and contract-roll safeguards</li>
+          <li>Designed a distributed architecture that keeps broker credentials and trade execution on a local worker while the cloud dashboard coordinates signals, confirmations, and durable state</li>
+          <li>Implemented fail-closed risk controls including confirmation-time validation, server-side stop and target brackets, execution leases, stale-feed gates, reconciliation, and a position-flattening kill switch</li>
+          <li>Own features from design through deployment with automated tests, database migrations, health checks, operational logging, incident runbooks, and production monitoring</li>
         </ul>
       </div>
 
