@@ -314,6 +314,18 @@ const html = `<!DOCTYPE html>
         <div class="project-tags">Next.js · TypeScript · Stripe · Resend · Vercel · SaaS</div>
       </div>
 
+      <div class="project">
+        <div class="project-name">AIFlow · Repository Cartography</div>
+        <div class="project-desc">Local-first architecture mapper that analyzes TypeScript, Python, Go and Rust at the AST level, with file-and-line evidence for every generated claim and no source-code uploads.</div>
+        <div class="project-tags">TypeScript · AST Analysis · Static Analysis · Local-First</div>
+      </div>
+
+      <div class="project">
+        <div class="project-name">Agent Control Center · Multi-Agent Operations</div>
+        <div class="project-desc">Local control plane that runs Codex, Claude and OpenClaw in isolated git worktrees, independently verifies changes and seals execution evidence with SHA-256; nodes federate through Ed25519-signed messages.</div>
+        <div class="project-tags">Node.js · SQLite · MCP · Git Worktrees · Ed25519</div>
+      </div>
+
     </div>
 
   </div>
