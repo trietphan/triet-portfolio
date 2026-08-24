@@ -25,7 +25,7 @@ const baseCommands: Command[] = [
   { id: "contact", label: "Contact", hint: "Let's build something", group: "Navigate", icon: "◆", action: "scroll", target: "#contact" },
 
   { id: "aifutures", label: "aifutures.dev", hint: "My independent product lab", group: "Projects", icon: "✦", action: "external", target: "https://aifutures.dev" },
-  { id: "trader", label: "AI Futures Trader", hint: "Live markets: ES, NQ, GC, CL", group: "Projects", icon: "📊", action: "external", target: "https://trade.aifutures.dev" },
+  { id: "trader", label: "tpochart.tech", hint: "Market Profile: ES, NQ, GC, CL", group: "Projects", icon: "📊", action: "external", target: "https://www.tpochart.tech" },
   { id: "aiflow", label: "AIFlow", hint: "Repository cartography", group: "Projects", icon: "🗺", action: "external", target: "https://github.com/trietphan" },
   { id: "acc", label: "Agent Control Center", hint: "Mission control for agent fleets", group: "Projects", icon: "🛰", action: "external", target: "https://github.com/trietphan" },
   { id: "clawswarm-app", label: "clawswarm.app", hint: "Multi-agent AI platform", group: "Projects", icon: "🌐", action: "external", target: "https://clawswarm.app" },

@@ -10,12 +10,12 @@ import RevealHeading from "./RevealHeading";
 // comparison, which silently stops matching the moment a label is reworded.
 const studioProjects = [
   {
-    name: "AI Futures Trader",
-    detail: "Machine-speed markets, human-grade discipline",
-    status: "Live markets",
+    name: "tpochart.tech",
+    detail: "Market Profile context, measured in public",
+    status: "Market intelligence",
     pulse: true,
     color: "#ffd05a",
-    url: "https://trade.aifutures.dev",
+    url: "https://www.tpochart.tech",
   },
   {
     name: "AIFlow",
@@ -45,15 +45,15 @@ const principles = [
 
 const projects = [
   {
-    title: "AI Futures Trader",
-    tagline: "Live Markets · Decision Support",
-    description: "Reads the futures auction in real time using TPO profiles, value-area mapping and point of control. Nothing goes in without my confirmation, and server-side brackets plus kill switches mean there is never a naked position.",
+    title: "tpochart.tech",
+    tagline: "Futures Market Intelligence · Decision Support",
+    description: "Turns live futures auction data into TPO and volume profiles, pre-market briefs, session scenarios and structure alerts. It helps traders plan and measure their own decisions; it does not place customer trades.",
     longDescription: null,
-    tags: ["Market Structure", "TPO / Value Area", "Risk Controls", "Real-Time"],
+    tags: ["TypeScript", "Market Profile", "ProjectX", "PostgreSQL", "Real-Time"],
     color: "#ffd05a",
     icon: "📊",
-    stats: ["4 markets: ES, NQ, GC, CL", "70% value area · 30m TPO", "0 naked positions. Ever."],
-    url: "https://trade.aifutures.dev",
+    stats: ["4 markets: ES, NQ, GC, CL", "11 structure-alert types", "Public graded scoreboards"],
+    url: "https://www.tpochart.tech",
     venture: true,
   },
   {
@@ -200,8 +200,8 @@ function StudioCard() {
                 The future isn&apos;t predicted. It&apos;s engineered.
               </p>
               <p className="text-white/45 leading-relaxed mb-6 max-w-md text-sm">
-                An independent product lab building tools for the agentic age. Software that trades live
-                markets, maps living codebases and runs fleets of autonomous agents, with a person
+                An independent product lab building tools for the agentic age. Software that reads live
+                futures auctions, maps living codebases and runs fleets of autonomous agents, with a person
                 in the loop wherever it counts.
               </p>
 

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const items = [
   { icon: "✦", label: "Running", value: "aifutures.dev, my independent product lab for the agentic age", color: "#ff6b2b" },
-  { icon: "📊", label: "Trading", value: "AI Futures Trader, reading the live auction on ES, NQ, GC and CL", color: "#ffd05a" },
+  { icon: "📊", label: "Markets", value: "tpochart.tech, turning live futures auctions into Market Profile context", color: "#ffd05a" },
   { icon: "🗺", label: "Mapping", value: "AIFlow, mapping codebases with file and line evidence", color: "#50d6e6" },
   { icon: "🛰", label: "Commanding", value: "Agent Control Center, a local-first control plane for agent fleets", color: "#c175ef" },
   { icon: "📚", label: "Teaching", value: "CIS at Wilbur Wright College", color: "#00fff5" },

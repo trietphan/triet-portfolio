@@ -5,16 +5,16 @@ import RevealHeading from "./RevealHeading";
 
 const items = [
   {
-    title: "Founder & Principal Builder",
-    company: "aifutures.dev · Independent Product Lab",
+    title: "Founder & Software Engineer",
+    company: "tpochart.tech · Futures Market Intelligence",
     period: "2026 to now",
     color: "#ff6b2b",
     highlights: [
-      "Started an independent product lab to build tools for the agentic age, with a person in the loop at every step",
-      "AI Futures Trader reads the live auction across ES, NQ, GC and CL using TPO profiles and value-area mapping. Every entry needs my confirmation, and server-side brackets plus kill switches keep naked positions at zero",
-      "AIFlow maps what a codebase actually looks like at the AST level and cites file and line for every claim. It covers TypeScript, Python, Go and Rust, runs on your own machine, and uploads nothing",
-      "Agent Control Center runs agents in isolated git worktrees, verifies their work independently, and seals the result as SHA-256 evidence. Nodes talk to each other over Ed25519-signed federation",
-      "I run the whole cycle myself: architecture, engineering, verification, docs and launch, all in public on GitHub",
+      "Built and operate a bilingual production SaaS for ES, NQ, GC and CL with TypeScript, Node.js, Next.js, React and PostgreSQL through Supabase",
+      "Engineered the Market Profile pipeline behind TPO and volume profiles, value areas, POC, Initial Balance, directional bias and session scenarios",
+      "Integrated ProjectX and TopstepX for customer-authorized live market data, with reconnect, polling fallback, token refresh, rate-limit handling and contract-roll safeguards",
+      "Shipped event-driven alerts, daily briefs, trade planning, paper brackets and public scoreboards for published brief levels and practice calls",
+      "Own the full production lifecycle: architecture, APIs, data, frontend, automated tests, billing, deployment, observability and incident runbooks",
     ],
   },
   {

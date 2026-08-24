@@ -205,7 +205,7 @@ const html = `<!DOCTYPE html>
 <!-- ═══ SUMMARY ═══ -->
 <div class="section">
   <div class="summary">
-    I run <b>aifutures.dev</b>, an independent product lab building tools for the agentic age. The software there trades live markets, maps living codebases and runs fleets of autonomous agents, always with a person in the loop where it counts. Full-stack developer with an M.S. in Computer Science. Before this I shipped production marketplace apps used by 200+ people at Airbnb. How I work: machine speed, human judgment, provable evidence.
+    Full-stack software engineer with an M.S. in Computer Science. I build and operate <b>tpochart.tech</b>, a bilingual futures market-intelligence product that turns live auction data into Market Profile context, alerts, plans and a public graded record. Before this I shipped production marketplace apps used by 200+ people at Airbnb. I work across architecture, APIs, data, frontend, testing and production operations.
   </div>
 </div>
 
@@ -226,13 +226,13 @@ const html = `<!DOCTYPE html>
           <span class="job-title">Founder &amp; Software Engineer, tpochart.tech</span>
           <span class="job-date">2026 to now</span>
         </div>
-        <div class="job-co">Futures Trading Platform · Chicago, IL · <a href="https://www.tpochart.tech" style="color:#ff6b2b; text-decoration:none;">tpochart.tech</a></div>
+        <div class="job-co">Futures Market Intelligence SaaS · Chicago, IL · <a href="https://www.tpochart.tech" style="color:#ff6b2b; text-decoration:none;">tpochart.tech</a></div>
         <ul>
-          <li>Built and operate a production futures trading platform end to end using TypeScript, Node.js, Next.js, React, and PostgreSQL through Supabase</li>
-          <li>Integrated ProjectX and TopstepX REST and SignalR APIs for live market data, account state, and order events, with reconnect, polling fallback, token refresh, rate-limit handling, and contract-roll safeguards</li>
-          <li>Designed a distributed architecture that keeps broker credentials and trade execution on a local worker while the cloud dashboard coordinates signals, confirmations, and durable state</li>
-          <li>Implemented fail-closed risk controls including confirmation-time validation, server-side stop and target brackets, execution leases, stale-feed gates, reconciliation, and a position-flattening kill switch</li>
-          <li>Own features from design through deployment with automated tests, database migrations, health checks, operational logging, incident runbooks, and production monitoring</li>
+          <li>Built and operate a bilingual production SaaS for ES, NQ, GC and CL using TypeScript, Node.js, Next.js, React and PostgreSQL through Supabase</li>
+          <li>Engineered a deterministic Market Profile pipeline that turns RTH and ETH bars into TPO and volume profiles, value areas, POC, Initial Balance, directional bias and session scenarios</li>
+          <li>Integrated ProjectX and TopstepX REST and SignalR APIs for customer-authorized live market and account data, with reconnect, polling fallback, token refresh, rate-limit handling and contract-roll safeguards</li>
+          <li>Built event-driven structure alerts, bilingual daily briefs, trade planning and paper brackets, plus public scoreboards for published brief levels and practice calls</li>
+          <li>Own design through deployment, including automated tests, database migrations, billing, health checks, structured operational logging, incident runbooks and production monitoring</li>
         </ul>
       </div>
 
