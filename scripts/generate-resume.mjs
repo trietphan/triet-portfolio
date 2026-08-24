@@ -190,7 +190,7 @@ const html = `<!DOCTYPE html>
   ${logoBase64 ? `<img class="header-logo" src="${logoBase64}" alt="logo">` : ""}
   <div class="header-name">
     <h1>Triet Phan</h1>
-    <div class="tagline">Founder, aifutures.dev · Full-Stack Developer · Educator</div>
+    <div class="tagline">Founder, aifutures.dev · Sole Product Engineer · Educator</div>
   </div>
   <div class="header-contact">
     Chicago, IL &nbsp;|&nbsp;
@@ -205,7 +205,7 @@ const html = `<!DOCTYPE html>
 <!-- ═══ SUMMARY ═══ -->
 <div class="section">
   <div class="summary">
-    Full-stack software engineer with an M.S. in Computer Science and founder of <b>aifutures.dev</b>, an independent product lab. Its futures product, <b>tpochart.tech</b>, turns live auction data into bilingual Market Profile context, alerts, plans and public graded scoreboards. Before this I shipped production marketplace apps used by 200+ people at Airbnb. I work across architecture, APIs, data, frontend, testing and production operations.
+    Sole product engineer with an M.S. in Computer Science and founder of <b>aifutures.dev</b>, an independent product lab. I take its products from idea to production across architecture, APIs, data, frontend, testing and operations. Its futures product, <b>tpochart.tech</b>, turns live auction data into bilingual Market Profile context, alerts, plans and public graded scoreboards. Before this I shipped production marketplace apps used by 200+ people at Airbnb.
   </div>
 </div>
 
@@ -223,7 +223,7 @@ const html = `<!DOCTYPE html>
 
       <div class="job">
         <div class="job-header">
-          <span class="job-title">Founder &amp; Software Engineer, aifutures.dev</span>
+          <span class="job-title">Founder &amp; Sole Product Engineer, aifutures.dev</span>
           <span class="job-date">2026 to now</span>
         </div>
         <div class="job-co">Independent Product Lab · Chicago, IL · <a href="https://aifutures.dev" style="color:#ff6b2b; text-decoration:none;">aifutures.dev</a> · Product: <a href="https://www.tpochart.tech" style="color:#ff6b2b; text-decoration:none;">tpochart.tech</a></div>

@@ -5,7 +5,7 @@ import RevealHeading from "./RevealHeading";
 
 const items = [
   {
-    title: "Founder & Software Engineer",
+    title: "Founder & Sole Product Engineer",
     company: "aifutures.dev · Independent Product Lab",
     period: "2026 to now",
     color: "#ff6b2b",

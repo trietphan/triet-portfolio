@@ -37,7 +37,7 @@ const personSchema = {
   name: "Triet Phan",
   url: "https://phan.today",
   image: "https://phan.today/logo.png",
-  jobTitle: "Founder & Principal Builder",
+  jobTitle: "Founder & Sole Product Engineer",
   description:
     "Founder of aifutures.dev, an independent product lab building AI Futures Trader, AIFlow and Agent Control Center.",
   worksFor: { "@type": "Organization", name: "aifutures.dev", url: "https://aifutures.dev" },

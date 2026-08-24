@@ -6,7 +6,7 @@ import Magnetic from "./Magnetic";
 import ScrambleText from "./ScrambleText";
 import { introDelay } from "@/lib/intro";
 
-const roles = ["Founder @ aifutures.dev", "Agent Systems Architect", "Full-Stack Developer", "Market Structure Nerd", "Educator & Mentor"];
+const roles = ["Founder @ aifutures.dev", "Sole Product Engineer", "Agent Systems Architect", "Market Structure Nerd", "Educator & Mentor"];
 
 export default function Hero() {
   const reduce = !!useReducedMotion();

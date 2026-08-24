@@ -83,7 +83,7 @@ export const translations: Record<Locale, Translations> = {
         f: "next generation to dream bigger",
         g: ".",
       },
-      roles: ["AI Agent Architect", "Full-Stack Developer", "Open Source Builder", "Educator & Mentor"],
+      roles: ["AI Agent Architect", "Sole Product Engineer", "Open Source Builder", "Educator & Mentor"],
       ctaProjects: "See What I've Built",
       ctaContact: "Let's Connect",
     },
