@@ -6,11 +6,11 @@ import RevealHeading from "./RevealHeading";
 const items = [
   {
     title: "Founder & Software Engineer",
-    company: "tpochart.tech · Futures Market Intelligence",
+    company: "aifutures.dev · Independent Product Lab",
     period: "2026 to now",
     color: "#ff6b2b",
     highlights: [
-      "Built and operate a bilingual production SaaS for ES, NQ, GC and CL with TypeScript, Node.js, Next.js, React and PostgreSQL through Supabase",
+      "Built and operate tpochart.tech under aifutures.dev: a bilingual production SaaS for ES, NQ, GC and CL with TypeScript, Node.js, Next.js, React and PostgreSQL through Supabase",
       "Engineered the Market Profile pipeline behind TPO and volume profiles, value areas, POC, Initial Balance, directional bias and session scenarios",
       "Integrated ProjectX and TopstepX for customer-authorized live market data, with reconnect, polling fallback, token refresh, rate-limit handling and contract-roll safeguards",
       "Shipped event-driven alerts, daily briefs, trade planning, paper brackets and public scoreboards for published brief levels and practice calls",

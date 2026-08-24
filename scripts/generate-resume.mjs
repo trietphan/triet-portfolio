@@ -205,7 +205,7 @@ const html = `<!DOCTYPE html>
 <!-- ═══ SUMMARY ═══ -->
 <div class="section">
   <div class="summary">
-    Full-stack software engineer with an M.S. in Computer Science. I build and operate <b>tpochart.tech</b>, a bilingual futures market-intelligence product that turns live auction data into Market Profile context, alerts, plans and a public graded record. Before this I shipped production marketplace apps used by 200+ people at Airbnb. I work across architecture, APIs, data, frontend, testing and production operations.
+    Full-stack software engineer with an M.S. in Computer Science and founder of <b>aifutures.dev</b>, an independent product lab. Its futures product, <b>tpochart.tech</b>, turns live auction data into bilingual Market Profile context, alerts, plans and public graded scoreboards. Before this I shipped production marketplace apps used by 200+ people at Airbnb. I work across architecture, APIs, data, frontend, testing and production operations.
   </div>
 </div>
 
@@ -223,12 +223,12 @@ const html = `<!DOCTYPE html>
 
       <div class="job">
         <div class="job-header">
-          <span class="job-title">Founder &amp; Software Engineer, tpochart.tech</span>
+          <span class="job-title">Founder &amp; Software Engineer, aifutures.dev</span>
           <span class="job-date">2026 to now</span>
         </div>
-        <div class="job-co">Futures Market Intelligence SaaS · Chicago, IL · <a href="https://www.tpochart.tech" style="color:#ff6b2b; text-decoration:none;">tpochart.tech</a></div>
+        <div class="job-co">Independent Product Lab · Chicago, IL · <a href="https://aifutures.dev" style="color:#ff6b2b; text-decoration:none;">aifutures.dev</a> · Product: <a href="https://www.tpochart.tech" style="color:#ff6b2b; text-decoration:none;">tpochart.tech</a></div>
         <ul>
-          <li>Built and operate a bilingual production SaaS for ES, NQ, GC and CL using TypeScript, Node.js, Next.js, React and PostgreSQL through Supabase</li>
+          <li>Built and operate tpochart.tech, a bilingual production SaaS for ES, NQ, GC and CL, using TypeScript, Node.js, Next.js, React and PostgreSQL through Supabase</li>
           <li>Engineered a deterministic Market Profile pipeline that turns RTH and ETH bars into TPO and volume profiles, value areas, POC, Initial Balance, directional bias and session scenarios</li>
           <li>Integrated ProjectX and TopstepX REST and SignalR APIs for customer-authorized live market and account data, with reconnect, polling fallback, token refresh, rate-limit handling and contract-roll safeguards</li>
           <li>Built event-driven structure alerts, bilingual daily briefs, trade planning and paper brackets, plus public scoreboards for published brief levels and practice calls</li>
@@ -314,11 +314,6 @@ const html = `<!DOCTYPE html>
         <div class="project-tags">Next.js · TypeScript · Stripe · Resend · Vercel · SaaS</div>
       </div>
 
-      <div class="project">
-        <div class="project-name">Market Profile Guide &amp; ETH Smart Contracts</div>
-        <div class="project-desc">Interactive trading education platform for market profile theory and price-action structure (<a href="https://market-profile-website.vercel.app" style="color:#ff6b2b;">live on Vercel</a>) · Ethereum smart contract development platform streamlining write–test–deploy workflows for on-chain apps.</div>
-        <div class="project-tags">Next.js · React · Tailwind CSS · Solidity · Web3.js</div>
-      </div>
     </div>
 
   </div>
